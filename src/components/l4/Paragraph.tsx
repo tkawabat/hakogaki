@@ -12,16 +12,8 @@ import ParagraphHeader from '../l2/ParagraphHeader';
 import TodoArea from '../l3/TodoArea';
 
 
-const Root = styled(Accordion)`
-    display: flex;
-    flex-direction: column;
-    width: 95%;
-    justify-content: space-between;
-    margin-top: 10px;
-`;
 const Header = styled(AccordionSummary)`
     width: 97%;
-    
 `;
 
 const Detail = styled(AccordionDetails)`
@@ -51,6 +43,15 @@ const MemoTodoArea = React.memo(TodoArea);
 const MemoMemoArea = React.memo(MemoArea);
 
 const App = (props: Props) => {
+    const checked = props.paragraph.checked;
+    const Root = styled(Accordion)`
+        display: flex;
+        flex-direction: column;
+        width: 95%;
+        justify-content: space-between;
+        margin-top: 10px;
+        background-color: ${props => checked ? '#dddddd' : ''};
+    `;
     
     return (
         <Root className="paragraph">

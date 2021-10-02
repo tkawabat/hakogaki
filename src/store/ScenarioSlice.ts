@@ -19,6 +19,10 @@ export interface ChangeTitlePayload {
     title: string;
 }
 
+export interface ToggleParagraphCheckedPayload {
+    paragraphId: number;
+}
+
 export interface ChangeSubTitlePayload {
     paragraphId: number;
     subTitle: string;
@@ -86,6 +90,11 @@ const slice = createSlice({
 
         , changeTitle: (state, action: PayloadAction<ChangeTitlePayload>) => {
             state.title = action.payload.title;
+        }
+
+        , toggleParagraphChecked: (state, action: PayloadAction<ToggleParagraphCheckedPayload>) => {
+            const checked = state.paragraphList[action.payload.paragraphId].checked;
+            state.paragraphList[action.payload.paragraphId].checked = !checked;
         }
 
         , changeSubTitle: (state, action: PayloadAction<ChangeSubTitlePayload>) => {

@@ -1,13 +1,12 @@
 import sinon from 'sinon';
 
 import ScenarioUtil from '../ScenarioUtil';
-import ScenarioModel, { createScenario } from '../../store/model/ScenarioModel';
+import { createScenario } from '../../store/model/ScenarioModel';
 import ParagraphModel, { createParagraph } from '../../store/model/ParagraphModel';
 import { createTodo } from '../../store/model/TodoModel';
 
 
 let stubs :sinon.SinonStub[] = [];
-
 
 describe('isParagraphEmpty', () => {
 
@@ -103,6 +102,44 @@ describe('getTextLength', () => {
 });
 
 
+describe('getCheckedParagraphNum', () => {
+
+    test('正常系 空', () => {
+        const input: ParagraphModel[] = [];
+
+        const actual = ScenarioUtil.getCheckedParagraphNum(input);
+
+        const expected = 0;
+        expect(actual).toEqual(expected);
+    })
+
+    test('正常系 0', () => {
+        const input: ParagraphModel[] = [
+            createParagraph(),
+            createParagraph(),
+        ];
+
+        const actual = ScenarioUtil.getCheckedParagraphNum(input);
+
+        const expected = 0;
+        expect(actual).toEqual(expected);
+    })
+
+    test('正常系 1', () => {
+        const input: ParagraphModel[] = [
+            createParagraph(),
+            createParagraph(),
+        ];
+        input[1].checked = true;
+
+        const actual = ScenarioUtil.getCheckedParagraphNum(input);
+
+        const expected = 1;
+        expect(actual).toEqual(expected)
+    })
+});
+
+
 describe('getCheckedTodoNum', () => {
 
     test('正常系 空', () => {
@@ -161,10 +198,10 @@ describe('getProgress', () => {
         stubGetTextLength.withArgs(input.old).returns(1);
         stubs.push(stubGetTextLength);
 
-        const stubgetCheckedTodoNum = sinon.stub(ScenarioUtil, 'getCheckedTodoNum');
-        stubgetCheckedTodoNum.withArgs(input.paragraphList).returns(1);
-        stubgetCheckedTodoNum.withArgs(input.old).returns(1);
-        stubs.push(stubgetCheckedTodoNum);
+        const stubGetCheckedTodoNum = sinon.stub(ScenarioUtil, 'getCheckedTodoNum');
+        stubGetCheckedTodoNum.withArgs(input.paragraphList).returns(1);
+        stubGetCheckedTodoNum.withArgs(input.old).returns(1);
+        stubs.push(stubGetCheckedTodoNum);
         
         // execute
         const actual = ScenarioUtil.getProgress(input);
@@ -183,18 +220,24 @@ describe('getProgress', () => {
         stubGetTextLength.withArgs(input.old).returns(1);
         stubs.push(stubGetTextLength);
 
-        const stubgetCheckedTodoNum = sinon.stub(ScenarioUtil, 'getCheckedTodoNum');
-        stubgetCheckedTodoNum.withArgs(input.paragraphList).returns(3);
-        stubgetCheckedTodoNum.withArgs(input.old).returns(1);
-        stubs.push(stubgetCheckedTodoNum);
+        const stubGetCheckedParagraphNum = sinon.stub(ScenarioUtil, 'getCheckedParagraphNum');
+        stubGetCheckedParagraphNum.withArgs(input.paragraphList).returns(3);
+        stubGetCheckedParagraphNum.withArgs(input.old).returns(1);
+        stubs.push(stubGetCheckedParagraphNum);
+
+        const stubGetCheckedTodoNum = sinon.stub(ScenarioUtil, 'getCheckedTodoNum');
+        stubGetCheckedTodoNum.withArgs(input.paragraphList).returns(4);
+        stubGetCheckedTodoNum.withArgs(input.old).returns(1);
+        stubs.push(stubGetCheckedTodoNum);
         
         // execute
         const actual = ScenarioUtil.getProgress(input);
 
         const expected: string[] = [
             '【進捗】1文字書きました。',
-            '【進捗】2個のTodoを完了させました。',
+            '【進捗】2個の段落を完了させました。',
+            '【進捗】3個のTodoを完了させました。',
         ];
         expect(actual).toEqual(expected)
-    })
+    });
 });

@@ -2,6 +2,7 @@ import TodoModel, { createTodo } from './TodoModel';
 
 
 export default interface ParagraphModel {
+    checked: boolean;
     subTitle: string;
     text: string;
     memo: string;
@@ -10,6 +11,7 @@ export default interface ParagraphModel {
 
 export const createParagraph = () :ParagraphModel => {
     return {
+        checked: false,
         subTitle: '',
         text: '',
         memo: '',
@@ -17,6 +19,6 @@ export const createParagraph = () :ParagraphModel => {
             createTodo(),
             createTodo(),
             createTodo(),
-        ]
+        ],
     }
 }

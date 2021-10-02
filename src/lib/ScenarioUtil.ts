@@ -26,6 +26,14 @@ class ScenarioUtil {
         }, 0);
     }
 
+    getCheckedParagraphNum(paragraphList: ParagraphModel[]): number {
+        const paragraphReducer = (sum: number, p: ParagraphModel) => {
+            return sum + (p.checked ? 1 : 0);
+        }
+
+        return paragraphList.reduce(paragraphReducer, 0);
+    }
+
     getCheckedTodoNum(paragraphList: ParagraphModel[]): number {
         const toodoReducer = (sum: number, t: TodoModel) => {
             return sum + (t.checked ? 1 : 0);
@@ -58,12 +66,19 @@ class ScenarioUtil {
     
         const previousTextLength = this.getTextLength(scenario.old);
         const nowTextLength = this.getTextLength(scenario.paragraphList);
+        const previousCheckedParagraphNum = this.getCheckedParagraphNum(scenario.old);
+        const nowCheckedParagraphNum = this.getCheckedParagraphNum(scenario.paragraphList);
         const previousCheckedTodoNum = this.getCheckedTodoNum(scenario.old);
         const nowCheckedTodoNum = this.getCheckedTodoNum(scenario.paragraphList);
     
         if (previousTextLength < nowTextLength) {
             const diff = nowTextLength - previousTextLength;
             ret.push('【進捗】' + diff + '文字書きました。');
+        }
+
+        if (previousCheckedParagraphNum < nowCheckedParagraphNum) {
+            const diff = nowCheckedParagraphNum - previousCheckedParagraphNum;
+            ret.push('【進捗】' + diff + '個の段落を完了させました。');
         }
     
         if (previousCheckedTodoNum < nowCheckedTodoNum) {

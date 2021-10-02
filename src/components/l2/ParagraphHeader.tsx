@@ -1,5 +1,8 @@
+import { useDispatch } from "react-redux";
 import styled from 'styled-components';
+import { Checkbox } from '@mui/material/';
 
+import ScenarioSlice, { ToggleParagraphCheckedPayload } from '../../store/ScenarioSlice';
 import ParagraphModel from '../../store/model/ParagraphModel';
 
 import Center from '../l1/Center';
@@ -23,11 +26,22 @@ type Props = {
     paragraph: ParagraphModel;
 }
 
-const App = (props: Props) => {
+export default function app(props: Props) {
+    const dispatch = useDispatch();
+
+    const toggle = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        e.stopPropagation(); // アコーディオンの開閉をしないようにする。
+
+        const payload: ToggleParagraphCheckedPayload = {
+            paragraphId: props.paragraphId,
+        }
+        dispatch(ScenarioSlice.actions.toggleParagraphChecked(payload));
+    }
 
     return (
         <Main>
             <Left>
+                <Checkbox checked={props.paragraph.checked} onClick={toggle} />
                 <Title
                     paragraphId={props.paragraphId}
                     subTitle={props.paragraph.subTitle}
@@ -44,5 +58,3 @@ const App = (props: Props) => {
         </Main>
     );
 };
-
-export default App;
