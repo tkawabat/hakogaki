@@ -1,21 +1,18 @@
-import Head from 'next/head';
-import * as C from '../../lib/Const';
+import Head from 'next/head'
+import * as C from '../../lib/Const'
 
-
-interface Props {
-}
+interface Props {}
 
 const App = (props: Props) => {
-
-    const public_url = '';
-    const title = 'HAKOGAKI(β) 小説・脚本の箱書き支援アプリ';
-    const description = 'HAKOGAKIは箱書きを支援するアプリです。'
-    + '小説・脚本・論文などで、プロットと本文を同時に編集することができ、'
-    + '構成を練りながら物語を創作できます。'
-    + '進捗やTodoの管理機能も搭載。'
-    ;
-    const url = 'https://tkawabat.github.io/scenario_tool/build/index.html#/hakogaki';
-
+    const public_url = ''
+    const title = 'HAKOGAKI(β) 小説・脚本の箱書き支援アプリ'
+    const description =
+        'HAKOGAKIは箱書きを支援するアプリです。' +
+        '小説・脚本・論文などで、プロットと本文を同時に編集することができ、' +
+        '構成を練りながら物語を創作できます。' +
+        '進捗やTodoの管理機能も搭載。'
+    const url =
+        'https://tkawabat.github.io/scenario_tool/build/index.html#/hakogaki'
 
     return (
         <Head>
@@ -23,20 +20,20 @@ const App = (props: Props) => {
             <link rel="icon" href="/favicon.ico" />
             <link rel="apple-touch-icon" href="/logo192.png" />
             <link rel="manifest" href="/manifest.json" />
-            
+
             <title>{title}</title>
             <meta name="description" content={description} />
             <meta property="og:title" content={title} />
             <meta property="og:description" content={description} />
             <meta property="og:type" content="website" />
             <meta property="og:url" content={url} />
-            <meta property="og:image" content={"./hakogaki_ogimage.png"} />
+            <meta property="og:image" content={'./hakogaki_ogimage.png'} />
             <meta property="og:site_name" content={title} />
             <meta property="og:locale" content="ja_JP" />
             <meta name="twitter:card" content="summary" />
             <meta name="twitter:site" content="@MatchingRandom" />
         </Head>
-    );
+    )
 }
 
-export default App;
+export default App

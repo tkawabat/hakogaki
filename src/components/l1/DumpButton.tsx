@@ -1,56 +1,55 @@
-import React from 'react';
-import { useDispatch, useSelector } from "react-redux";
-import styled from 'styled-components';
-import { useSnackbar } from 'notistack';
+import React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import styled from 'styled-components'
+import { useSnackbar } from 'notistack'
 
-import { IconButton, Tooltip, Menu, MenuItem } from '@mui/material/';
-import { Save } from '@mui/icons-material/';
+import { IconButton, Tooltip, Menu, MenuItem } from '@mui/material/'
+import { Save } from '@mui/icons-material/'
 
-import { RootState } from '../../store/rootReducer';
-import ScenarioModel from '../../store/model/ScenarioModel';
+import { RootState } from '../../store/rootReducer'
+import ScenarioModel from '../../store/model/ScenarioModel'
 
-import * as C from '../../lib/Const';
-import FileUtil from '../../lib/FileUtil';
-import ScenarioUtil from '../../lib/ScenarioUtil';
-
+import * as C from '../../lib/Const'
+import FileUtil from '../../lib/FileUtil'
+import ScenarioUtil from '../../lib/ScenarioUtil'
 
 const Root = styled.div`
     display: flex;
     align-content: center;
     justify-content: center;
-`;
+`
 
-type Props = {
-}
+type Props = {}
 
 const App = (props: Props) => {
-    const { enqueueSnackbar, } = useSnackbar();
-    const scenario: ScenarioModel = useSelector((state: RootState) => 
-        state.scenario);
+    const { enqueueSnackbar } = useSnackbar()
+    const scenario: ScenarioModel = useSelector(
+        (state: RootState) => state.scenario
+    )
 
-    const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-    const open = Boolean(anchorEl);
+    const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
+    const open = Boolean(anchorEl)
 
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-        setAnchorEl(event.currentTarget);
-    };
+        setAnchorEl(event.currentTarget)
+    }
     const handleClose = () => {
-        setAnchorEl(null);
-    };
+        setAnchorEl(null)
+    }
     const saveProject = () => {
-        const fileName = ScenarioUtil.getTitle(scenario) + '.json';
-        FileUtil.download(fileName, JSON.stringify(scenario));
-        handleClose();
+        const fileName = ScenarioUtil.getTitle(scenario) + '.json'
+        FileUtil.download(fileName, JSON.stringify(scenario))
+        handleClose()
 
         ScenarioUtil.getProgress(scenario).forEach((message: string) => {
-            enqueueSnackbar(message, { variant: C.NotificationType.SUCCESS });
-        });
-    };
+            enqueueSnackbar(message, { variant: C.NotificationType.SUCCESS })
+        })
+    }
     const saveScenario = () => {
-        const fileName = ScenarioUtil.getTitle(scenario) + '.txt';
-        FileUtil.download(fileName, ScenarioUtil.getScenarioText(scenario));
-        handleClose();
-    };
+        const fileName = ScenarioUtil.getTitle(scenario) + '.txt'
+        FileUtil.download(fileName, ScenarioUtil.getScenarioText(scenario))
+        handleClose()
+    }
 
     return (
         <Root>
@@ -69,13 +68,15 @@ const App = (props: Props) => {
                 anchorEl={anchorEl}
                 open={open}
                 onClose={handleClose}
-                MenuListProps={{ 'aria-labelledby': 'basic-button', }}
+                MenuListProps={{ 'aria-labelledby': 'basic-button' }}
             >
-                <MenuItem onClick={saveProject}>プロジェクトとして保存</MenuItem>
+                <MenuItem onClick={saveProject}>
+                    プロジェクトとして保存
+                </MenuItem>
                 <MenuItem onClick={saveScenario}>作品として保存</MenuItem>
             </Menu>
         </Root>
-    );
-};
+    )
+}
 
-export default App;
+export default App

@@ -1,32 +1,29 @@
-import React from 'react';
-import { useDispatch, useSelector } from "react-redux";
-import styled from 'styled-components';
-import { useSnackbar } from 'notistack';
+import React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import styled from 'styled-components'
+import { useSnackbar } from 'notistack'
 
-import { IconButton, Tooltip, Menu, MenuItem, Link } from '@mui/material/';
-import { Help } from '@mui/icons-material/';
-
-
+import { IconButton, Tooltip, Menu, MenuItem, Link } from '@mui/material/'
+import { Help } from '@mui/icons-material/'
 
 const Root = styled.div`
     display: flex;
     align-content: center;
     justify-content: center;
-`;
+`
 
-type Props = {
-}
+type Props = {}
 
 const App = (props: Props) => {
-    const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-    const open = Boolean(anchorEl);
+    const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
+    const open = Boolean(anchorEl)
 
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-        setAnchorEl(event.currentTarget);
-    };
+        setAnchorEl(event.currentTarget)
+    }
     const handleClose = () => {
-        setAnchorEl(null);
-    };
+        setAnchorEl(null)
+    }
 
     return (
         <Root>
@@ -45,19 +42,18 @@ const App = (props: Props) => {
                 anchorEl={anchorEl}
                 open={open}
                 onClose={handleClose}
-                MenuListProps={{ 'aria-labelledby': 'basic-button', }}
+                MenuListProps={{ 'aria-labelledby': 'basic-button' }}
             >
-
                 <Link
-                    href='https://peing.net/ja/matchingrandom'
-                    color='inherit'
+                    href="https://peing.net/ja/matchingrandom"
+                    color="inherit"
                     underline="none"
                 >
                     <MenuItem>お問い合わせ</MenuItem>
                 </Link>
             </Menu>
         </Root>
-    );
-};
+    )
+}
 
-export default App;
+export default App

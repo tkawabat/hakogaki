@@ -1,19 +1,19 @@
-
-
 declare global {
-    interface Window { gtagPageview: any; }
+    interface Window {
+        gtagPageview: any
+    }
 }
 
 class GAUtil {
     pageview(pagename: string) {
         if (process.env.NODE_ENV !== 'production') {
-            return null;
+            return null
         }
 
         if (window.gtagPageview) {
-            window.gtagPageview(pagename);
+            window.gtagPageview(pagename)
         }
     }
 }
 
-export default new GAUtil();
+export default new GAUtil()

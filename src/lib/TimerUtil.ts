@@ -1,40 +1,38 @@
-
-
 class TimerUtil {
-    timer: { [key: string]: number; } = {};
-    interval: { [key: string]: number; } = {};
+    timer: { [key: string]: number } = {}
+    interval: { [key: string]: number } = {}
 
     setTimer(key: string, func: TimerHandler, interval: number) {
         if (typeof this.timer[key] !== 'undefined') {
-            alert('システムエラーです。');
-            return;
+            alert('システムエラーです。')
+            return
         }
-        this.timer[key] = setTimeout(func, interval);
+        this.timer[key] = setTimeout(func, interval)
     }
 
     clearTimer(key: string) {
         if (typeof this.timer[key] == 'undefined') {
-            alert('システムエラーです。');
-            return;
+            alert('システムエラーです。')
+            return
         }
-        clearTimeout(this.timer[key]);
+        clearTimeout(this.timer[key])
     }
 
     setInterval(key: string, func: TimerHandler, interval: number) {
         if (typeof this.interval[key] !== 'undefined') {
-            alert('システムエラーです。');
-            return;
+            alert('システムエラーです。')
+            return
         }
-        this.interval[key] = setInterval(func, interval);
+        this.interval[key] = setInterval(func, interval)
     }
 
     clearInterval(key: string) {
         if (typeof this.interval[key] == 'undefined') {
-            alert('システムエラーです。');
-            return;
+            alert('システムエラーです。')
+            return
         }
-        clearInterval(this.interval[key]);
+        clearInterval(this.interval[key])
     }
 }
 
-export default new TimerUtil();
+export default new TimerUtil()
