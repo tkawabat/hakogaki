@@ -28,7 +28,7 @@ const App = (props: Props) => {
             <meta property="og:image" content={url + 'hakogaki_ogimage.png'} />
             <meta property="og:site_name" content={title} />
             <meta property="og:locale" content="ja_JP" />
-            <meta name="twitter:card" content="summary" />
+            <meta name="twitter:card" content="summary_large_image" />
             <meta name="twitter:site" content="@MatchingRandom" />
         </Head>
     )
