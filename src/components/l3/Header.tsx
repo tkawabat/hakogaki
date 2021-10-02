@@ -18,37 +18,42 @@ const Root = styled.div`
     width: 100%;
     height: 50px;
     background-color: #D7E6EF;
-    margin-bottom: 10px;
+    padding-bottom: 10px;
 `;
 
 const ToolTitle = styled.span`
     font-family: "Helvetica Neue", "Helvetica", "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Arial", "Yu Gothic", "Meiryo", sans-serif;
     font-size: 20px;
     font-weight: bold;
-`
+`;
+
+const StyledLeft = styled(Left)`
+    padding-left: 20px;
+`;
+
+const StyledRight = styled(Right)`
+    padding-right: 20px;
+`;
 
 type Props = {
     title: string;
 }
 
-const App = (props: Props) => {
-    
+export default function app(props: Props) {
     return (
         <Root className="header">
-            <Left>
+            <StyledLeft>
                 <ToolTitle>{C.AppNameShort}</ToolTitle>
-            </Left>
+            </StyledLeft>
             <Center>
                 <ScenarioTitle title={props.title} />
             </Center>
-            <Right>
+            <StyledRight>
                 <DeleteScenarioButton />
                 <JsonImportButton />
                 <DumpButton /> 
                 <HelpButton />
-            </Right>
+            </StyledRight>
         </Root>
     );
 };
-
-export default App;

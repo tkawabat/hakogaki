@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { ReactNode, ReactNodeArray } from 'react';
 import { Provider } from 'react-redux';
 import { SnackbarProvider } from 'notistack';
 
@@ -7,17 +7,16 @@ import * as C from '../../lib/Const';
 
 
 interface Props {
+    children?: ReactNode | ReactNodeArray 
 }
 
-const App: FC<Props> = ({ children }) => {
+export default function app(props: Props) {
 
     return (
         <Provider store={store}>
             <SnackbarProvider autoHideDuration={C.DurationNotification}>
-                {children}
+                {props.children}
             </SnackbarProvider>
         </Provider>
     );
 }
-
-export default App;

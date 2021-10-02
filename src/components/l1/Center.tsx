@@ -1,4 +1,4 @@
-import React from 'react';
+import { ReactNode, ReactNodeArray } from 'react';
 import styled from 'styled-components';
 
 
@@ -10,14 +10,13 @@ const Main = styled.div`
 `;
 
 interface Props {
+    children?: ReactNode | ReactNodeArray 
 }
 
-const App: React.FC<Props> = ({ children }) => {
+export default function app(props: Props) {
     return (
-        <Main>
-            {children}
+        <Main className="center" {...props}>
+            {props.children}
         </Main>
     );
 };
-
-export default App;
