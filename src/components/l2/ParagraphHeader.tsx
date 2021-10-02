@@ -27,7 +27,7 @@ type Props = {
     paragraph: ParagraphModel
 }
 
-export default function app(props: Props) {
+export default function App(props: Props) {
     const dispatch = useDispatch()
 
     const toggle = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {

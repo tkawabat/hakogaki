@@ -1,4 +1,4 @@
-import * as React from 'react'
+import { forwardRef, useImperativeHandle, useState } from 'react'
 import styled from 'styled-components'
 
 import { Box, Button, Typography, Modal } from '@mui/material'
@@ -41,54 +41,52 @@ export interface AutoSaveCautionModalHandler {
     open(): void
 }
 
-const App = React.forwardRef<AutoSaveCautionModalHandler>(
-    (props: Props, ref) => {
-        const [open, setOpen] = React.useState(false)
+const App = forwardRef<AutoSaveCautionModalHandler>((props: Props, ref) => {
+    const [open, setOpen] = useState(false)
 
-        const neverOpen = () => {
-            StorageUtil.save(C.StorageKeyAutoSaveCationModal, '1')
-            setOpen(false)
-        }
-
-        React.useImperativeHandle(ref, () => ({
-            open() {
-                if (StorageUtil.load(C.StorageKeyAutoSaveCationModal) == '1') {
-                    return
-                }
-                setOpen(true)
-            },
-        }))
-
-        return (
-            <div>
-                <Modal
-                    open={open}
-                    onClose={() => setOpen(false)}
-                    aria-labelledby="modal-modal-title"
-                    aria-describedby="modal-modal-description"
-                >
-                    <StyledBox sx={style}>
-                        <Typography variant="h6" component="h4">
-                            注意
-                        </Typography>
-                        <Message>
-                            {'' +
-                                'シナリオは定期的にファイルに保存することをオススメします。' +
-                                'ブラウザに自動保存されたデータは予期せぬタイミングで消えることがあります。'}
-                        </Message>
-
-                        <StyledButton
-                            variant="text"
-                            size="small"
-                            onClick={neverOpen}
-                        >
-                            次から表示しない
-                        </StyledButton>
-                    </StyledBox>
-                </Modal>
-            </div>
-        )
+    const neverOpen = () => {
+        StorageUtil.save(C.StorageKeyAutoSaveCationModal, '1')
+        setOpen(false)
     }
-)
+
+    useImperativeHandle(ref, () => ({
+        open() {
+            if (StorageUtil.load(C.StorageKeyAutoSaveCationModal) == '1') {
+                return
+            }
+            setOpen(true)
+        },
+    }))
+
+    return (
+        <div>
+            <Modal
+                open={open}
+                onClose={() => setOpen(false)}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+            >
+                <StyledBox sx={style}>
+                    <Typography variant="h6" component="h4">
+                        注意
+                    </Typography>
+                    <Message>
+                        {'' +
+                            'シナリオは定期的にファイルに保存することをオススメします。' +
+                            'ブラウザに自動保存されたデータは予期せぬタイミングで消えることがあります。'}
+                    </Message>
+
+                    <StyledButton
+                        variant="text"
+                        size="small"
+                        onClick={neverOpen}
+                    >
+                        次から表示しない
+                    </StyledButton>
+                </StyledBox>
+            </Modal>
+        </div>
+    )
+})
 
 export default App
