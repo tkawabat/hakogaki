@@ -4,15 +4,13 @@ import * as C from '../../lib/Const'
 interface Props {}
 
 const App = (props: Props) => {
-    const public_url = ''
     const title = 'HAKOGAKI(β) 小説・脚本の箱書き支援アプリ'
     const description =
         'HAKOGAKIは箱書きを支援するアプリです。' +
         '小説・脚本・論文などで、プロットと本文を同時に編集することができ、' +
         '構成を練りながら物語を創作できます。' +
         '進捗やTodoの管理機能も搭載。'
-    const url =
-        'https://tkawabat.github.io/scenario_tool/build/index.html#/hakogaki'
+    const url = 'https://hakogaki.vercel.app/'
 
     return (
         <Head>
@@ -27,7 +25,7 @@ const App = (props: Props) => {
             <meta property="og:description" content={description} />
             <meta property="og:type" content="website" />
             <meta property="og:url" content={url} />
-            <meta property="og:image" content={'./hakogaki_ogimage.png'} />
+            <meta property="og:image" content={url + 'hakogaki_ogimage.png'} />
             <meta property="og:site_name" content={title} />
             <meta property="og:locale" content="ja_JP" />
             <meta name="twitter:card" content="summary" />
