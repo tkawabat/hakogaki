@@ -8,7 +8,6 @@
     "start": "next start",
     "test": "jest",
     "lint": "next lint",
-    "typecheck": "tsc --noEmit",
     "format": "prettier --write \"./src/**/*.{ts,tsx}\"",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
