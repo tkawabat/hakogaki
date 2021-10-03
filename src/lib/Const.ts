@@ -4,6 +4,18 @@ export enum NotificationType {
     ERROR = 'error',
 }
 
+export enum GaAction {
+    SAVE = 'save',
+}
+
+export enum GaCategory {
+    NONE = '(not set)',
+}
+
+export enum GaLabel {
+    NONE = '(not set)',
+}
+
 export const TimerSaveProject = 'TimerSaveProject'
 
 export const StorageKeyScenario = 'StorageKeyScenario'

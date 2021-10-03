@@ -1,5 +1,5 @@
 import React from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import styled from 'styled-components'
 import { useSnackbar } from 'notistack'
 
@@ -12,6 +12,7 @@ import ScenarioModel from '../../store/model/ScenarioModel'
 import * as C from '../../lib/Const'
 import FileUtil from '../../lib/FileUtil'
 import ScenarioUtil from '../../lib/ScenarioUtil'
+import GAUtil from '../../lib/GAUtil'
 
 const Root = styled.div`
     display: flex;
@@ -44,11 +45,14 @@ const App = (props: Props) => {
         ScenarioUtil.getProgress(scenario).forEach((message: string) => {
             enqueueSnackbar(message, { variant: C.NotificationType.SUCCESS })
         })
+        GAUtil.event(C.GaAction.SAVE, C.GaCategory.NONE, 'project')
     }
     const saveScenario = () => {
         const fileName = ScenarioUtil.getTitle(scenario) + '.txt'
         FileUtil.download(fileName, ScenarioUtil.getScenarioText(scenario))
         handleClose()
+
+        GAUtil.event(C.GaAction.SAVE, C.GaCategory.NONE, 'txt')
     }
 
     return (

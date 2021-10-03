@@ -31,7 +31,7 @@ const MemoAddParagraphButton = React.memo(AddParagraphButton)
 
 interface Props {}
 
-const App = (props: Props) => {
+export default function App(props: Props) {
     const { enqueueSnackbar } = useSnackbar()
     const dispatch = useDispatch()
     const scenario = useSelector((state: RootState) => state.scenario)
@@ -103,5 +103,3 @@ const App = (props: Props) => {
         </React.Fragment>
     )
 }
-
-export default App
