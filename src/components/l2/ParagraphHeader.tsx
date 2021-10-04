@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux'
 import styled from 'styled-components'
-import { Checkbox } from '@mui/material/'
+import { Checkbox, Tooltip } from '@mui/material/'
 
 import ScenarioSlice, {
     ToggleParagraphCheckedPayload,
@@ -11,7 +11,7 @@ import Center from '../l1/Center'
 import Left from '../l1/Left'
 import Right from '../l1/Right'
 import ParagraphTitle from '../l1/ParagraphTitle'
-import DeleteParagraphButton from '../l1/DeleteParagraphButton'
+import ParagraphToolsButton from '../l1/ParagraphToolsButton'
 
 
 type Props = {
@@ -50,8 +50,10 @@ export default function App(props: Props) {
             </Left>
             <Center></Center>
             <Right>
-                <Checkbox checked={props.paragraph.checked} onClick={toggle} />
-                <DeleteParagraphButton
+                <Tooltip title="完了" arrow>
+                    <Checkbox checked={props.paragraph.checked} onClick={toggle} />
+                </Tooltip>
+                <ParagraphToolsButton
                     paragraphId={props.paragraphId}
                     paragraph={props.paragraph}
                 />
