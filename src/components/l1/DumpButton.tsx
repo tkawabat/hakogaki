@@ -14,13 +14,14 @@ import FileUtil from '../../lib/FileUtil'
 import ScenarioUtil from '../../lib/ScenarioUtil'
 import GAUtil from '../../lib/GAUtil'
 
+
+type Props = {}
+
 const Root = styled.div`
     display: flex;
     align-content: center;
     justify-content: center;
 `
-
-type Props = {}
 
 const App = (props: Props) => {
     const { enqueueSnackbar } = useSnackbar()
@@ -31,8 +32,8 @@ const App = (props: Props) => {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
     const open = Boolean(anchorEl)
 
-    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-        setAnchorEl(event.currentTarget)
+    const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+        setAnchorEl(e.currentTarget)
     }
     const handleClose = () => {
         setAnchorEl(null)

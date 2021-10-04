@@ -50,6 +50,8 @@ const MemoTodoArea = React.memo(TodoArea)
 const MemoMemoArea = React.memo(MemoArea)
 
 const App = (props: Props) => {
+    const [expanded, setExpanded] = React.useState<boolean>(false);
+
     const checked = props.paragraph.checked
     const Root = styled(Accordion)`
         display: flex;
@@ -61,8 +63,15 @@ const App = (props: Props) => {
     `
 
     return (
-        <Root disableGutters={true} className="paragraph">
-            <Header expandIcon={<ExpandMore />}>
+        <Root
+            expanded={expanded}
+            disableGutters={true}
+            className="paragraph"
+        >
+            <Header
+                expandIcon={<ExpandMore />}
+                onClick={() => setExpanded(!expanded)}
+            >
                 <MemoParagraphHeader
                     paragraphId={props.paragraphId}
                     paragraph={props.paragraph}
