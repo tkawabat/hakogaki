@@ -13,6 +13,12 @@ import Right from '../l1/Right'
 import ParagraphTitle from '../l1/ParagraphTitle'
 import DeleteParagraphButton from '../l1/DeleteParagraphButton'
 
+
+type Props = {
+    paragraphId: number
+    paragraph: ParagraphModel
+}
+
 const Main = styled.div`
     display: flex;
     width: 100%;
@@ -21,11 +27,6 @@ const Main = styled.div`
 const Title = styled(ParagraphTitle)`
     width: 70%;
 `
-
-type Props = {
-    paragraphId: number
-    paragraph: ParagraphModel
-}
 
 export default function App(props: Props) {
     const dispatch = useDispatch()
@@ -42,7 +43,6 @@ export default function App(props: Props) {
     return (
         <Main>
             <Left>
-                <Checkbox checked={props.paragraph.checked} onClick={toggle} />
                 <Title
                     paragraphId={props.paragraphId}
                     subTitle={props.paragraph.subTitle}
@@ -50,6 +50,7 @@ export default function App(props: Props) {
             </Left>
             <Center></Center>
             <Right>
+                <Checkbox checked={props.paragraph.checked} onClick={toggle} />
                 <DeleteParagraphButton
                     paragraphId={props.paragraphId}
                     paragraph={props.paragraph}
