@@ -61,7 +61,7 @@ const App = (props: Props) => {
     `
 
     return (
-        <Root className="paragraph">
+        <Root disableGutters={true} className="paragraph">
             <Header expandIcon={<ExpandMore />}>
                 <MemoParagraphHeader
                     paragraphId={props.paragraphId}
