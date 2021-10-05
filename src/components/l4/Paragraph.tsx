@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { Accordion, AccordionSummary, AccordionDetails, } from '@mui/material/'
+import { Accordion, AccordionSummary, AccordionDetails } from '@mui/material/'
 import { ExpandMore } from '@mui/icons-material'
 
 import ParagraphModel from '../../store/model/ParagraphModel'
@@ -10,7 +10,6 @@ import ScenarioAreaCount from '../l1/ScenarioAreaCount'
 import MemoArea from '../l1/MemoArea'
 import ParagraphHeader from '../l2/ParagraphHeader'
 import TodoArea from '../l3/TodoArea'
-
 
 type Props = {
     paragraphId: number
@@ -28,7 +27,7 @@ const Root = styled(Accordion)`
 const Header = styled(AccordionSummary)`
     display: flex;
     align-self: center;
-    justify-self: center; 
+    justify-self: center;
     height: 55px;
     width: 100%;
     margin: 0;
@@ -37,7 +36,7 @@ const Header = styled(AccordionSummary)`
 const Detail = styled(AccordionDetails)`
     display: flex;
     align-self: center;
-    justify-self: center; 
+    justify-self: center;
     justify-content: space-between;
     width: 95%;
     margin: 0;
@@ -58,7 +57,7 @@ const MemoTodoArea = React.memo(TodoArea)
 const MemoMemoArea = React.memo(MemoArea)
 
 const App = (props: Props) => {
-    const [expanded, setExpanded] = React.useState<boolean>(false);
+    const [expanded, setExpanded] = React.useState<boolean>(false)
 
     const checked = props.paragraph.checked
 

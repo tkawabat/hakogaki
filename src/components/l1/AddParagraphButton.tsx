@@ -6,7 +6,6 @@ import { Add } from '@mui/icons-material/'
 
 import ScenarioSlice from '../../store/ScenarioSlice'
 
-
 type Props = {}
 
 const Main = styled(IconButton)``

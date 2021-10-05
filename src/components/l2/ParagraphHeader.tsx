@@ -13,7 +13,6 @@ import Right from '../l1/Right'
 import ParagraphTitle from '../l1/ParagraphTitle'
 import ParagraphToolsButton from '../l1/ParagraphToolsButton'
 
-
 type Props = {
     paragraphId: number
     paragraph: ParagraphModel
@@ -51,7 +50,10 @@ export default function App(props: Props) {
             <Center></Center>
             <Right>
                 <Tooltip title="完了" arrow>
-                    <Checkbox checked={props.paragraph.checked} onClick={toggle} />
+                    <Checkbox
+                        checked={props.paragraph.checked}
+                        onClick={toggle}
+                    />
                 </Tooltip>
                 <ParagraphToolsButton
                     paragraphId={props.paragraphId}

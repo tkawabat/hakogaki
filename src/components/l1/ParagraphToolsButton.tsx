@@ -7,16 +7,17 @@ import { Dehaze } from '@mui/icons-material/'
 
 import ScenarioSlice, {
     AddParagraphUnderPayload,
-    DeleteParagraphPayload, MoveDownParagraphPayload, MoveUpParagraphPayload,
+    DeleteParagraphPayload,
+    MoveDownParagraphPayload,
+    MoveUpParagraphPayload,
 } from '../../store/ScenarioSlice'
 import ParagraphModel from '../../store/model/ParagraphModel'
 
 import ScenarioUtil from '../../lib/ScenarioUtil'
 
-
 type Props = {
     paragraphId: number
-    paragraph: ParagraphModel   
+    paragraph: ParagraphModel
 }
 
 const Root = styled.div`
@@ -56,7 +57,9 @@ const App = (props: Props) => {
         dispatch(ScenarioSlice.actions.addParagraphUnder(payload))
         handleClose()
     }
-    const deleteParagraph = (e: React.MouseEvent<HTMLLIElement, MouseEvent>) => {
+    const deleteParagraph = (
+        e: React.MouseEvent<HTMLLIElement, MouseEvent>
+    ) => {
         const payload: DeleteParagraphPayload = {
             paragraphId: props.paragraphId,
         }
@@ -90,9 +93,7 @@ const App = (props: Props) => {
                 <MenuItem onClick={moveUp}>段落を一つ上に移動</MenuItem>
                 <MenuItem onClick={moveDown}>段落を一つ下に移動</MenuItem>
                 <MenuItem onClick={addParagraph}>下に段落を追加</MenuItem>
-                <MenuItem onClick={deleteParagraph}>
-                    段落を削除
-                </MenuItem>
+                <MenuItem onClick={deleteParagraph}>段落を削除</MenuItem>
             </Menu>
         </Root>
     )

@@ -101,10 +101,10 @@ const slice = createSlice({
             state,
             action: PayloadAction<AddParagraphUnderPayload>
         ) => {
-            const id = action.payload.paragraphId;
-            if (id < 0 || id >= state.paragraphList.length) return;
+            const id = action.payload.paragraphId
+            if (id < 0 || id >= state.paragraphList.length) return
             state.paragraphList.splice(
-                action.payload.paragraphId+1,
+                action.payload.paragraphId + 1,
                 0,
                 createParagraph()
             )
@@ -121,24 +121,24 @@ const slice = createSlice({
             state,
             action: PayloadAction<MoveUpParagraphPayload>
         ) => {
-            const id = action.payload.paragraphId;
-            if (id == 0) return;
-            if (!state.paragraphList[id]) return;
-            const paragraph = state.paragraphList[id];
-            state.paragraphList[id] = state.paragraphList[id-1];
-            state.paragraphList[id-1] = paragraph;
+            const id = action.payload.paragraphId
+            if (id == 0) return
+            if (!state.paragraphList[id]) return
+            const paragraph = state.paragraphList[id]
+            state.paragraphList[id] = state.paragraphList[id - 1]
+            state.paragraphList[id - 1] = paragraph
         },
 
         moveDownParagraph: (
             state,
             action: PayloadAction<MoveUpParagraphPayload>
         ) => {
-            const id = action.payload.paragraphId;
-            if (id >= state.paragraphList.length - 1) return;
-            if (!state.paragraphList[id]) return;
-            const paragraph = state.paragraphList[id];
-            state.paragraphList[id] = state.paragraphList[id+1];
-            state.paragraphList[id+1] = paragraph;
+            const id = action.payload.paragraphId
+            if (id >= state.paragraphList.length - 1) return
+            if (!state.paragraphList[id]) return
+            const paragraph = state.paragraphList[id]
+            state.paragraphList[id] = state.paragraphList[id + 1]
+            state.paragraphList[id + 1] = paragraph
         },
 
         changeTitle: (state, action: PayloadAction<ChangeTitlePayload>) => {

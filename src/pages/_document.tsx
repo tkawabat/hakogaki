@@ -1,16 +1,16 @@
 import Document, { Html, Head, Main, NextScript } from 'next/document'
 
-
 export default class MyDocument extends Document {
     render() {
         const gaId = process.env.GOOGLE_ANALYTICS_ID || ''
         const url = `https://www.googletagmanager.com/gtag/js?gaId=${gaId}`
 
-        const gaScript = (<>
-            <script async src={url} />
-            <script
-                dangerouslySetInnerHTML={{
-                    __html: `
+        const gaScript = (
+            <>
+                <script async src={url} />
+                <script
+                    dangerouslySetInnerHTML={{
+                        __html: `
                         window.dataLayer = window.dataLayer || [];
                         function gtag(){dataLayer.push(arguments);}
                         function gtagPageview(pagename){
@@ -25,15 +25,14 @@ export default class MyDocument extends Document {
                         }
                         gtag('js', new Date());
                         `,
-                }}
-            />
-        </>)
+                    }}
+                />
+            </>
+        )
 
         return (
             <Html lang="ja">
-                <Head>
-                    {gaId && (gaScript)}
-                </Head>
+                <Head>{gaId && gaScript}</Head>
                 <body>
                     <Main />
                     <NextScript />
