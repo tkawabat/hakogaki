@@ -23,6 +23,7 @@ const Main = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-bottom: 150px;
 `
 
 const MemoHeader = React.memo(Header)
@@ -93,7 +94,6 @@ export default function App(props: Props) {
 
     return (
         <React.Fragment>
-            {/* <HakogakiHelmet /> */}
             <Main className="App">
                 <MemoHeader title={scenario.title} />
                 {paragraphList}
