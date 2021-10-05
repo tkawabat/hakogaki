@@ -12,12 +12,17 @@ import TimerUtil from '../../lib/TimerUtil'
 import StorageUtil from '../../lib/StorageUtil'
 import GAUtil from '../../lib/GAUtil'
 
-import Paragraph from '../l4/Paragraph'
-import Header from '../l3/Header'
+import Header from '../l4/Header'
+import BodyScenarioMode from '../l4/BodyScenarioMode'
+import PlotParagraph from '../l3/PlotParagraph'
 import AddParagraphButton from '../l1/AddParagraphButton'
 import AutoSaveCautionModal, {
     AutoSaveCautionModalHandler,
 } from '../l2/AutoSaveCautionModal'
+
+
+
+interface Props {}
 
 const Main = styled.div`
     display: flex;
@@ -27,10 +32,8 @@ const Main = styled.div`
 `
 
 const MemoHeader = React.memo(Header)
-const MemoParagraph = React.memo(Paragraph)
+const MemoParagraph = React.memo(PlotParagraph)
 const MemoAddParagraphButton = React.memo(AddParagraphButton)
-
-interface Props {}
 
 export default function App(props: Props) {
     const { enqueueSnackbar } = useSnackbar()
@@ -96,7 +99,7 @@ export default function App(props: Props) {
         <React.Fragment>
             <Main className="App">
                 <MemoHeader title={scenario.title} />
-                {paragraphList}
+                <BodyScenarioMode />
                 <MemoAddParagraphButton />
             </Main>
             <AutoSaveCautionModal ref={autoSaveCationModalRef} />

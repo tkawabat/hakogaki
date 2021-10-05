@@ -9,7 +9,7 @@ import ScenarioArea from '../l1/ScenarioArea'
 import ScenarioAreaCount from '../l1/ScenarioAreaCount'
 import MemoArea from '../l1/MemoArea'
 import ParagraphHeader from '../l2/ParagraphHeader'
-import TodoArea from '../l3/TodoArea'
+import TodoArea from '../l2/TodoArea'
 
 type Props = {
     paragraphId: number

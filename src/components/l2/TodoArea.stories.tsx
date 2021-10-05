@@ -5,7 +5,7 @@ import TodoModel, { createTodo } from '../../store/model/TodoModel'
 import TodoArea from './TodoArea'
 
 export default {
-    title: 'l3/TodoArea',
+    title: 'l2/TodoArea',
     component: TodoArea,
 }
 
