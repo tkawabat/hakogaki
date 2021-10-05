@@ -17,6 +17,14 @@ type Props = {
     paragraph: ParagraphModel
 }
 
+const Root = styled(Accordion)`
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 95%;
+    margin-top: 5px;
+`
+
 const Header = styled(AccordionSummary)`
     display: flex;
     align-self: center;
@@ -53,20 +61,13 @@ const App = (props: Props) => {
     const [expanded, setExpanded] = React.useState<boolean>(false);
 
     const checked = props.paragraph.checked
-    const Root = styled(Accordion)`
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        width: 95%;
-        margin-top: 5px;
-        background-color: ${() => (checked ? '#dddddd' : '')};
-    `
 
     return (
         <Root
             expanded={expanded}
             disableGutters={true}
             className="paragraph"
+            sx={checked ? { background: '#dddddd' } : {}}
         >
             <Header
                 expandIcon={<ExpandMore />}
