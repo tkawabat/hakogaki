@@ -48,6 +48,7 @@ const App = (props: Props) => {
                     href="https://peing.net/ja/matchingrandom"
                     color="inherit"
                     underline="none"
+                    target="_blank"
                 >
                     <MenuItem>お問い合わせ</MenuItem>
                 </Link>
