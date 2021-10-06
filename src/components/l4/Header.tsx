@@ -9,6 +9,7 @@ import * as C from '../../lib/Const'
 import Center from '../l1/Center'
 import Left from '../l1/Left'
 import Right from '../l1/Right'
+import ScenarioConfigModeChip from '../l1/ScenarioConfigModeChip'
 import DeleteScenarioButton from '../l1/DeleteScenarioButton'
 import JsonImportButton from '../l1/JsonImportButton'
 import DumpButton from '../l1/DumpButton'
@@ -50,6 +51,7 @@ export default function app() {
                 <ScenarioTitle title={title} />
             </Center>
             <StyledRight>
+                <ScenarioConfigModeChip />
                 <DeleteScenarioButton />
                 <JsonImportButton />
                 <DumpButton />

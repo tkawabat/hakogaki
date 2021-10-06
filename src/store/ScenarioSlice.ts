@@ -10,6 +10,10 @@ export interface LoadPayload {
     scenario: ScenarioModel
 }
 
+export interface ScenarioConfigModePayload {
+    mode: C.ScenarioConfigMode
+}
+
 export interface AddParagraphUnderPayload {
     paragraphId: number
 }
@@ -77,7 +81,7 @@ const slice = createSlice({
     reducers: {
         load: (state, action: PayloadAction<LoadPayload>) => {
             const scenario = action.payload.scenario
-            if (scenario.formatVersion < C.CurrentScenarioFormatVersion) {
+            if (scenario.config.formatVersion < C.CurrentScenarioFormatVersion) {
                 // TODO
                 window.alert(
                     'プロジェクトファイルのバージョンが古く読み込めません。'
@@ -85,14 +89,21 @@ const slice = createSlice({
             }
             state.title = scenario.title
             state.paragraphList = scenario.paragraphList
+            state.config = scenario.config
             state.old = scenario.paragraphList // 読み込み時点のデータをoldにセット
         },
+
         deleteScenario: (state: ScenarioModel) => {
             const scenario = createScenario()
             state.title = scenario.title
             state.paragraphList = scenario.paragraphList
             state.old = scenario.paragraphList
         },
+
+        changeScenarioConfigMode: (state, action: PayloadAction<ScenarioConfigModePayload>) => {
+            state.config.mode = action.payload.mode;
+        },
+
         addParagraph: (state: ScenarioModel) => {
             state.paragraphList.push(createParagraph())
         },

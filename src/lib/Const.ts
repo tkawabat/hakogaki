@@ -1,3 +1,8 @@
+export enum ScenarioConfigMode {
+    SCENARIO = 'シナリオ',
+    PLOT = 'プロット'
+}
+
 export enum NotificationType {
     SUCCESS = 'success',
     WARNING = 'warning',
