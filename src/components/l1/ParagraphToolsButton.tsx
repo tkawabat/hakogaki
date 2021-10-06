@@ -43,12 +43,14 @@ const App = (props: Props) => {
             paragraphId: props.paragraphId,
         }
         dispatch(ScenarioSlice.actions.moveUpParagraph(payload))
+        handleClose()
     }
     const moveDown = (e: React.MouseEvent<HTMLLIElement, MouseEvent>) => {
         const payload: MoveDownParagraphPayload = {
             paragraphId: props.paragraphId,
         }
         dispatch(ScenarioSlice.actions.moveDownParagraph(payload))
+        handleClose()
     }
     const addParagraph = (e: React.MouseEvent<HTMLLIElement, MouseEvent>) => {
         const payload: AddParagraphUnderPayload = {
