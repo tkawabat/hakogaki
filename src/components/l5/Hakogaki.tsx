@@ -14,15 +14,10 @@ import GAUtil from '../../lib/GAUtil'
 
 import Header from '../l4/Header'
 import BodyScenarioMode from '../l4/BodyScenarioMode'
-import PlotParagraph from '../l3/PlotParagraph'
 import AddParagraphButton from '../l1/AddParagraphButton'
 import AutoSaveCautionModal, {
     AutoSaveCautionModalHandler,
 } from '../l2/AutoSaveCautionModal'
-
-
-
-interface Props {}
 
 const Main = styled.div`
     display: flex;
@@ -32,16 +27,12 @@ const Main = styled.div`
 `
 
 const MemoHeader = React.memo(Header)
-const MemoParagraph = React.memo(PlotParagraph)
 const MemoAddParagraphButton = React.memo(AddParagraphButton)
 
-export default function App(props: Props) {
+export default function App() {
     const { enqueueSnackbar } = useSnackbar()
     const dispatch = useDispatch()
     const scenario = useSelector((state: RootState) => state.scenario)
-    const paragraphList = scenario.paragraphList.map((e, i) => {
-        return <MemoParagraph paragraphId={i} paragraph={e} key={i} />
-    })
     const autoSaveCationModalRef = React.useRef(
         {} as AutoSaveCautionModalHandler
     )

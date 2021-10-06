@@ -6,9 +6,7 @@ import { RootState } from '../../store/rootReducer'
 
 import Paragraph from '../l3/Paragraph'
 
-
-interface Props {
-}
+interface Props {}
 
 const MemoParagraph = React.memo(Paragraph)
 
@@ -18,11 +16,7 @@ const App = (props: Props) => {
         return <MemoParagraph paragraphId={i} paragraph={e} key={i} />
     })
 
-    return (
-        <>
-            {paragraphList}
-        </>
-    )
+    return <>{paragraphList}</>
 }
 
 export default App

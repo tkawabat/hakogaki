@@ -5,10 +5,10 @@ interface Props {}
 
 const App = (props: Props) => {
     const title = 'HAKOGAKI(β) 小説・脚本の箱書き支援アプリ'
-    const description = ''
-        + 'HAKOGAKIは小説・脚本などの創作支援アプリです。'
-        + 'プロットと本文を同時に編集でき、創作を加速させます。'
-        + 'Todoや今日の進捗のお知らせ機能も搭載。'
+    const description =
+        'HAKOGAKIは小説・脚本などの創作支援アプリです。' +
+        'プロットと本文を同時に編集でき、創作を加速させます。' +
+        'Todoや今日の進捗のお知らせ機能も搭載。'
     const url = 'https://hakogaki.vercel.app/'
 
     return (
