@@ -3,6 +3,7 @@ import styled from 'styled-components'
 
 import Header from '../l4/Header'
 import BodyScenarioMode from '../l4/BodyScenarioMode'
+import BodyPlotMode from '../l4/BodyPlotMode'
 import AddParagraphButton from '../l1/AddParagraphButton'
 import AutoSaveCautionModal, {
     AutoSaveCautionModalHandler,
@@ -24,6 +25,7 @@ export default function App() {
             <Main className="App">
                 <Header />
                 <BodyScenarioMode />
+                <BodyPlotMode />
                 <AddParagraphButton />
             </Main>
             <AutoSaveCautionModal ref={autoSaveCationModalRef} />

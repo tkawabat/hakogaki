@@ -15,6 +15,7 @@ const Main = styled.div`
     display: flex;
     align-self: flex-start;
     width: 100%;
+    min-width: 100px;
 `
 
 const TodoTextField = styled(TextField)`
