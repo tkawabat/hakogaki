@@ -24,7 +24,7 @@ const App = (props: Props) => {
             <meta property="og:description" content={description} />
             <meta property="og:type" content="website" />
             <meta property="og:url" content={url} />
-            <meta property="og:image" content={url + 'hakogaki_ogimage.png'} />
+            <meta property="og:image" content={url + 'hakogaki_ogimage.png?1'} />
             <meta property="og:site_name" content={title} />
             <meta property="og:locale" content="ja_JP" />
             <meta name="twitter:card" content="summary_large_image" />
