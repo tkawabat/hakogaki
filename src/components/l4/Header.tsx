@@ -38,7 +38,7 @@ const StyledRight = styled(Right)`
     padding-right: 20px;
 `
 
-export default function app() {
+const App = () => {
     const title = useSelector((state: RootState) => state.scenario.title)
 
     return (
@@ -59,3 +59,5 @@ export default function app() {
         </Root>
     )
 }
+
+export default App

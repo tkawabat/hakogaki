@@ -9,7 +9,6 @@ import AutoSaveCautionModal, {
     AutoSaveCautionModalHandler,
 } from '../l2/AutoSaveCautionModal'
 
-
 const Main = styled.div`
     display: flex;
     flex-direction: column;
@@ -17,7 +16,7 @@ const Main = styled.div`
     margin-bottom: 150px;
 `
 
-export default function App() {
+const App = () => {
     const autoSaveCationModalRef = useRef({} as AutoSaveCautionModalHandler)
 
     return (
@@ -32,3 +31,5 @@ export default function App() {
         </React.Fragment>
     )
 }
+
+export default App

@@ -8,12 +8,10 @@ import * as C from '../../lib/Const'
 
 import PlotParagraph from '../l3/PlotParagraph'
 
-
-interface Props {
-}
+interface Props {}
 
 const Body = styled.div`
-    display: ${(props) => props.hidden ? 'none' : 'flex'};
+    display: ${(props) => (props.hidden ? 'none' : 'flex')};
     width: 100%;
     max-width: 800px;
 `
@@ -53,11 +51,11 @@ const App = (props: Props) => {
     return (
         <Body hidden={mode != C.ScenarioConfigMode.PLOT}>
             <BodyLeft>
-                <ScenarioMemoArea placeholder={'全体メモ・キャラクター設定など'} />
+                <ScenarioMemoArea
+                    placeholder={'全体メモ・キャラクター設定など'}
+                />
             </BodyLeft>
-            <BodyRight>
-                {paragraphList}
-            </BodyRight>
+            <BodyRight>{paragraphList}</BodyRight>
         </Body>
     )
 }

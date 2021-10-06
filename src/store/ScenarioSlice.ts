@@ -81,7 +81,9 @@ const slice = createSlice({
     reducers: {
         load: (state, action: PayloadAction<LoadPayload>) => {
             const scenario = action.payload.scenario
-            if (scenario.config.formatVersion < C.CurrentScenarioFormatVersion) {
+            if (
+                scenario.config.formatVersion < C.CurrentScenarioFormatVersion
+            ) {
                 // TODO
                 window.alert(
                     'プロジェクトファイルのバージョンが古く読み込めません。'
@@ -100,8 +102,11 @@ const slice = createSlice({
             state.old = scenario.paragraphList
         },
 
-        changeScenarioConfigMode: (state, action: PayloadAction<ScenarioConfigModePayload>) => {
-            state.config.mode = action.payload.mode;
+        changeScenarioConfigMode: (
+            state,
+            action: PayloadAction<ScenarioConfigModePayload>
+        ) => {
+            state.config.mode = action.payload.mode
         },
 
         addParagraph: (state: ScenarioModel) => {

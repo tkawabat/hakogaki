@@ -8,11 +8,10 @@ import * as C from '../../lib/Const'
 
 import Paragraph from '../l3/Paragraph'
 
-
 interface Props {}
 
 const Body = styled.div`
-    display: ${(props) => props.hidden ? 'none' : 'flex'};
+    display: ${(props) => (props.hidden ? 'none' : 'flex')};
     flex-direction: column;
     width: 100%;
 `

@@ -1,6 +1,6 @@
 export enum ScenarioConfigMode {
     SCENARIO = 'シナリオ',
-    PLOT = 'プロット'
+    PLOT = 'プロット',
 }
 
 export enum NotificationType {
