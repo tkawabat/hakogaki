@@ -1,7 +1,7 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
-import { Chip, } from '@mui/material/'
+import { Chip, Tooltip, } from '@mui/material/'
 
 import { RootState } from 'src/store/rootReducer'
 import ScenarioSlice, { ScenarioConfigModePayload } from '../../store/ScenarioSlice'
@@ -38,12 +38,14 @@ const App = (props: Props) => {
     }
 
     return (
-        <Main
-            label={mode}
-            onClick={onClick}
-            color={color}
-            {...props}
-        />
+        <Tooltip title={'入力モードを切替'}>
+            <Main
+                label={mode}
+                onClick={onClick}
+                color={color}
+                {...props}
+            />
+        </Tooltip>
     )
 }
 
