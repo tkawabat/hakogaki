@@ -7,6 +7,7 @@ import { RootState } from '../../store/rootReducer'
 import * as C from '../../lib/Const'
 
 import PlotParagraph from '../l3/PlotParagraph'
+import AddParagraphButton from '../l1/AddParagraphButton'
 
 interface Props {}
 
@@ -55,7 +56,10 @@ const App = (props: Props) => {
                     placeholder={'全体メモ・キャラクター設定など'}
                 />
             </BodyLeft>
-            <BodyRight>{paragraphList}</BodyRight>
+            <BodyRight>
+                {paragraphList}
+                <AddParagraphButton />
+            </BodyRight>
         </Body>
     )
 }

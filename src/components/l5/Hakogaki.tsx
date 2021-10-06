@@ -4,7 +4,6 @@ import styled from 'styled-components'
 import Header from '../l4/Header'
 import BodyScenarioMode from '../l4/BodyScenarioMode'
 import BodyPlotMode from '../l4/BodyPlotMode'
-import AddParagraphButton from '../l1/AddParagraphButton'
 import AutoSaveCautionModal, {
     AutoSaveCautionModalHandler,
 } from '../l2/AutoSaveCautionModal'
@@ -25,7 +24,6 @@ const App = () => {
                 <Header />
                 <BodyScenarioMode />
                 <BodyPlotMode />
-                <AddParagraphButton />
             </Main>
             <AutoSaveCautionModal ref={autoSaveCationModalRef} />
         </React.Fragment>

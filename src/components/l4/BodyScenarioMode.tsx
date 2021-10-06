@@ -7,6 +7,7 @@ import { RootState } from '../../store/rootReducer'
 import * as C from '../../lib/Const'
 
 import Paragraph from '../l3/Paragraph'
+import AddParagraphButton from '../l1/AddParagraphButton'
 
 interface Props {}
 
@@ -29,6 +30,7 @@ const App = (props: Props) => {
     return (
         <Body hidden={mode != C.ScenarioConfigMode.SCENARIO}>
             {paragraphList}
+            <AddParagraphButton />
         </Body>
     )
 }
