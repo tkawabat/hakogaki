@@ -21,7 +21,6 @@ const Root = styled.div`
     width: 100%;
     height: 50px;
     background-color: #d7e6ef;
-    padding-bottom: 10px;
 `
 
 const ToolTitle = styled.span`
