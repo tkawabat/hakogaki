@@ -1,5 +1,8 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 import styled from 'styled-components'
+
+import { RootState } from 'src/store/rootReducer'
 
 import * as C from '../../lib/Const'
 
@@ -35,18 +38,16 @@ const StyledRight = styled(Right)`
     padding-right: 20px;
 `
 
-type Props = {
-    title: string
-}
+export default function app() {
+    const title = useSelector((state: RootState) => state.scenario.title)
 
-export default function app(props: Props) {
     return (
         <Root className="header">
             <StyledLeft>
                 <ToolTitle>{C.AppNameShort}</ToolTitle>
             </StyledLeft>
             <Center>
-                <ScenarioTitle title={props.title} />
+                <ScenarioTitle title={title} />
             </Center>
             <StyledRight>
                 <DeleteScenarioButton />

@@ -8,5 +8,5 @@ export default {
 }
 
 export const show = () => {
-    return <Header title={'hoge'} />
+    return <Header />
 }
