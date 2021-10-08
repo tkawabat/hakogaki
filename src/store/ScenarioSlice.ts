@@ -98,7 +98,11 @@ const slice = createSlice({
 
         deleteScenario: (state: ScenarioModel) => {
             const scenario = createScenario()
-            state = scenario
+            state.title = scenario.title
+            state.memo = scenario.memo
+            state.config = scenario.config
+            state.paragraphList = scenario.paragraphList
+            state.old = scenario.paragraphList
         },
 
         changeScenarioConfigMode: (
