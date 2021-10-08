@@ -98,9 +98,7 @@ const slice = createSlice({
 
         deleteScenario: (state: ScenarioModel) => {
             const scenario = createScenario()
-            state.title = scenario.title
-            state.paragraphList = scenario.paragraphList
-            state.old = scenario.paragraphList
+            state = scenario
         },
 
         changeScenarioConfigMode: (
