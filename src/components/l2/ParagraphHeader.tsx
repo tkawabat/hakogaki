@@ -47,7 +47,6 @@ export default function App(props: Props) {
                     subTitle={props.paragraph.subTitle}
                 />
             </Left>
-            <Center></Center>
             <Right>
                 <Tooltip title="完了" arrow>
                     <Checkbox

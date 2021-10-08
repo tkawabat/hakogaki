@@ -24,6 +24,7 @@ const App = (props: Props) => {
     return (
         <Area
             variant="standard"
+            fullWidth
             className="scenarioTitle"
             placeholder="作品タイトル"
             onChange={onChange}

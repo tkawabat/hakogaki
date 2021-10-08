@@ -30,6 +30,7 @@ const App = (props: Props) => {
     return (
         <Area
             variant="standard"
+            fullWidth
             placeholder="段落のタイトル"
             onChange={onChange}
             onClick={onClick}
