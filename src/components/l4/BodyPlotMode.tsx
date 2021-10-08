@@ -1,6 +1,8 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
+
+import ScenarioSlice, { TextPayload } from 'src/store/ScenarioSlice'
 
 import { RootState } from '../../store/rootReducer'
 
@@ -42,18 +44,29 @@ const ScenarioMemoArea = styled.textarea`
 const MemoPlotParagraph = React.memo(PlotParagraph)
 
 const App = (props: Props) => {
+    const dispatch = useDispatch()
     const mode = useSelector((state: RootState) => state.scenario.config.mode)
+    const memo = useSelector((state: RootState) => state.scenario.memo)
     const paragraphList = useSelector((state: RootState) => {
         return state.scenario.paragraphList.map((e, i) => {
             return <MemoPlotParagraph paragraphId={i} paragraph={e} key={i} />
         })
     })
 
+    const changeMemo = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+        const payload: TextPayload = { 
+            text: e.target.value,
+        }
+        dispatch(ScenarioSlice.actions.changeMemo(payload))
+    }
+
     return (
         <Body hidden={mode != C.ScenarioConfigMode.PLOT}>
             <BodyLeft>
                 <ScenarioMemoArea
                     placeholder={'全体メモ・キャラクター設定など'}
+                    onChange={changeMemo}
+                    value={memo}
                 />
             </BodyLeft>
             <BodyRight>

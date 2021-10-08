@@ -2,7 +2,7 @@ import sinon from 'sinon'
 
 import ScenarioSlice, {
     AddParagraphUnderPayload,
-    ChangeMemoPayload,
+    ChangeParagraphMemoPayload,
     MoveDownParagraphPayload,
     MoveUpParagraphPayload,
 } from '../ScenarioSlice'
@@ -160,15 +160,15 @@ describe('moveDownParagraph', () => {
     })
 })
 
-describe('changeMemo', () => {
+describe('changeParagraphMemo', () => {
     test('正常系', () => {
         const previousState: ScenarioModel = createScenario()
 
-        const payload: ChangeMemoPayload = {
+        const payload: ChangeParagraphMemoPayload = {
             paragraphId: 0,
             memo: 'hoge',
         }
-        const actual = reducer(previousState, actions.changeMemo(payload))
+        const actual = reducer(previousState, actions.changeParagraphMemo(payload))
 
         const expected: ScenarioModel = createScenario()
         expected.paragraphList[0].memo = 'hoge'

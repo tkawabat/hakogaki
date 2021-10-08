@@ -30,8 +30,8 @@ export interface MoveDownParagraphPayload {
     paragraphId: number
 }
 
-export interface ChangeTitlePayload {
-    title: string
+export interface TextPayload {
+    text: string
 }
 
 export interface ToggleParagraphCheckedPayload {
@@ -68,7 +68,7 @@ export interface ToggleTodoPayload {
     todoId: number
 }
 
-export interface ChangeMemoPayload {
+export interface ChangeParagraphMemoPayload {
     paragraphId: number
     memo: string
 }
@@ -158,8 +158,12 @@ const slice = createSlice({
             state.paragraphList[id + 1] = paragraph
         },
 
-        changeTitle: (state, action: PayloadAction<ChangeTitlePayload>) => {
-            state.title = action.payload.title
+        changeTitle: (state, action: PayloadAction<TextPayload>) => {
+            state.title = action.payload.text
+        },
+
+        changeMemo: (state, action: PayloadAction<TextPayload>) => {
+            state.memo = action.payload.text
         },
 
         toggleParagraphChecked: (
@@ -216,7 +220,7 @@ const slice = createSlice({
             ].checked = !checked
         },
 
-        changeMemo: (state, action: PayloadAction<ChangeMemoPayload>) => {
+        changeParagraphMemo: (state, action: PayloadAction<ChangeParagraphMemoPayload>) => {
             state.paragraphList[action.payload.paragraphId].memo =
                 action.payload.memo
         },
