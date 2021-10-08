@@ -90,8 +90,9 @@ const slice = createSlice({
                 )
             }
             state.title = scenario.title
-            state.paragraphList = scenario.paragraphList
+            state.memo = scenario.memo
             state.config = scenario.config
+            state.paragraphList = scenario.paragraphList
             state.old = scenario.paragraphList // 読み込み時点のデータをoldにセット
         },
 
