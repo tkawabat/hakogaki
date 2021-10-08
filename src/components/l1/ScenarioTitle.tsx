@@ -16,7 +16,7 @@ const App = (props: Props) => {
 
     const onChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         const payload: TextPayload = {
-            title: e.target.value,
+            text: e.target.value,
         }
         dispatch(ScenarioSlice.actions.changeTitle(payload))
     }
