@@ -11,6 +11,8 @@ export enum NotificationType {
 
 export enum GaAction {
     SAVE = 'save',
+    LOGIN = 'login',
+    LOGOUT = 'logout',
 }
 
 export enum GaCategory {

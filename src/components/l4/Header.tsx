@@ -6,6 +6,7 @@ import { RootState } from 'src/store/rootReducer'
 
 import * as C from '../../lib/Const'
 
+import GoogleButton from '../l2/GoogleButton'
 import Center from '../l1/Center'
 import Left from '../l1/Left'
 import Right from '../l1/Right'
@@ -54,6 +55,7 @@ const App = () => {
                 <DeleteScenarioButton />
                 <JsonImportButton />
                 <DumpButton />
+                <GoogleButton />
                 <HelpButton />
             </StyledRight>
         </Root>
