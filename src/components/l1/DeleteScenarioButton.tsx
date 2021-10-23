@@ -6,11 +6,14 @@ import { Delete } from '@mui/icons-material/'
 
 import ScenarioSlice from '../../store/ScenarioSlice'
 
-const Main = styled(IconButton)``
+const Root = styled.div`
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    width: 40px;
+`
 
-type Props = {}
-
-const App = (props: Props) => {
+const App = () => {
     const dispatch = useDispatch()
 
     const onClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
@@ -20,11 +23,13 @@ const App = (props: Props) => {
     }
 
     return (
-        <Tooltip title="シナリオを削除" arrow>
-            <IconButton size={'small'} onClick={onClick}>
-                <Delete />
-            </IconButton>
-        </Tooltip>
+        <Root>
+            <Tooltip title="シナリオを削除" arrow>
+                <IconButton size={'small'} onClick={onClick}>
+                    <Delete />
+                </IconButton>
+            </Tooltip>
+        </Root>
     )
 }
 

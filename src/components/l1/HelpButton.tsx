@@ -1,7 +1,5 @@
 import React from 'react'
-import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
-import { useSnackbar } from 'notistack'
 
 import { IconButton, Tooltip, Menu, MenuItem, Link } from '@mui/material/'
 import { Help } from '@mui/icons-material/'
@@ -10,11 +8,10 @@ const Root = styled.div`
     display: flex;
     align-content: center;
     justify-content: center;
+    width: 40px;
 `
 
-type Props = {}
-
-const App = (props: Props) => {
+const App = () => {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
     const open = Boolean(anchorEl)
 
