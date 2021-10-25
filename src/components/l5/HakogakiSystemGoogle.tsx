@@ -1,4 +1,4 @@
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { useSnackbar } from 'notistack'
 import { GoogleLoginResponse, GoogleLoginResponseOffline, useGoogleLogin, UseGoogleLoginProps, useGoogleLogout, UseGoogleLogoutProps } from 'react-google-login'
 
@@ -20,10 +20,17 @@ const App = () => {
     const onLoginSuccess = (
         response: GoogleLoginResponse | GoogleLoginResponseOffline
     ) => {
-        if(!isGoogleLoginResponse(response)) return;
-        
+        if(!isGoogleLoginResponse(response)) {
+            return;
+        }
+
+        GoogleUtil.setToken(
+            response.accessToken,
+            response.tokenObj.expires_at,
+            response.reloadAuthResponse
+        );
+
         const payload: GoogleModel = {
-            accessToken: response.accessToken,
             email: response.profileObj.email,
             imageUrl: response.profileObj.imageUrl,
         }
@@ -41,6 +48,8 @@ const App = () => {
 
     const onLogoutSuccess = () => {
         dispatch(GoogleSlice.actions.logout());
+        GoogleUtil.deleteToken();
+
         const message = 'Googleからログアウトしました。';
         enqueueSnackbar(message, { variant: C.NotificationType.SUCCESS })
         GAUtil.event(C.GaAction.LOGOUT, C.GaCategory.NONE, 'google')
@@ -56,6 +65,8 @@ const App = () => {
         onSuccess: onLoginSuccess,
         onFailure: onLoginFailure,
         cookiePolicy: 'single_host_origin',
+        scope: C.GoogleApiScope,
+        // fetchBasicProfile: false,
         isSignedIn: true,
     }
     const { signIn, } = useGoogleLogin(loginProps)

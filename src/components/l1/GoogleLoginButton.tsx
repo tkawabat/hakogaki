@@ -16,7 +16,7 @@ const Root = styled.div`
 const App = () => {
 
     const onClick = () => {
-        GoogleUtil.signIn()
+        GoogleUtil.login()
     }
 
     return (

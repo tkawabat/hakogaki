@@ -3,11 +3,13 @@ import styled from 'styled-components'
 
 import { Menu, MenuItem, Tooltip } from '@mui/material/'
 
+import { GoogleModel } from '../../store/GoogleSlice'
+
 import GoogleUtil from '../../lib/GoogleUtil'
 import GAUtil from '../../lib/GAUtil'
 
 interface Props {
-    imageUrl: string
+    googleModel: GoogleModel
 }
 
 const Root = styled.div`
@@ -47,6 +49,18 @@ const App = (props: Props) => {
     const handleClose = () => {
         setAnchorEl(null)
     }
+    const loadProject = () => {
+        // const fileName = ScenarioUtil.getTitle(scenario) + '.json'
+        // FileUtil.download(fileName, JSON.stringify(scenario))
+        handleClose()
+
+        GoogleUtil.driveList()
+
+        // ScenarioUtil.getProgress(scenario).forEach((message: string) => {
+        //     enqueueSnackbar(message, { variant: C.NotificationType.SUCCESS })
+        // })
+        // GAUtil.event(C.GaAction.SAVE, C.GaCategory.NONE, 'project')
+    }
     const saveProject = () => {
         // const fileName = ScenarioUtil.getTitle(scenario) + '.json'
         // FileUtil.download(fileName, JSON.stringify(scenario))
@@ -65,15 +79,15 @@ const App = (props: Props) => {
         // GAUtil.event(C.GaAction.SAVE, C.GaCategory.NONE, 'txt')
     }
     const logout = () => {
-        GoogleUtil.signOut();
+        GoogleUtil.logout();
         handleClose()
     }
 
     return (
         <Root>
-            <Tooltip title="ドライブに保存" arrow>
+            <Tooltip title="Google Drive 保存/読込" arrow>
                 <GoogleIconButton onClick={handleClick}>
-                    <GoogleIcon src={props.imageUrl} />
+                    <GoogleIcon src={props.googleModel.imageUrl} />
                 </GoogleIconButton>
             </Tooltip>
             <Menu
@@ -83,11 +97,12 @@ const App = (props: Props) => {
                 onClose={handleClose}
                 MenuListProps={{ 'aria-labelledby': 'basic-button' }}
             >
-                <MenuItem onClick={saveProject}>
-                    プロジェクトとして保存
-                </MenuItem>
+                <MenuItem onClick={loadProject}>プロジェクトを読込</MenuItem>
+                <MenuItem onClick={saveProject}>プロジェクトを保存</MenuItem>
                 <MenuItem onClick={saveScenario}>作品として保存</MenuItem>
                 <MenuItem onClick={logout}>ログアウト</MenuItem>
+                <MenuItem onClick={() => { GoogleUtil.reloadToken() }}>reload</MenuItem>
+                <MenuItem onClick={() => { GoogleUtil.login() }}>login</MenuItem>
             </Menu>
         </Root>
     )

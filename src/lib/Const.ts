@@ -36,3 +36,7 @@ export const NoTitleFileName = 'タイトル未定' // ファイル名で使用
 export const CurrentScenarioFormatVersion = 1
 
 export const AppNameShort = 'HAKOGAKI(β)'
+
+export const GoogleApiScope = [
+    'https://www.googleapis.com/auth/drive.file',
+].join(' ')
