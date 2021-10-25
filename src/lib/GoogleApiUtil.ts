@@ -1,11 +1,14 @@
-import axios from 'axios'
+import axios, { AxiosInstance } from 'axios'
+
+import * as C from './Const'
 
 class GoogleApiUtil {
     accessToken: string = ''
     expiredAt: number = -1
     reload!: () => Promise<gapi.auth2.AuthResponse>
     login!: () => void
-    logout!: () => void 
+    logout!: () => void
+    axios!: AxiosInstance
     
     init(
         signIn: () => void,
@@ -23,6 +26,15 @@ class GoogleApiUtil {
         this.accessToken = accessToken;
         this.expiredAt = expiredAt;
         this.reload = reload;
+
+        this.axios = axios.create({
+            baseURL: C.GoogleApiHost,
+            headers: {
+                Authorization: 'Bearer ' + this.accessToken,
+                Accept: 'application/json'
+            },
+            responseType: 'json'
+        })
     }
 
     deleteToken() {
@@ -49,14 +61,7 @@ class GoogleApiUtil {
         if (!this.accessToken) return;
         this.reloadToken();
 
-        const request = {
-            headers: {
-                Authorization: 'Bearer ' + this.accessToken,
-                Accept: 'application/json'
-            }
-        }
-
-        axios.get('https://www.googleapis.com/drive/v3/files', request)
+        this.axios.get('/drive/v3/files', {})
             .then((res) => {
                 console.log(res)
             })

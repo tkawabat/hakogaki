@@ -37,6 +37,7 @@ export const CurrentScenarioFormatVersion = 1
 
 export const AppNameShort = 'HAKOGAKI(β)'
 
+export const GoogleApiHost = 'https://www.googleapis.com'
 export const GoogleApiScope = [
     'https://www.googleapis.com/auth/drive.file',
 ].join(' ')
