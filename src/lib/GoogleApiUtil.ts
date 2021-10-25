@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-class GoogleUtil {
+class GoogleApiUtil {
     accessToken: string = ''
     expiredAt: number = -1
     reload!: () => Promise<gapi.auth2.AuthResponse>
@@ -68,4 +68,4 @@ class GoogleUtil {
     
 }
 
-export default new GoogleUtil()
+export default new GoogleApiUtil()

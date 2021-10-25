@@ -5,7 +5,7 @@ import { Menu, MenuItem, Tooltip } from '@mui/material/'
 
 import { GoogleModel } from '../../store/GoogleSlice'
 
-import GoogleUtil from '../../lib/GoogleUtil'
+import GoogleApiUtil from '../../lib/GoogleApiUtil'
 import GAUtil from '../../lib/GAUtil'
 
 interface Props {
@@ -54,7 +54,7 @@ const App = (props: Props) => {
         // FileUtil.download(fileName, JSON.stringify(scenario))
         handleClose()
 
-        GoogleUtil.driveList()
+        GoogleApiUtil.driveList()
 
         // ScenarioUtil.getProgress(scenario).forEach((message: string) => {
         //     enqueueSnackbar(message, { variant: C.NotificationType.SUCCESS })
@@ -79,7 +79,7 @@ const App = (props: Props) => {
         // GAUtil.event(C.GaAction.SAVE, C.GaCategory.NONE, 'txt')
     }
     const logout = () => {
-        GoogleUtil.logout();
+        GoogleApiUtil.logout();
         handleClose()
     }
 

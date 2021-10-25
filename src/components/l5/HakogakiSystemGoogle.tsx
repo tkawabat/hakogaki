@@ -5,7 +5,7 @@ import { GoogleLoginResponse, GoogleLoginResponseOffline, useGoogleLogin, UseGoo
 import GoogleSlice, { GoogleModel } from '../../store/GoogleSlice'
 
 import * as C from '../../lib/Const'
-import GoogleUtil from 'src/lib/GoogleUtil'
+import GoogleApiUtil from 'src/lib/GoogleApiUtil'
 import GAUtil from '../../lib/GAUtil'
 
 const App = () => {
@@ -24,7 +24,7 @@ const App = () => {
             return;
         }
 
-        GoogleUtil.setToken(
+        GoogleApiUtil.setToken(
             response.accessToken,
             response.tokenObj.expires_at,
             response.reloadAuthResponse
@@ -48,7 +48,7 @@ const App = () => {
 
     const onLogoutSuccess = () => {
         dispatch(GoogleSlice.actions.logout());
-        GoogleUtil.deleteToken();
+        GoogleApiUtil.deleteToken();
 
         const message = 'Googleからログアウトしました。';
         enqueueSnackbar(message, { variant: C.NotificationType.SUCCESS })
@@ -78,7 +78,7 @@ const App = () => {
         cookiePolicy: 'single_host_origin',
     }
     const { signOut, } = useGoogleLogout(logoutProps)
-    GoogleUtil.init(signIn, signOut);
+    GoogleApiUtil.init(signIn, signOut);
 
     return null
 }
