@@ -1,12 +1,13 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 import { useSnackbar } from 'notistack'
 
-import { IconButton, Tooltip, Menu, MenuItem } from '@mui/material/'
-import { Save } from '@mui/icons-material/'
+import { IconButton, Tooltip, Menu, MenuItem, ButtonUnstyled } from '@mui/material/'
+import { Description } from '@mui/icons-material/'
 
 import { RootState } from '../../store/rootReducer'
+import ScenarioSlice, { LoadPayload } from '../../store/ScenarioSlice'
 import ScenarioModel from '../../store/model/ScenarioModel'
 
 import * as C from '../../lib/Const'
@@ -22,8 +23,13 @@ const Root = styled.div`
     justify-content: center;
 `
 
+const LoadItem = styled(ButtonUnstyled)`
+    cursor: pointer
+`
+
 const App = (props: Props) => {
     const { enqueueSnackbar } = useSnackbar()
+    const dispatch = useDispatch()
     const scenario: ScenarioModel = useSelector(
         (state: RootState) => state.scenario
     )
@@ -37,34 +43,57 @@ const App = (props: Props) => {
     const handleClose = () => {
         setAnchorEl(null)
     }
+    const loadProject = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (!e.target.files) return
+        const text = await e.target.files[0].text()
+
+        // TODO
+        try {
+            const scenario: ScenarioModel = JSON.parse(text)
+            const payload: LoadPayload = {
+                scenario: scenario,
+            }
+            dispatch(ScenarioSlice.actions.load(payload))
+            const message = 'プロジェクトファイルを読み込みました。'
+            enqueueSnackbar(message, { variant: C.NotificationType.SUCCESS })
+        } catch {
+            const message =
+                'プロジェクトファイルの読み込みに失敗しました。形式が間違っています。'
+            enqueueSnackbar(message, { variant: C.NotificationType.ERROR })
+        }
+
+        e.target.value = '' // 空にすることで次のonchangeが発火するようにする
+        handleClose()
+    }
     const saveProject = () => {
         const fileName = ScenarioUtil.getTitle(scenario) + '.json'
         FileUtil.download(fileName, JSON.stringify(scenario))
-        handleClose()
 
         ScenarioUtil.getProgress(scenario).forEach((message: string) => {
             enqueueSnackbar(message, { variant: C.NotificationType.SUCCESS })
         })
+
         GAUtil.event(C.GaAction.SAVE, C.GaCategory.NONE, 'project')
+        handleClose()
     }
     const saveScenario = () => {
         const fileName = ScenarioUtil.getTitle(scenario) + '.txt'
         FileUtil.download(fileName, ScenarioUtil.getScenarioText(scenario))
-        handleClose()
 
         GAUtil.event(C.GaAction.SAVE, C.GaCategory.NONE, 'txt')
+        handleClose()
     }
 
     return (
         <Root>
-            <Tooltip title="ファイルに保存" arrow>
+            <Tooltip title="ファイル保存/読込" arrow>
                 <IconButton
                     aria-controls="basic-menu"
                     aria-haspopup="true"
                     aria-expanded={Boolean(anchorEl) ? 'true' : undefined}
                     onClick={handleClick}
                 >
-                    <Save />
+                    <Description />
                 </IconButton>
             </Tooltip>
             <Menu
@@ -74,10 +103,14 @@ const App = (props: Props) => {
                 onClose={handleClose}
                 MenuListProps={{ 'aria-labelledby': 'basic-button' }}
             >
-                <MenuItem onClick={saveProject}>
-                    プロジェクトとして保存
+                <MenuItem>
+                    <LoadItem component="label">
+                        <input type="file" hidden accept=".json" onChange={loadProject} />
+                        ファイルから読込
+                    </LoadItem>
                 </MenuItem>
-                <MenuItem onClick={saveScenario}>作品として保存</MenuItem>
+                <MenuItem onClick={saveProject}>ファイルに保存</MenuItem>
+                <MenuItem onClick={saveScenario}>ファイルに作品を出力</MenuItem>
             </Menu>
         </Root>
     )

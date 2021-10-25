@@ -12,8 +12,7 @@ import Left from '../l1/Left'
 import Right from '../l1/Right'
 import ScenarioConfigModeChip from '../l1/ScenarioConfigModeChip'
 import DeleteScenarioButton from '../l1/DeleteScenarioButton'
-import JsonImportButton from '../l1/JsonImportButton'
-import DumpButton from '../l1/DumpButton'
+import FileButton from '../l1/FileButton'
 import HelpButton from '../l1/HelpButton'
 import ScenarioTitle from '../l1/ScenarioTitle'
 
@@ -53,8 +52,7 @@ const App = () => {
             <StyledRight>
                 <ScenarioConfigModeChip />
                 <DeleteScenarioButton />
-                <JsonImportButton />
-                <DumpButton />
+                <FileButton />
                 <GoogleButton />
                 <HelpButton />
             </StyledRight>

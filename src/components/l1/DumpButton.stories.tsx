@@ -1,12 +1,12 @@
 import React from 'react'
 
-import DumpButton from './DumpButton'
+import FileButton from './FileButton'
 
 export default {
-    title: 'l1/DumpButton',
-    component: DumpButton,
+    title: 'l1/FileButton',
+    component: FileButton,
 }
 
 export const show = () => {
-    return <DumpButton />
+    return <FileButton />
 }

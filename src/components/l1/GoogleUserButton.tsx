@@ -97,12 +97,10 @@ const App = (props: Props) => {
                 onClose={handleClose}
                 MenuListProps={{ 'aria-labelledby': 'basic-button' }}
             >
-                <MenuItem onClick={loadProject}>プロジェクトを読込</MenuItem>
-                <MenuItem onClick={saveProject}>プロジェクトを保存</MenuItem>
-                <MenuItem onClick={saveScenario}>作品として保存</MenuItem>
+                <MenuItem onClick={loadProject}>ドライブから読込</MenuItem>
+                <MenuItem onClick={saveProject}>ドライブに保存</MenuItem>
+                <MenuItem onClick={saveScenario}>ドライブに作品を出力</MenuItem>
                 <MenuItem onClick={logout}>ログアウト</MenuItem>
-                <MenuItem onClick={() => { GoogleUtil.reloadToken() }}>reload</MenuItem>
-                <MenuItem onClick={() => { GoogleUtil.login() }}>login</MenuItem>
             </Menu>
         </Root>
     )
