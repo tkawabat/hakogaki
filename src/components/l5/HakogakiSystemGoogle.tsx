@@ -5,7 +5,7 @@ import { GoogleLoginResponse, GoogleLoginResponseOffline, useGoogleLogin, UseGoo
 import GoogleSlice, { GoogleModel } from '../../store/GoogleSlice'
 
 import * as C from '../../lib/Const'
-import GoogleDriveApiUtil from 'src/lib/GoogleDriveApiUtil'
+import GoogleDriveApiDao from 'src/dao/GoogleDriveApiDao'
 import GAUtil from '../../lib/GAUtil'
 
 const App = () => {
@@ -23,7 +23,7 @@ const App = () => {
             return;
         }
 
-        GoogleDriveApiUtil.setToken(
+        GoogleDriveApiDao.setToken(
             response.tokenObj.expires_at,
             response.reloadAuthResponse
         );
@@ -46,7 +46,7 @@ const App = () => {
 
     const onLogoutSuccess = () => {
         dispatch(GoogleSlice.actions.logout());
-        GoogleDriveApiUtil.deleteToken();
+        GoogleDriveApiDao.deleteToken();
 
         const message = 'Googleからログアウトしました。';
         enqueueSnackbar(message, { variant: C.NotificationType.SUCCESS })
@@ -76,7 +76,7 @@ const App = () => {
         cookiePolicy: 'single_host_origin',
     }
     const { signOut, } = useGoogleLogout(logoutProps)
-    GoogleDriveApiUtil.init(signIn, signOut);
+    GoogleDriveApiDao.init(signIn, signOut);
 
     return null
 }

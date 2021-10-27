@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import { IconButton, Tooltip } from '@mui/material/'
 import { Google } from '@mui/icons-material/'
 
-import GoogleDriveApiUtil from '../../lib/GoogleDriveApiUtil'
+import GoogleDriveApiDao from '../../dao/GoogleDriveApiDao'
 
 
 const Root = styled.div`
@@ -16,7 +16,7 @@ const Root = styled.div`
 const App = () => {
 
     const onClick = () => {
-        GoogleDriveApiUtil.login()
+        GoogleDriveApiDao.login()
     }
 
     return (

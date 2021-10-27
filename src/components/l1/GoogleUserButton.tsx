@@ -11,7 +11,7 @@ import ScenarioModel from '../../store/model/ScenarioModel'
 import { GoogleModel } from '../../store/GoogleSlice'
 
 import * as C from '../../lib/Const'
-import GoogleDriveApiUtil from '../../lib/GoogleDriveApiUtil'
+import GoogleDriveApiDao from '../../dao/GoogleDriveApiDao'
 import GAUtil from '../../lib/GAUtil'
 import ScenarioUtil from 'src/lib/ScenarioUtil'
 
@@ -67,7 +67,7 @@ const App = (props: Props) => {
         // FileUtil.download(fileName, JSON.stringify(scenario))
         handleClose()
 
-        GoogleDriveApiUtil.getList()
+        GoogleDriveApiDao.getList()
 
         // ScenarioUtil.getProgress(scenario).forEach((message: string) => {
         //     enqueueSnackbar(message, { variant: C.NotificationType.SUCCESS })
@@ -76,7 +76,7 @@ const App = (props: Props) => {
     }
     const saveProject = () => {
         const fileName = ScenarioUtil.getTitle(scenario) + '.json'
-        GoogleDriveApiUtil.createFile(fileName)
+        GoogleDriveApiDao.createFile(fileName)
 
         ScenarioUtil.getProgress(scenario).forEach((message: string) => {
             enqueueSnackbar(message, { variant: C.NotificationType.SUCCESS })
@@ -92,7 +92,7 @@ const App = (props: Props) => {
         // GAUtil.event(C.GaAction.SAVE, C.GaCategory.NONE, 'txt')
     }
     const logout = () => {
-        GoogleDriveApiUtil.logout();
+        GoogleDriveApiDao.logout();
         handleClose()
     }
 
@@ -113,7 +113,7 @@ const App = (props: Props) => {
                 <MenuItem onClick={loadProject}>ドライブから読込</MenuItem>
                 <MenuItem onClick={saveProject}>ドライブに保存</MenuItem>
                 <MenuItem onClick={saveScenario}>ドライブに作品を出力</MenuItem>
-                <MenuItem onClick={() => GoogleDriveApiUtil.getFile()}>get</MenuItem>
+                <MenuItem onClick={() => GoogleDriveApiDao.getFile()}>get</MenuItem>
                 <MenuItem onClick={logout}>ログアウト</MenuItem>
             </Menu>
         </Root>

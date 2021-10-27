@@ -1,8 +1,8 @@
 import * as fs from 'fs'
 import ScenarioModel from 'src/store/model/ScenarioModel'
-import * as C from './Const'
+import * as C from '../lib/Const'
 
-class GoogleDriveApiUtil {
+class GoogleDriveApiDao {
     expiredAt: number | null = null
     reload!: () => Promise<gapi.auth2.AuthResponse>
     login!: () => void
@@ -119,4 +119,4 @@ class GoogleDriveApiUtil {
     
 }
 
-export default new GoogleDriveApiUtil()
+export default new GoogleDriveApiDao()
