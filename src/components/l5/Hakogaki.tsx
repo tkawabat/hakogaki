@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import { Fragment, useEffect, useRef } from 'react'
 import styled from 'styled-components'
 
 import Header from '../l4/Header'
@@ -18,15 +18,21 @@ const Main = styled.div`
 const App = () => {
     const autoSaveCationModalRef = useRef({} as AutoSaveCautionModalHandler)
 
+    const init = () => {
+        autoSaveCationModalRef.current.open()
+    }
+    useEffect(init, [])
+
+
     return (
-        <React.Fragment>
+        <Fragment>
             <Main className="App">
                 <Header />
                 <BodyScenarioMode />
                 <BodyPlotMode />
             </Main>
             <AutoSaveCautionModal ref={autoSaveCationModalRef} />
-        </React.Fragment>
+        </Fragment>
     )
 }
 
