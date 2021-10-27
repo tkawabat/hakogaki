@@ -1,10 +1,12 @@
-import { forwardRef, useImperativeHandle, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 
 import { Box, Button, Typography, Modal } from '@mui/material'
 
 import * as C from '../../lib/Const'
 import StorageUtil from '../../lib/StorageUtil'
+import ModalSlice from 'src/store/ModalSlice'
+import { RootState } from 'src/store/rootReducer'
 
 const style = {
     position: 'absolute' as 'absolute',
@@ -35,34 +37,29 @@ const Message = styled.div`
     margin-bottom: 10px;
 `
 
-interface Props {}
+const App = () => {
+    const dispatch = useDispatch()
+    const state = useSelector((state: RootState) => state.modal.autoSaveCation)
 
-export interface AutoSaveCautionModalHandler {
-    open(): void
-}
-
-const App = forwardRef<AutoSaveCautionModalHandler>((props: Props, ref) => {
-    const [open, setOpen] = useState(false)
-
+    const close = () => {
+        const payload = {
+            open: false
+        }
+        dispatch(ModalSlice.actions.setAutoSaveCation(payload))
+    }
     const neverOpen = () => {
         StorageUtil.save(C.StorageKeyAutoSaveCationModal, '1')
-        setOpen(false)
+        close()
     }
 
-    useImperativeHandle(ref, () => ({
-        open() {
-            if (StorageUtil.load(C.StorageKeyAutoSaveCationModal) == '1') {
-                return
-            }
-            setOpen(true)
-        },
-    }))
+    const isOpen = state &&
+        StorageUtil.load(C.StorageKeyAutoSaveCationModal) != '1'
 
     return (
         <div>
             <Modal
-                open={open}
-                onClose={() => setOpen(false)}
+                open={isOpen}
+                onClose={close}
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
             >
@@ -87,6 +84,6 @@ const App = forwardRef<AutoSaveCautionModalHandler>((props: Props, ref) => {
             </Modal>
         </div>
     )
-})
+}
 
 export default App

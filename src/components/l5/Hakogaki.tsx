@@ -1,12 +1,10 @@
-import { Fragment, useEffect, useRef } from 'react'
+import { Fragment } from 'react'
 import styled from 'styled-components'
 
 import Header from '../l4/Header'
 import BodyScenarioMode from '../l4/BodyScenarioMode'
 import BodyPlotMode from '../l4/BodyPlotMode'
-import AutoSaveCautionModal, {
-    AutoSaveCautionModalHandler,
-} from '../l2/AutoSaveCautionModal'
+import AutoSaveCautionModal from '../l2/AutoSaveCautionModal'
 
 const Main = styled.div`
     display: flex;
@@ -16,14 +14,6 @@ const Main = styled.div`
 `
 
 const App = () => {
-    const autoSaveCationModalRef = useRef({} as AutoSaveCautionModalHandler)
-
-    const init = () => {
-        autoSaveCationModalRef.current.open()
-    }
-    useEffect(init, [])
-
-
     return (
         <Fragment>
             <Main className="App">
@@ -31,7 +21,7 @@ const App = () => {
                 <BodyScenarioMode />
                 <BodyPlotMode />
             </Main>
-            <AutoSaveCautionModal ref={autoSaveCationModalRef} />
+            <AutoSaveCautionModal />
         </Fragment>
     )
 }

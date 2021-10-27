@@ -7,9 +7,6 @@ export interface GoogleModel {
     imageUrl: string
 }
 
-export interface LoadPayload {
-}
-
 const initialState: GoogleModel = {
     email: '',
     imageUrl: '',
