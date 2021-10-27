@@ -45,22 +45,9 @@ const App = (props: Props) => {
     }
     const loadProject = async (e: React.ChangeEvent<HTMLInputElement>) => {
         if (!e.target.files) return
-        const text = await e.target.files[0].text()
+        const json = await e.target.files[0].text()
 
-        // TODO
-        try {
-            const scenario: ScenarioModel = JSON.parse(text)
-            const payload: LoadPayload = {
-                scenario: scenario,
-            }
-            dispatch(ScenarioSlice.actions.load(payload))
-            const message = 'プロジェクトファイルを読み込みました。'
-            enqueueSnackbar(message, { variant: C.NotificationType.SUCCESS })
-        } catch {
-            const message =
-                'プロジェクトファイルの読み込みに失敗しました。形式が間違っています。'
-            enqueueSnackbar(message, { variant: C.NotificationType.ERROR })
-        }
+        ScenarioUtil.loadProject(json)
 
         e.target.value = '' // 空にすることで次のonchangeが発火するようにする
         handleClose()

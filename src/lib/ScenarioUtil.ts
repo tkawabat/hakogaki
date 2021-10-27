@@ -1,10 +1,16 @@
 import * as C from './Const'
 
+import ScenarioSlice from 'src/store/ScenarioSlice'
 import ParagraphModel from '../store/model/ParagraphModel'
 import ScenarioModel from '../store/model/ScenarioModel'
 import TodoModel from '../store/model/TodoModel'
 
+import GoogleDriveApiDao from '../dao/GoogleDriveApiDao'
+
+import CommonUtil from './CommonUtil'
+
 class ScenarioUtil {
+
     isParagraphEmpty(paragraph: ParagraphModel): boolean {
         if (paragraph.subTitle.length > 0) return false
         if (paragraph.text.length > 0) return false
@@ -95,6 +101,22 @@ class ScenarioUtil {
         }
 
         return ret
+    }
+
+    loadProject(json: string) {
+        try {
+            const scenario: ScenarioModel = JSON.parse(json)
+            const payload = {
+                scenario: scenario,
+            }
+            CommonUtil.dispatch(ScenarioSlice.actions.load(payload))
+            const message = 'プロジェクトファイルを読み込みました。'
+            CommonUtil.enqueueSnackbar(message, { variant: C.NotificationType.SUCCESS })
+        } catch {
+            const message =
+                'プロジェクトファイルの読み込みに失敗しました。形式が間違っています。'
+            CommonUtil.enqueueSnackbar(message, { variant: C.NotificationType.ERROR })
+        }
     }
 }
 
