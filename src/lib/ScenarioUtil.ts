@@ -118,6 +118,35 @@ class ScenarioUtil {
             CommonUtil.enqueueSnackbar(message, { variant: C.NotificationType.ERROR })
         }
     }
+
+    async loadProjectFromDrive(fileId: string) {
+        const json = await GoogleDriveApiDao.getFile(fileId)
+        if (!json) return // error
+        this.loadProject(json)
+    }
+
+    async saveProject2Drive(scenario: ScenarioModel) {
+        let fileId: string | void | undefined = scenario.config.googleDriveFileId
+
+        // ファイルがなければ作成
+        if (!fileId) {
+            const fileName = this.getTitle(scenario) + '.json'
+            fileId = await GoogleDriveApiDao.createFile(fileName)
+            if (!fileId) return // error
+            
+            const payload = {
+                fileId: fileId,
+            }
+            CommonUtil.dispatch(ScenarioSlice.actions.setGoogleDriveFileId(payload))
+            scenario.config.googleDriveFileId = fileId
+        }
+
+        // ファイルの中身を更新
+        GoogleDriveApiDao.patchFile(
+            fileId,
+            JSON.stringify(scenario)
+        )
+    }
 }
 
 export default new ScenarioUtil()

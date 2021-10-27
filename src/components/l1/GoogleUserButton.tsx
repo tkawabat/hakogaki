@@ -67,17 +67,17 @@ const App = (props: Props) => {
         // FileUtil.download(fileName, JSON.stringify(scenario))
         handleClose()
 
-        GoogleDriveApiDao.getList()
+        ScenarioUtil.loadProjectFromDrive(scenario.config.googleDriveFileId)
+        // GoogleDriveApiDao.getList()
 
         // ScenarioUtil.getProgress(scenario).forEach((message: string) => {
-        //     enqueueSnackbar(message, { variant: C.NotificationType.SUCCESS })
+            // enqueueSnackbar(message, { variant: C.NotificationType.SUCCESS })
         // })
         // GAUtil.event(C.GaAction.SAVE, C.GaCategory.NONE, 'project')
     }
     const saveProject = () => {
-        const fileName = ScenarioUtil.getTitle(scenario) + '.json'
-        GoogleDriveApiDao.createFile(fileName)
-
+        ScenarioUtil.saveProject2Drive(scenario)
+        
         ScenarioUtil.getProgress(scenario).forEach((message: string) => {
             enqueueSnackbar(message, { variant: C.NotificationType.SUCCESS })
         })
@@ -85,7 +85,8 @@ const App = (props: Props) => {
         handleClose()
     }
     const saveScenario = () => {
-        // const fileName = ScenarioUtil.getTitle(scenario) + '.txt'
+        const fileName = ScenarioUtil.getTitle(scenario) + '.txt'
+        GoogleDriveApiDao.createFile(fileName)
         // FileUtil.download(fileName, ScenarioUtil.getScenarioText(scenario))
         handleClose()
 
@@ -113,7 +114,6 @@ const App = (props: Props) => {
                 <MenuItem onClick={loadProject}>ドライブから読込</MenuItem>
                 <MenuItem onClick={saveProject}>ドライブに保存</MenuItem>
                 <MenuItem onClick={saveScenario}>ドライブに作品を出力</MenuItem>
-                <MenuItem onClick={() => GoogleDriveApiDao.getFile()}>get</MenuItem>
                 <MenuItem onClick={logout}>ログアウト</MenuItem>
             </Menu>
         </Root>
