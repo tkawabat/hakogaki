@@ -1,12 +1,19 @@
 import React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
+import { useSnackbar } from 'notistack'
 
 import { Menu, MenuItem, Tooltip } from '@mui/material/'
 
+import { RootState } from '../../store/rootReducer'
+import ScenarioSlice, { LoadPayload } from '../../store/ScenarioSlice'
+import ScenarioModel from '../../store/model/ScenarioModel'
 import { GoogleModel } from '../../store/GoogleSlice'
 
-import GoogleApiUtil from '../../lib/GoogleApiUtil'
+import * as C from '../../lib/Const'
+import GoogleDriveApiUtil from '../../lib/GoogleDriveApiUtil'
 import GAUtil from '../../lib/GAUtil'
+import ScenarioUtil from 'src/lib/ScenarioUtil'
 
 interface Props {
     googleModel: GoogleModel
@@ -40,6 +47,12 @@ const GoogleIcon = styled.img`
 `
 
 const App = (props: Props) => {
+    const { enqueueSnackbar } = useSnackbar()
+    const dispatch = useDispatch()
+    const scenario: ScenarioModel = useSelector(
+        (state: RootState) => state.scenario
+    )
+
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
     const open = Boolean(anchorEl)
 
@@ -54,7 +67,7 @@ const App = (props: Props) => {
         // FileUtil.download(fileName, JSON.stringify(scenario))
         handleClose()
 
-        GoogleApiUtil.driveList()
+        GoogleDriveApiUtil.getList()
 
         // ScenarioUtil.getProgress(scenario).forEach((message: string) => {
         //     enqueueSnackbar(message, { variant: C.NotificationType.SUCCESS })
@@ -62,14 +75,14 @@ const App = (props: Props) => {
         // GAUtil.event(C.GaAction.SAVE, C.GaCategory.NONE, 'project')
     }
     const saveProject = () => {
-        // const fileName = ScenarioUtil.getTitle(scenario) + '.json'
-        // FileUtil.download(fileName, JSON.stringify(scenario))
-        handleClose()
+        const fileName = ScenarioUtil.getTitle(scenario) + '.json'
+        GoogleDriveApiUtil.createFile(fileName)
 
-        // ScenarioUtil.getProgress(scenario).forEach((message: string) => {
-        //     enqueueSnackbar(message, { variant: C.NotificationType.SUCCESS })
-        // })
-        // GAUtil.event(C.GaAction.SAVE, C.GaCategory.NONE, 'project')
+        ScenarioUtil.getProgress(scenario).forEach((message: string) => {
+            enqueueSnackbar(message, { variant: C.NotificationType.SUCCESS })
+        })
+        GAUtil.event(C.GaAction.SAVE, C.GaCategory.NONE, 'google')
+        handleClose()
     }
     const saveScenario = () => {
         // const fileName = ScenarioUtil.getTitle(scenario) + '.txt'
@@ -79,7 +92,7 @@ const App = (props: Props) => {
         // GAUtil.event(C.GaAction.SAVE, C.GaCategory.NONE, 'txt')
     }
     const logout = () => {
-        GoogleApiUtil.logout();
+        GoogleDriveApiUtil.logout();
         handleClose()
     }
 
@@ -100,6 +113,7 @@ const App = (props: Props) => {
                 <MenuItem onClick={loadProject}>ドライブから読込</MenuItem>
                 <MenuItem onClick={saveProject}>ドライブに保存</MenuItem>
                 <MenuItem onClick={saveScenario}>ドライブに作品を出力</MenuItem>
+                <MenuItem onClick={() => GoogleDriveApiUtil.getFile()}>get</MenuItem>
                 <MenuItem onClick={logout}>ログアウト</MenuItem>
             </Menu>
         </Root>

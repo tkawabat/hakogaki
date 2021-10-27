@@ -5,13 +5,12 @@ import { GoogleLoginResponse, GoogleLoginResponseOffline, useGoogleLogin, UseGoo
 import GoogleSlice, { GoogleModel } from '../../store/GoogleSlice'
 
 import * as C from '../../lib/Const'
-import GoogleApiUtil from 'src/lib/GoogleApiUtil'
+import GoogleDriveApiUtil from 'src/lib/GoogleDriveApiUtil'
 import GAUtil from '../../lib/GAUtil'
 
 const App = () => {
     const { enqueueSnackbar } = useSnackbar()
     const dispatch = useDispatch()
-    const clientId: string = process.env.NEXT_PUBLIC_GOOGLE_API_CLIENT_ID || '';
 
     const isGoogleLoginResponse = (response: any): response is GoogleLoginResponse => {
         return response.accessToken !== undefined;
@@ -24,8 +23,7 @@ const App = () => {
             return;
         }
 
-        GoogleApiUtil.setToken(
-            response.accessToken,
+        GoogleDriveApiUtil.setToken(
             response.tokenObj.expires_at,
             response.reloadAuthResponse
         );
@@ -48,7 +46,7 @@ const App = () => {
 
     const onLogoutSuccess = () => {
         dispatch(GoogleSlice.actions.logout());
-        GoogleApiUtil.deleteToken();
+        GoogleDriveApiUtil.deleteToken();
 
         const message = 'Googleからログアウトしました。';
         enqueueSnackbar(message, { variant: C.NotificationType.SUCCESS })
@@ -61,7 +59,7 @@ const App = () => {
     }
 
     const loginProps: UseGoogleLoginProps = {
-        clientId: clientId,
+        clientId: C.GoogleApiClientId,
         onSuccess: onLoginSuccess,
         onFailure: onLoginFailure,
         cookiePolicy: 'single_host_origin',
@@ -72,13 +70,13 @@ const App = () => {
     const { signIn, } = useGoogleLogin(loginProps)
 
     const logoutProps: UseGoogleLogoutProps = {
-        clientId: clientId,
+        clientId: C.GoogleApiClientId,
         onLogoutSuccess: onLogoutSuccess,
         onFailure: onLogoutFailure,
         cookiePolicy: 'single_host_origin',
     }
     const { signOut, } = useGoogleLogout(logoutProps)
-    GoogleApiUtil.init(signIn, signOut);
+    GoogleDriveApiUtil.init(signIn, signOut);
 
     return null
 }
