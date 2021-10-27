@@ -14,6 +14,10 @@ export interface ScenarioConfigModePayload {
     mode: C.ScenarioConfigMode
 }
 
+export interface ScenarioConfigGoogleDriveFileIdPayload {
+    fileId: string
+}
+
 export interface AddParagraphUnderPayload {
     paragraphId: number
 }
@@ -110,6 +114,12 @@ const slice = createSlice({
             action: PayloadAction<ScenarioConfigModePayload>
         ) => {
             state.config.mode = action.payload.mode
+        },
+
+        setGoogleDriveFileId: (
+            state, action: PayloadAction<ScenarioConfigGoogleDriveFileIdPayload>
+        ) => {
+            state.config.googleDriveFileId = action.payload.fileId
         },
 
         addParagraph: (state: ScenarioModel) => {
