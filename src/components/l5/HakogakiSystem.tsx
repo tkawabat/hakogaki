@@ -7,11 +7,13 @@ import ScenarioSlice, { LoadPayload } from '../../store/ScenarioSlice'
 import Scenario from '../../store/model/ScenarioModel'
 
 import * as C from '../../lib/Const'
+import CommonUtil from 'src/lib/CommonUtil'
 import TimerUtil from '../../lib/TimerUtil'
 import StorageUtil from '../../lib/StorageUtil'
 import GAUtil from '../../lib/GAUtil'
 
 import { AutoSaveCautionModalHandler } from '../l2/AutoSaveCautionModal'
+
 
 export default function App() {
     const { enqueueSnackbar } = useSnackbar()
@@ -64,6 +66,8 @@ export default function App() {
             },
             C.IntervalSaveScenario
         )
+
+        CommonUtil.init(dispatch, enqueueSnackbar)
 
         GAUtil.pageview('hakogaki')
     }
