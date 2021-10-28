@@ -156,6 +156,23 @@ class ScenarioUtil {
             CommonUtil.dispatch(ScenarioSlice.actions.setGoogleDriveFileId(payload))
         })
     }
+
+    async dump2Drive(scenario: ScenarioModel) {
+        // ファイル作成
+        const fileName = this.getTitle(scenario) + '.txt'
+        const fileId = await GoogleDriveApiDao.createFile(fileName)
+        if (!fileId) return // error
+
+        CommonUtil.dispatch(ScenarioSlice.actions.setGoogleDriveFileId({
+            fileId: fileId,
+        }))
+
+        // ファイルの中身を更新
+        GoogleDriveApiDao.patchFile(
+            fileId,
+            this.getScenarioText(scenario)
+        )
+    }
 }
 
 export default new ScenarioUtil()

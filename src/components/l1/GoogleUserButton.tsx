@@ -96,12 +96,10 @@ const App = (props: Props) => {
         handleClose()
     }
     const saveScenario = () => {
-        const fileName = ScenarioUtil.getTitle(scenario) + '.txt'
-        GoogleDriveApiDao.createFile(fileName)
-        // FileUtil.download(fileName, ScenarioUtil.getScenarioText(scenario))
-        handleClose()
+        ScenarioUtil.dump2Drive(scenario)
 
-        // GAUtil.event(C.GaAction.SAVE, C.GaCategory.NONE, 'txt')
+        GAUtil.event(C.GaAction.DUMP, C.GaCategory.NONE, 'google')
+        handleClose()
     }
     const logout = () => {
         GoogleDriveApiDao.logout();

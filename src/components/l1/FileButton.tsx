@@ -67,7 +67,7 @@ const App = (props: Props) => {
         const fileName = ScenarioUtil.getTitle(scenario) + '.txt'
         FileUtil.download(fileName, ScenarioUtil.getScenarioText(scenario))
 
-        GAUtil.event(C.GaAction.SAVE, C.GaCategory.NONE, 'txt')
+        GAUtil.event(C.GaAction.DUMP, C.GaCategory.NONE, 'file')
         handleClose()
     }
 
