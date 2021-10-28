@@ -46,6 +46,7 @@ export const GoogleApiScope = [
 export const GoogleApiDiscoveryDocs = [
     'https://www.googleapis.com/discovery/v1/apis/drive/v3/rest'
 ]
+export const DriveFolderName = 'HAKOGAKI'
 
 export const HttpRequestBoundary = '-------314159265358979323846'
 export const HttpRequestDelimiter = '\r\n--' + HttpRequestBoundary + '\r\n'

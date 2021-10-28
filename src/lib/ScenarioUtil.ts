@@ -136,7 +136,7 @@ class ScenarioUtil {
         // ファイルがなければ作成
         if (!copied.config.googleDriveFileId) {
             const fileName = this.getTitle(scenario) + '.json'
-            const fileId = await GoogleDriveApiDao.createFile(fileName)
+            const fileId = await await GoogleDriveApiDao.createFile(fileName)
             if (!fileId) return // error
             
             copied.config.googleDriveFileId = fileId
@@ -159,7 +159,7 @@ class ScenarioUtil {
     async dump2Drive(scenario: ScenarioModel) {
         // ファイル作成
         const fileName = this.getTitle(scenario) + '.txt'
-        const fileId = await GoogleDriveApiDao.createFile(fileName)
+        const fileId = await await GoogleDriveApiDao.createFile(fileName)
         if (!fileId) return // error
 
         CommonUtil.dispatch(ScenarioSlice.actions.setGoogleDriveFileId({
@@ -170,7 +170,7 @@ class ScenarioUtil {
         GoogleDriveApiDao.patchFile(
             fileId,
             this.getScenarioText(scenario)
-        )
+        )?.catch(() => {})
     }
 }
 

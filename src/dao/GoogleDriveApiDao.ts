@@ -42,8 +42,44 @@ class GoogleDriveApiDao {
         })
     }
 
-    createDirctoryIfNotExists() {
-        gapi.client.drive.
+    async createDirctoryIfNotExists() {
+        if (!this.expiredAt) return;
+        this.reloadToken();
+
+        const query = 'mimeType = "application/vnd.google-apps.folder"'
+            + ' and name = "'+C.DriveFolderName+'"'
+            + ' and trashed = false'
+
+        let id = await gapi.client.drive.files.list({
+            q: query,
+            fields: 'files(id)',
+        }).then((res) => {
+            if (res.result.files?.length == 0) return ''
+            return res.result.files?.[0].id!
+        }).catch((err) => {
+            console.error(err)
+            const message = 'Google Driveファイル取得エラー'
+            CommonUtil.enqueueSnackbar(message, { variant: C.NotificationType.ERROR})
+        })
+
+        if (!id) { // フォルダがない
+            id = await gapi.client.drive.files.create({
+                resource: {
+                    mimeType: 'application/vnd.google-apps.folder',
+                    name: 'HAKOGAKI',
+                }
+            }).then((res) => {
+                const message = 'Google DriveにHAKOGAKIフォルダを作成しました。'
+                CommonUtil.enqueueSnackbar(message, { variant: C.NotificationType.SUCCESS})
+                return res.result.id!
+            }).catch((err) => {
+                console.error(err)
+                const message = 'Google Driveフォルダ作成エラー'
+                CommonUtil.enqueueSnackbar(message, { variant: C.NotificationType.ERROR})
+            })
+        }
+
+        return id
     }
 
     getFile(fileId:string) {
@@ -68,16 +104,15 @@ class GoogleDriveApiDao {
         })
     }
 
-    createFile(fileName: string) {
+    async createFile(fileName: string) {
         if (!this.expiredAt) return;
         this.reloadToken();
 
-        const metaData = {
-            'name': fileName,
-        }
+        const folderId = await this.createDirctoryIfNotExists()
+        if (!folderId) return // Error
 
         return gapi.client.drive.files.create({
-            resource: metaData,
+            resource: { name: fileName, parents: [folderId!] },
         }).then((res) => {
             const message = 'Google Driveにファイルを作成しました。'
             CommonUtil.enqueueSnackbar(message, { variant: C.NotificationType.SUCCESS})
@@ -146,7 +181,6 @@ class GoogleDriveApiDao {
             console.error(err)
             const message = 'Google Driveファイル取得エラー'
             CommonUtil.enqueueSnackbar(message, { variant: C.NotificationType.ERROR})
-            throw new Error()
         })
     }
     
