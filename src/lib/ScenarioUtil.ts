@@ -121,7 +121,12 @@ class ScenarioUtil {
 
     async loadProjectFromDrive(fileId: string) {
         const json = await GoogleDriveApiDao.getFile(fileId)
-        if (!json) return // error
+        if (!json) { // error
+            const message =
+                'Google Driveから読み込みに失敗しました。'
+            CommonUtil.enqueueSnackbar(message, { variant: C.NotificationType.ERROR })
+            return 
+        }
         this.loadProject(json)
     }
 
@@ -138,14 +143,18 @@ class ScenarioUtil {
                 fileId: fileId,
             }
             CommonUtil.dispatch(ScenarioSlice.actions.setGoogleDriveFileId(payload))
-            scenario.config.googleDriveFileId = fileId
         }
 
         // ファイルの中身を更新
         GoogleDriveApiDao.patchFile(
             fileId,
             JSON.stringify(scenario)
-        )
+        )?.catch(() => {
+            const payload = {
+                fileId: '',
+            }
+            CommonUtil.dispatch(ScenarioSlice.actions.setGoogleDriveFileId(payload))
+        })
     }
 }
 

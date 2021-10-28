@@ -34,14 +34,12 @@ class GoogleDriveApiDao {
     reloadToken() {
         if (!this.expiredAt || Date.now() < this.expiredAt) return;
 
-        this.reload()
-            .then(res => {
-                this.setToken(res.expires_at, this.reload)
-            })
-            .catch(res => {
-                console.error('google api token refresh error.')
-                console.error(res)
-            })
+        this.reload().then(res => {
+            this.setToken(res.expires_at, this.reload)
+        }).catch(res => {
+            console.error('google api token refresh error.')
+            console.error(res)
+        })
     }
 
     getFile(fileId:string) {
@@ -59,8 +57,7 @@ class GoogleDriveApiDao {
             alt: 'media'
         }).then((res) => {
             return res.body
-        })
-        .catch((err) => {
+        }).catch((err) => {
             console.error(err)
             const message = 'Google Driveファイル取得エラー'
             CommonUtil.enqueueSnackbar(message, { variant: C.NotificationType.ERROR})
@@ -77,11 +74,11 @@ class GoogleDriveApiDao {
 
         return gapi.client.drive.files.create({
             resource: metaData,
-        })
-        .then((res) => {
+        }).then((res) => {
+            const message = 'Google Driveにファイルを作成しました。'
+            CommonUtil.enqueueSnackbar(message, { variant: C.NotificationType.SUCCESS})
             return res.result.id
-        })
-        .catch((err) => {
+        }).catch((err) => {
             console.error(err)
             const message = 'Google Driveファイル作成エラー'
             CommonUtil.enqueueSnackbar(message, { variant: C.NotificationType.ERROR})
@@ -92,9 +89,14 @@ class GoogleDriveApiDao {
         if (!this.expiredAt) return;
         this.reloadToken();
 
+        const params = {
+            fileId: fileId,
+            uploadType: 'multipart',
+        }
+
         const metaData = {
-            mimeType: 'text/plain'
-        };
+            mimeType: 'text/plain',
+        }
 
         const multipartRequestBody =
             C.HttpRequestDelimiter +
@@ -103,27 +105,26 @@ class GoogleDriveApiDao {
             C.HttpRequestDelimiter +
             'Content-Type: application/json\r\n\r\n' +
             text +
-            C.HttpRequestCloseDelim;
+            C.HttpRequestCloseDelim
 
         return gapi.client.request({
             path: '/upload/drive/v3/files/' + fileId,
             method: 'PATCH',
-            params: { fileId: fileId, uploadType: 'multipart' },
+            params: params,
             headers: {
                 'Content-Type': 'multipart/form-data; boundary="'
                     + C.HttpRequestBoundary + '"',
                 Authorization: 'Bearer ' + gapi.auth.getToken().access_token
             },
             body: multipartRequestBody
-        })
-        .then((res) => {
+        }).then((res) => {
             const message = 'Google Driveにファイルを保存しました。'
             CommonUtil.enqueueSnackbar(message, { variant: C.NotificationType.SUCCESS})
-        })
-        .catch((err) => {
+        }).catch((err) => {
             console.error(err)
             const message = 'Google Driveファイル更新エラー'
             CommonUtil.enqueueSnackbar(message, { variant: C.NotificationType.ERROR})
+            throw new Error()
         })
     }
 
