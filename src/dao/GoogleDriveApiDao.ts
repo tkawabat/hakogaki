@@ -42,6 +42,10 @@ class GoogleDriveApiDao {
         })
     }
 
+    createDirctoryIfNotExists() {
+        gapi.client.drive.
+    }
+
     getFile(fileId:string) {
         if (!this.expiredAt) return;
         this.reloadToken();

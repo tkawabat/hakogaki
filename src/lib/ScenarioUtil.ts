@@ -131,29 +131,28 @@ class ScenarioUtil {
     }
 
     async saveProject2Drive(scenario: ScenarioModel) {
-        let fileId: string | void | undefined = scenario.config.googleDriveFileId
+        const copied: ScenarioModel = JSON.parse(JSON.stringify(scenario))
 
         // ファイルがなければ作成
-        if (!fileId) {
+        if (!copied.config.googleDriveFileId) {
             const fileName = this.getTitle(scenario) + '.json'
-            fileId = await GoogleDriveApiDao.createFile(fileName)
+            const fileId = await GoogleDriveApiDao.createFile(fileName)
             if (!fileId) return // error
             
-            const payload = {
+            copied.config.googleDriveFileId = fileId
+            CommonUtil.dispatch(ScenarioSlice.actions.setGoogleDriveFileId({
                 fileId: fileId,
-            }
-            CommonUtil.dispatch(ScenarioSlice.actions.setGoogleDriveFileId(payload))
+            }))
         }
 
         // ファイルの中身を更新
         GoogleDriveApiDao.patchFile(
-            fileId,
+            copied.config.googleDriveFileId,
             JSON.stringify(scenario)
         )?.catch(() => {
-            const payload = {
+            CommonUtil.dispatch(ScenarioSlice.actions.setGoogleDriveFileId({
                 fileId: '',
-            }
-            CommonUtil.dispatch(ScenarioSlice.actions.setGoogleDriveFileId(payload))
+            }))
         })
     }
 
