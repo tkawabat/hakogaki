@@ -4,6 +4,7 @@ import * as C from '../lib/Const'
 
 export interface ModalModel {
     autoSaveCation: boolean
+    driveList: boolean
 }
 
 export interface SetPayload {
@@ -12,6 +13,7 @@ export interface SetPayload {
 
 const initialState: ModalModel = {
     autoSaveCation: true,
+    driveList: false,
 }
 
 const slice = createSlice({
@@ -20,6 +22,9 @@ const slice = createSlice({
     reducers: {
         setAutoSaveCation: (state, action: PayloadAction<SetPayload>) => {
             state.autoSaveCation = action.payload.open;
+        },
+        setDriveList: (state, action: PayloadAction<SetPayload>) => {
+            state.driveList = action.payload.open;
         },
     },
 })
