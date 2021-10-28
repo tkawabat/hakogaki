@@ -132,7 +132,18 @@ class GoogleDriveApiDao {
         if (!this.expiredAt) return;
         this.reloadToken();
 
-        gapi.client.drive.files.list().then((res) => console.log(res))
+        return gapi.client.drive.files.list({
+            q: 'fileExtension = "json"',
+            orderBy: 'modifiedTime desc',
+            fields: 'files(id, name, modifiedTime)',
+        }).then((res) => {
+            return res.result.files
+        }).catch((err) => {
+            console.error(err)
+            const message = 'Google Driveファイル取得エラー'
+            CommonUtil.enqueueSnackbar(message, { variant: C.NotificationType.ERROR})
+            throw new Error()
+        })
     }
     
 }

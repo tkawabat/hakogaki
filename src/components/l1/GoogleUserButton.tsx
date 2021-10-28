@@ -2,16 +2,21 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 import { useSnackbar } from 'notistack'
+import moment from 'moment'
 
 import { Menu, MenuItem, Tooltip } from '@mui/material/'
 
 import { RootState } from '../../store/rootReducer'
 import ScenarioSlice, { LoadPayload } from '../../store/ScenarioSlice'
+import ModalSlice from 'src/store/ModalSlice'
+import DriveListSlice from 'src/store/DriveListSlice'
 import ScenarioModel from '../../store/model/ScenarioModel'
 import { GoogleModel } from '../../store/GoogleSlice'
+import DriveListItemModel from 'src/store/model/DriveListItemModel'
+
+import GoogleDriveApiDao from '../../dao/GoogleDriveApiDao'
 
 import * as C from '../../lib/Const'
-import GoogleDriveApiDao from '../../dao/GoogleDriveApiDao'
 import GAUtil from '../../lib/GAUtil'
 import ScenarioUtil from 'src/lib/ScenarioUtil'
 
@@ -63,17 +68,23 @@ const App = (props: Props) => {
         setAnchorEl(null)
     }
     const loadProject = () => {
-        // const fileName = ScenarioUtil.getTitle(scenario) + '.json'
-        // FileUtil.download(fileName, JSON.stringify(scenario))
+        GoogleDriveApiDao.getList()?.then((res) => {
+            const items: DriveListItemModel[] = res!.map((r) => {
+                const items: DriveListItemModel = {
+                    fileId: r.id!,
+                    title: r.name!,
+                    updatedAt: moment(r.modifiedTime)
+                }
+                return items
+            })
+            const payload = {
+                items: items
+            }
+            dispatch(DriveListSlice.actions.set(payload))
+            dispatch(ModalSlice.actions.setDriveList({ open: true}))
+        })
+
         handleClose()
-
-        ScenarioUtil.loadProjectFromDrive(scenario.config.googleDriveFileId)
-        // GoogleDriveApiDao.getList()
-
-        // ScenarioUtil.getProgress(scenario).forEach((message: string) => {
-            // enqueueSnackbar(message, { variant: C.NotificationType.SUCCESS })
-        // })
-        // GAUtil.event(C.GaAction.SAVE, C.GaCategory.NONE, 'project')
     }
     const saveProject = () => {
         ScenarioUtil.saveProject2Drive(scenario)
