@@ -5,6 +5,7 @@ import Header from '../l4/Header'
 import BodyScenarioMode from '../l4/BodyScenarioMode'
 import BodyPlotMode from '../l4/BodyPlotMode'
 import AutoSaveCautionModal from '../l2/AutoSaveCautionModal'
+import DriveListModal from '../l2/DriveFileListModal'
 
 const Main = styled.div`
     display: flex;
@@ -22,6 +23,7 @@ const App = () => {
                 <BodyPlotMode />
             </Main>
             <AutoSaveCautionModal />
+            <DriveListModal />
         </Fragment>
     )
 }
