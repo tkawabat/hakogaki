@@ -42,6 +42,14 @@ const App = () => {
                 MenuListProps={{ 'aria-labelledby': 'basic-button' }}
             >
                 <Link
+                    href="/privacy"
+                    color="inherit"
+                    underline="none"
+                    target="_blank"
+                >
+                    <MenuItem>プライバシーポリシー</MenuItem>
+                </Link>
+                <Link
                     href="https://peing.net/ja/matchingrandom"
                     color="inherit"
                     underline="none"
