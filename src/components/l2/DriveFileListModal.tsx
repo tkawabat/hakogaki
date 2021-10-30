@@ -11,7 +11,7 @@ import { RootState } from 'src/store/rootReducer'
 import DriveListItem from '../l1/DriveListItem'
 
 const style = {
-    position: 'absolute',
+    position: 'absolute' as 'absolute',
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
