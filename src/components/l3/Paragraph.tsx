@@ -57,9 +57,10 @@ const MemoTodoArea = React.memo(TodoArea)
 const MemoMemoArea = React.memo(MemoArea)
 
 const App = (props: Props) => {
-    const [expanded, setExpanded] = React.useState<boolean>(false)
-
     const checked = props.paragraph.checked
+    // 一番上だけ開ける
+    const isOpen = props.paragraphId == 0 && !checked
+    const [expanded, setExpanded] = React.useState<boolean>(isOpen)
 
     return (
         <Root
