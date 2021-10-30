@@ -68,28 +68,16 @@ const App = (props: Props) => {
             className="paragraph"
             sx={checked ? { background: '#dddddd' } : {}}
         >
-            <Header
-                expandIcon={<ExpandMore />}
-                onClick={() => setExpanded(!expanded)}
-            >
-                <MemoParagraphHeader
-                    paragraphId={props.paragraphId}
-                    paragraph={props.paragraph}
-                />
+            <Header expandIcon={<ExpandMore />} onClick={() => setExpanded(!expanded)}>
+                <MemoParagraphHeader paragraphId={props.paragraphId} paragraph={props.paragraph} />
             </Header>
             <Detail>
                 <Main>
-                    <ScenarioArea
-                        paragraphId={props.paragraphId}
-                        text={props.paragraph.text}
-                    />
+                    <ScenarioArea paragraphId={props.paragraphId} text={props.paragraph.text} />
                     <ScenarioAreaCount text={props.paragraph.text} />
                 </Main>
                 <Sub>
-                    <MemoTodoArea
-                        paragraphId={props.paragraphId}
-                        todoList={props.paragraph.todo}
-                    />
+                    <MemoTodoArea paragraphId={props.paragraphId} todoList={props.paragraph.todo} />
                     <MemoMemoArea id={props.paragraphId} />
                 </Sub>
             </Detail>

@@ -1,23 +1,27 @@
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 
-import { Box, Button, Typography, Modal } from '@mui/material'
+import { Box, List, Modal, Typography } from '@mui/material'
 
 import * as C from '../../lib/Const'
-import StorageUtil from '../../lib/StorageUtil'
+
 import ModalSlice from 'src/store/ModalSlice'
 import { RootState } from 'src/store/rootReducer'
+
+import DriveListItem from '../l1/DriveListItem'
 
 const style = {
     position: 'absolute' as 'absolute',
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: 300,
     bgcolor: 'background.paper',
     border: '2px solid #000',
     boxShadow: 24,
     p: 4,
+    padding: '10px',
+    maxWidth: '600px',
+    minWidth: '300px',
 }
 
 const StyledBox = styled(Box)`
@@ -26,33 +30,26 @@ const StyledBox = styled(Box)`
     font-size: 14px;
 `
 
-const StyledButton = styled(Button)`
-    display: flex;
-    align-self: flex-end;
-    width: 120px;
-`
-
-const Message = styled.div`
+const StyledList = styled(List)`
     margin-top: 10px;
-    margin-bottom: 10px;
+    margin-left: 5px;
 `
 
 const App = () => {
     const dispatch = useDispatch()
-    const state = useSelector((state: RootState) => state.modal.autoSaveCation)
+    const isOpen = useSelector((state: RootState) => state.modal.driveList)
+    const items = useSelector((state: RootState) => state.driveList.items)
 
     const close = () => {
         const payload = {
             open: false,
         }
-        dispatch(ModalSlice.actions.setAutoSaveCation(payload))
-    }
-    const neverOpen = () => {
-        StorageUtil.save(C.StorageKeyAutoSaveCationModal, '1')
-        close()
+        dispatch(ModalSlice.actions.setDriveList(payload))
     }
 
-    const isOpen = state && StorageUtil.load(C.StorageKeyAutoSaveCationModal) != '1'
+    const ListItems = items.map((v, i) => {
+        return <DriveListItem model={v} key={i} />
+    })
 
     return (
         <div>
@@ -64,17 +61,9 @@ const App = () => {
             >
                 <StyledBox sx={style}>
                     <Typography variant="h6" component="h4">
-                        注意
+                        プロジェクトリスト
                     </Typography>
-                    <Message>
-                        {'' +
-                            'シナリオは定期的にファイルに保存することをオススメします。' +
-                            'ブラウザに自動保存されたデータは予期せぬタイミングで消えることがあります。'}
-                    </Message>
-
-                    <StyledButton variant="text" size="small" onClick={neverOpen}>
-                        次から表示しない
-                    </StyledButton>
+                    <StyledList>{ListItems}</StyledList>
                 </StyledBox>
             </Modal>
         </div>

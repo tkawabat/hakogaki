@@ -4,9 +4,7 @@ import styled from 'styled-components'
 import { IconButton, Tooltip } from '@mui/material/'
 import { Delete } from '@mui/icons-material/'
 
-import ScenarioSlice, {
-    DeleteParagraphPayload,
-} from '../../store/ScenarioSlice'
+import ScenarioSlice, { DeleteParagraphPayload } from '../../store/ScenarioSlice'
 import ParagraphModel from '../../store/model/ParagraphModel'
 
 import ScenarioUtil from '../../lib/ScenarioUtil'

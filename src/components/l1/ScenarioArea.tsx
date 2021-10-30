@@ -24,9 +24,7 @@ const App = (props: Props) => {
         dispatch(ScenarioSlice.actions.changeText(payload))
     }
 
-    return (
-        <Area placeholder="本文を入力" onChange={onChange} value={props.text} />
-    )
+    return <Area placeholder="本文を入力" onChange={onChange} value={props.text} />
 }
 
 export default App

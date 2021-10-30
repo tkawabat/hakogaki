@@ -6,13 +6,13 @@ import { RootState } from 'src/store/rootReducer'
 
 import * as C from '../../lib/Const'
 
+import GoogleButton from '../l2/GoogleButton'
 import Center from '../l1/Center'
 import Left from '../l1/Left'
 import Right from '../l1/Right'
 import ScenarioConfigModeChip from '../l1/ScenarioConfigModeChip'
 import DeleteScenarioButton from '../l1/DeleteScenarioButton'
-import JsonImportButton from '../l1/JsonImportButton'
-import DumpButton from '../l1/DumpButton'
+import FileButton from '../l1/FileButton'
 import HelpButton from '../l1/HelpButton'
 import ScenarioTitle from '../l1/ScenarioTitle'
 
@@ -24,8 +24,8 @@ const Root = styled.div`
 `
 
 const ToolTitle = styled.span`
-    font-family: 'Helvetica Neue', 'Helvetica', 'Hiragino Sans',
-        'Hiragino Kaku Gothic ProN', 'Arial', 'Yu Gothic', 'Meiryo', sans-serif;
+    font-family: 'Helvetica Neue', 'Helvetica', 'Hiragino Sans', 'Hiragino Kaku Gothic ProN',
+        'Arial', 'Yu Gothic', 'Meiryo', sans-serif;
     font-size: 20px;
     font-weight: bold;
 `
@@ -52,8 +52,8 @@ const App = () => {
             <StyledRight>
                 <ScenarioConfigModeChip />
                 <DeleteScenarioButton />
-                <JsonImportButton />
-                <DumpButton />
+                <FileButton />
+                <GoogleButton />
                 <HelpButton />
             </StyledRight>
         </Root>

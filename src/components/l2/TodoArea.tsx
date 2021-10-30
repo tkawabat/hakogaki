@@ -19,9 +19,7 @@ type Props = {
 
 const App = (props: Props) => {
     const todo = props.todoList.map((e, i) => {
-        return (
-            <Todo paragraphId={props.paragraphId} todoId={i} todo={e} key={i} />
-        )
+        return <Todo paragraphId={props.paragraphId} todoId={i} todo={e} key={i} />
     })
 
     return (

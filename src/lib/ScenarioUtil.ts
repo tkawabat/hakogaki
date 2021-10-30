@@ -1,8 +1,13 @@
 import * as C from './Const'
 
+import ScenarioSlice from 'src/store/ScenarioSlice'
 import ParagraphModel from '../store/model/ParagraphModel'
 import ScenarioModel from '../store/model/ScenarioModel'
 import TodoModel from '../store/model/TodoModel'
+
+import GoogleDriveApiDao from '../dao/GoogleDriveApiDao'
+
+import CommonUtil from './CommonUtil'
 
 class ScenarioUtil {
     isParagraphEmpty(paragraph: ParagraphModel): boolean {
@@ -70,12 +75,8 @@ class ScenarioUtil {
 
         const previousTextLength = this.getTextLength(scenario.old)
         const nowTextLength = this.getTextLength(scenario.paragraphList)
-        const previousCheckedParagraphNum = this.getCheckedParagraphNum(
-            scenario.old
-        )
-        const nowCheckedParagraphNum = this.getCheckedParagraphNum(
-            scenario.paragraphList
-        )
+        const previousCheckedParagraphNum = this.getCheckedParagraphNum(scenario.old)
+        const nowCheckedParagraphNum = this.getCheckedParagraphNum(scenario.paragraphList)
         const previousCheckedTodoNum = this.getCheckedTodoNum(scenario.old)
         const nowCheckedTodoNum = this.getCheckedTodoNum(scenario.paragraphList)
 
@@ -95,6 +96,84 @@ class ScenarioUtil {
         }
 
         return ret
+    }
+
+    loadProject(json: string) {
+        try {
+            const scenario: ScenarioModel = JSON.parse(json)
+            const payload = {
+                scenario: scenario,
+            }
+            CommonUtil.dispatch(ScenarioSlice.actions.load(payload))
+            const message = 'プロジェクトファイルを読み込みました。'
+            CommonUtil.enqueueSnackbar(message, {
+                variant: C.NotificationType.SUCCESS,
+            })
+        } catch {
+            const message = 'プロジェクトファイルの読み込みに失敗しました。形式が間違っています。'
+            CommonUtil.enqueueSnackbar(message, {
+                variant: C.NotificationType.ERROR,
+            })
+        }
+    }
+
+    async loadProjectFromDrive(fileId: string) {
+        const json = await GoogleDriveApiDao.getFile(fileId)
+        if (!json) {
+            // error
+            const message = 'Google Driveから読み込みに失敗しました。'
+            CommonUtil.enqueueSnackbar(message, {
+                variant: C.NotificationType.ERROR,
+            })
+            return
+        }
+        this.loadProject(json)
+    }
+
+    async saveProject2Drive(scenario: ScenarioModel) {
+        const copied: ScenarioModel = JSON.parse(JSON.stringify(scenario))
+
+        // ファイルがなければ作成
+        if (!copied.config.googleDriveFileId) {
+            const fileName = this.getTitle(scenario) + '.json'
+            const fileId = await await GoogleDriveApiDao.createFile(fileName)
+            if (!fileId) return // error
+
+            copied.config.googleDriveFileId = fileId
+            CommonUtil.dispatch(
+                ScenarioSlice.actions.setGoogleDriveFileId({
+                    fileId: fileId,
+                })
+            )
+        }
+
+        // ファイルの中身を更新
+        GoogleDriveApiDao.patchFile(
+            copied.config.googleDriveFileId,
+            JSON.stringify(scenario)
+        )?.catch(() => {
+            CommonUtil.dispatch(
+                ScenarioSlice.actions.setGoogleDriveFileId({
+                    fileId: '',
+                })
+            )
+        })
+    }
+
+    async dump2Drive(scenario: ScenarioModel) {
+        // ファイル作成
+        const fileName = this.getTitle(scenario) + '.txt'
+        const fileId = await await GoogleDriveApiDao.createFile(fileName)
+        if (!fileId) return // error
+
+        CommonUtil.dispatch(
+            ScenarioSlice.actions.setGoogleDriveFileId({
+                fileId: fileId,
+            })
+        )
+
+        // ファイルの中身を更新
+        GoogleDriveApiDao.patchFile(fileId, this.getScenarioText(scenario))?.catch(() => {})
     }
 }
 

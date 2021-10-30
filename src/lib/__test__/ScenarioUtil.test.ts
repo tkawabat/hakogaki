@@ -2,9 +2,7 @@ import sinon from 'sinon'
 
 import ScenarioUtil from '../ScenarioUtil'
 import { createScenario } from '../../store/model/ScenarioModel'
-import ParagraphModel, {
-    createParagraph,
-} from '../../store/model/ParagraphModel'
+import ParagraphModel, { createParagraph } from '../../store/model/ParagraphModel'
 import { createTodo } from '../../store/model/TodoModel'
 
 let stubs: sinon.SinonStub[] = []
@@ -172,10 +170,7 @@ describe('getProgress', () => {
         stubGetTextLength.withArgs(input.old).returns(1)
         stubs.push(stubGetTextLength)
 
-        const stubGetCheckedTodoNum = sinon.stub(
-            ScenarioUtil,
-            'getCheckedTodoNum'
-        )
+        const stubGetCheckedTodoNum = sinon.stub(ScenarioUtil, 'getCheckedTodoNum')
         stubGetCheckedTodoNum.withArgs(input.paragraphList).returns(1)
         stubGetCheckedTodoNum.withArgs(input.old).returns(1)
         stubs.push(stubGetCheckedTodoNum)
@@ -197,18 +192,12 @@ describe('getProgress', () => {
         stubGetTextLength.withArgs(input.old).returns(1)
         stubs.push(stubGetTextLength)
 
-        const stubGetCheckedParagraphNum = sinon.stub(
-            ScenarioUtil,
-            'getCheckedParagraphNum'
-        )
+        const stubGetCheckedParagraphNum = sinon.stub(ScenarioUtil, 'getCheckedParagraphNum')
         stubGetCheckedParagraphNum.withArgs(input.paragraphList).returns(3)
         stubGetCheckedParagraphNum.withArgs(input.old).returns(1)
         stubs.push(stubGetCheckedParagraphNum)
 
-        const stubGetCheckedTodoNum = sinon.stub(
-            ScenarioUtil,
-            'getCheckedTodoNum'
-        )
+        const stubGetCheckedTodoNum = sinon.stub(ScenarioUtil, 'getCheckedTodoNum')
         stubGetCheckedTodoNum.withArgs(input.paragraphList).returns(4)
         stubGetCheckedTodoNum.withArgs(input.old).returns(1)
         stubs.push(stubGetCheckedTodoNum)

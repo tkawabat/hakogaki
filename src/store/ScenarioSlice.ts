@@ -14,6 +14,10 @@ export interface ScenarioConfigModePayload {
     mode: C.ScenarioConfigMode
 }
 
+export interface ScenarioConfigGoogleDriveFileIdPayload {
+    fileId: string
+}
+
 export interface AddParagraphUnderPayload {
     paragraphId: number
 }
@@ -81,13 +85,9 @@ const slice = createSlice({
     reducers: {
         load: (state, action: PayloadAction<LoadPayload>) => {
             const scenario = action.payload.scenario
-            if (
-                scenario.config.formatVersion < C.CurrentScenarioFormatVersion
-            ) {
+            if (scenario.config.formatVersion < C.CurrentScenarioFormatVersion) {
                 // TODO
-                window.alert(
-                    'プロジェクトファイルのバージョンが古く読み込めません。'
-                )
+                window.alert('プロジェクトファイルのバージョンが古く読み込めません。')
             }
             state.title = scenario.title
             state.memo = scenario.memo
@@ -105,41 +105,32 @@ const slice = createSlice({
             state.old = scenario.paragraphList
         },
 
-        changeScenarioConfigMode: (
-            state,
-            action: PayloadAction<ScenarioConfigModePayload>
-        ) => {
+        changeScenarioConfigMode: (state, action: PayloadAction<ScenarioConfigModePayload>) => {
             state.config.mode = action.payload.mode
+        },
+
+        setGoogleDriveFileId: (
+            state,
+            action: PayloadAction<ScenarioConfigGoogleDriveFileIdPayload>
+        ) => {
+            state.config.googleDriveFileId = action.payload.fileId
         },
 
         addParagraph: (state: ScenarioModel) => {
             state.paragraphList.push(createParagraph())
         },
 
-        addParagraphUnder: (
-            state,
-            action: PayloadAction<AddParagraphUnderPayload>
-        ) => {
+        addParagraphUnder: (state, action: PayloadAction<AddParagraphUnderPayload>) => {
             const id = action.payload.paragraphId
             if (id < 0 || id >= state.paragraphList.length) return
-            state.paragraphList.splice(
-                action.payload.paragraphId + 1,
-                0,
-                createParagraph()
-            )
+            state.paragraphList.splice(action.payload.paragraphId + 1, 0, createParagraph())
         },
 
-        deleteParagraph: (
-            state: ScenarioModel,
-            action: PayloadAction<DeleteParagraphPayload>
-        ) => {
+        deleteParagraph: (state: ScenarioModel, action: PayloadAction<DeleteParagraphPayload>) => {
             state.paragraphList.splice(action.payload.paragraphId, 1)
         },
 
-        moveUpParagraph: (
-            state,
-            action: PayloadAction<MoveUpParagraphPayload>
-        ) => {
+        moveUpParagraph: (state, action: PayloadAction<MoveUpParagraphPayload>) => {
             const id = action.payload.paragraphId
             if (id == 0) return
             if (!state.paragraphList[id]) return
@@ -148,10 +139,7 @@ const slice = createSlice({
             state.paragraphList[id - 1] = paragraph
         },
 
-        moveDownParagraph: (
-            state,
-            action: PayloadAction<MoveUpParagraphPayload>
-        ) => {
+        moveDownParagraph: (state, action: PayloadAction<MoveUpParagraphPayload>) => {
             const id = action.payload.paragraphId
             if (id >= state.paragraphList.length - 1) return
             if (!state.paragraphList[id]) return
@@ -168,63 +156,41 @@ const slice = createSlice({
             state.memo = action.payload.text
         },
 
-        toggleParagraphChecked: (
-            state,
-            action: PayloadAction<ToggleParagraphCheckedPayload>
-        ) => {
-            const checked =
-                state.paragraphList[action.payload.paragraphId].checked
+        toggleParagraphChecked: (state, action: PayloadAction<ToggleParagraphCheckedPayload>) => {
+            const checked = state.paragraphList[action.payload.paragraphId].checked
             state.paragraphList[action.payload.paragraphId].checked = !checked
         },
 
-        changeSubTitle: (
-            state,
-            action: PayloadAction<ChangeSubTitlePayload>
-        ) => {
-            state.paragraphList[action.payload.paragraphId].subTitle =
-                action.payload.subTitle
+        changeSubTitle: (state, action: PayloadAction<ChangeSubTitlePayload>) => {
+            state.paragraphList[action.payload.paragraphId].subTitle = action.payload.subTitle
         },
 
         changeText: (state, action: PayloadAction<ChangeTextPayload>) => {
-            state.paragraphList[action.payload.paragraphId].text =
-                action.payload.text
+            state.paragraphList[action.payload.paragraphId].text = action.payload.text
         },
 
         addTodo: (state, action: PayloadAction<AddTodoPayload>) => {
-            state.paragraphList[action.payload.paragraphId].todo.push(
-                createTodo()
-            )
+            state.paragraphList[action.payload.paragraphId].todo.push(createTodo())
         },
 
         deleteTodo: (state, action: PayloadAction<DeleteTodoPayload>) => {
-            state.paragraphList[action.payload.paragraphId].todo.splice(
-                action.payload.todoId,
-                1
-            )
+            state.paragraphList[action.payload.paragraphId].todo.splice(action.payload.todoId, 1)
         },
 
-        changeTodoText: (
-            state,
-            action: PayloadAction<ChangeTodoTextPayload>
-        ) => {
-            state.paragraphList[action.payload.paragraphId].todo[
-                action.payload.todoId
-            ].text = action.payload.text
+        changeTodoText: (state, action: PayloadAction<ChangeTodoTextPayload>) => {
+            state.paragraphList[action.payload.paragraphId].todo[action.payload.todoId].text =
+                action.payload.text
         },
 
         toggleTodo: (state, action: PayloadAction<ToggleTodoPayload>) => {
             const checked =
-                state.paragraphList[action.payload.paragraphId].todo[
-                    action.payload.todoId
-                ].checked
-            state.paragraphList[action.payload.paragraphId].todo[
-                action.payload.todoId
-            ].checked = !checked
+                state.paragraphList[action.payload.paragraphId].todo[action.payload.todoId].checked
+            state.paragraphList[action.payload.paragraphId].todo[action.payload.todoId].checked =
+                !checked
         },
 
         changeParagraphMemo: (state, action: PayloadAction<ChangeParagraphMemoPayload>) => {
-            state.paragraphList[action.payload.paragraphId].memo =
-                action.payload.memo
+            state.paragraphList[action.payload.paragraphId].memo = action.payload.memo
         },
     },
 })

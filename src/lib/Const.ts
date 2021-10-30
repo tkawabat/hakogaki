@@ -11,6 +11,9 @@ export enum NotificationType {
 
 export enum GaAction {
     SAVE = 'save',
+    DUMP = 'dump',
+    LOGIN = 'login',
+    LOGOUT = 'logout',
 }
 
 export enum GaCategory {
@@ -34,3 +37,13 @@ export const NoTitleFileName = 'タイトル未定' // ファイル名で使用
 export const CurrentScenarioFormatVersion = 1
 
 export const AppNameShort = 'HAKOGAKI(β)'
+
+export const GoogleApiClientId = process.env.NEXT_PUBLIC_GOOGLE_API_CLIENT_ID || ''
+export const GoogleApiHost = 'https://www.googleapis.com'
+export const GoogleApiScope = ['https://www.googleapis.com/auth/drive.file'].join(' ')
+export const GoogleApiDiscoveryDocs = ['https://www.googleapis.com/discovery/v1/apis/drive/v3/rest']
+export const DriveFolderName = 'HAKOGAKI'
+
+export const HttpRequestBoundary = '-------314159265358979323846'
+export const HttpRequestDelimiter = '\r\n--' + HttpRequestBoundary + '\r\n'
+export const HttpRequestCloseDelim = '\r\n--' + HttpRequestBoundary + '--'

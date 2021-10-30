@@ -1,9 +1,4 @@
-import {
-    combineReducers,
-    configureStore,
-    ThunkAction,
-    Action,
-} from '@reduxjs/toolkit'
+import { combineReducers, configureStore, ThunkAction, Action } from '@reduxjs/toolkit'
 import rootReducer from './rootReducer'
 
 export const store = configureStore({
