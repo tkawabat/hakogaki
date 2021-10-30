@@ -4,20 +4,26 @@ import styled from 'styled-components'
 
 import { RootState } from 'src/store/rootReducer'
 
-import * as C from '../../lib/Const'
+import * as C from '../../../lib/Const'
+import { pc, sp} from '../../../lib/Responsive'
 
-import GoogleButton from '../l2/GoogleButton'
-import Center from '../l1/Center'
-import Left from '../l1/Left'
-import Right from '../l1/Right'
-import ScenarioConfigModeChip from '../l1/ScenarioConfigModeChip'
-import DeleteScenarioButton from '../l1/DeleteScenarioButton'
-import FileButton from '../l1/FileButton'
-import HelpButton from '../l1/HelpButton'
-import ScenarioTitle from '../l1/ScenarioTitle'
+import GoogleButton from '../../l2/GoogleButton'
+import Center from '../../l1/Center'
+import Left from '../../l1/Left'
+import Right from '../../l1/Right'
+import ScenarioConfigModeChip from '../../l1/ScenarioConfigModeChip'
+import DeleteScenarioButton from '../../l1/DeleteScenarioButton'
+import FileButton from '../../l1/FileButton'
+import HelpButton from '../../l1/HelpButton'
+import ScenarioTitle from '../../l1/ScenarioTitle'
 
 const Root = styled.div`
-    display: flex;
+    ${pc`
+        display: flex;
+    `}
+    ${sp`
+        display: none;
+    `}
     width: 100%;
     height: 50px;
     background-color: #d7e6ef;
