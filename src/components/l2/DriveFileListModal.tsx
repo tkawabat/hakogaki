@@ -48,9 +48,9 @@ const App = () => {
         dispatch(ModalSlice.actions.setDriveList(payload))
     }
 
-    const ListItems = items.map((item) => {
+    const ListItems = items.map((v, i) => {
         return (
-            <DriveListItem model={item} />
+            <DriveListItem model={v} key={i}/>
         )
     })
 
