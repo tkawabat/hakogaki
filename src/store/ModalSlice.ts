@@ -21,10 +21,10 @@ const slice = createSlice({
     initialState,
     reducers: {
         setAutoSaveCation: (state, action: PayloadAction<SetPayload>) => {
-            state.autoSaveCation = action.payload.open;
+            state.autoSaveCation = action.payload.open
         },
         setDriveList: (state, action: PayloadAction<SetPayload>) => {
-            state.driveList = action.payload.open;
+            state.driveList = action.payload.open
         },
     },
 })

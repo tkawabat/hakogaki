@@ -64,20 +64,14 @@ const App = (props: Props) => {
             sx={checked ? { background: '#dddddd' } : {}}
         >
             <Header>
-                <MemoParagraphHeader
-                    paragraphId={props.paragraphId}
-                    paragraph={props.paragraph}
-                />
+                <MemoParagraphHeader paragraphId={props.paragraphId} paragraph={props.paragraph} />
             </Header>
             <Detail>
                 <Main>
                     <MemoMemoArea id={props.paragraphId} />
                 </Main>
                 <Sub>
-                    <MemoTodoArea
-                        paragraphId={props.paragraphId}
-                        todoList={props.paragraph.todo}
-                    />
+                    <MemoTodoArea paragraphId={props.paragraphId} todoList={props.paragraph.todo} />
                 </Sub>
             </Detail>
         </Root>

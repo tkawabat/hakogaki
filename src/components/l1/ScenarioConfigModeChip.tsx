@@ -4,9 +4,7 @@ import styled from 'styled-components'
 import { Chip, Tooltip } from '@mui/material/'
 
 import { RootState } from 'src/store/rootReducer'
-import ScenarioSlice, {
-    ScenarioConfigModePayload,
-} from '../../store/ScenarioSlice'
+import ScenarioSlice, { ScenarioConfigModePayload } from '../../store/ScenarioSlice'
 
 import * as C from '../../lib/Const'
 
@@ -22,8 +20,7 @@ type Props = {}
 const App = (props: Props) => {
     const dispatch = useDispatch()
     const mode = useSelector((state: RootState) => state.scenario.config.mode)
-    const color =
-        mode == C.ScenarioConfigMode.SCENARIO ? 'primary' : 'secondary'
+    const color = mode == C.ScenarioConfigMode.SCENARIO ? 'primary' : 'secondary'
 
     const onClick = () => {
         const newMode =

@@ -17,13 +17,13 @@ const slice = createSlice({
     initialState,
     reducers: {
         login: (state, action: PayloadAction<GoogleModel>) => {
-            state.email = action.payload.email;
-            state.imageUrl = action.payload.imageUrl;
+            state.email = action.payload.email
+            state.imageUrl = action.payload.imageUrl
         },
 
         logout: (state) => {
-            state.email = '';
-            state.imageUrl = '';
+            state.email = ''
+            state.imageUrl = ''
         },
     },
 })

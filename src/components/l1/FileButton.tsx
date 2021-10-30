@@ -24,15 +24,13 @@ const Root = styled.div`
 `
 
 const LoadItem = styled(ButtonUnstyled)`
-    cursor: pointer
+    cursor: pointer;
 `
 
 const App = (props: Props) => {
     const { enqueueSnackbar } = useSnackbar()
     const dispatch = useDispatch()
-    const scenario: ScenarioModel = useSelector(
-        (state: RootState) => state.scenario
-    )
+    const scenario: ScenarioModel = useSelector((state: RootState) => state.scenario)
 
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
     const open = Boolean(anchorEl)

@@ -12,7 +12,6 @@ import TimerUtil from '../../lib/TimerUtil'
 import StorageUtil from '../../lib/StorageUtil'
 import GAUtil from '../../lib/GAUtil'
 
-
 export default function App() {
     const { enqueueSnackbar } = useSnackbar()
     const dispatch = useDispatch()
@@ -53,10 +52,7 @@ export default function App() {
         TimerUtil.setInterval(
             C.TimerSaveProject,
             () => {
-                StorageUtil.save(
-                    C.StorageKeyScenario,
-                    JSON.stringify(scenarioRef.current)
-                )
+                StorageUtil.save(C.StorageKeyScenario, JSON.stringify(scenarioRef.current))
             },
             C.IntervalSaveScenario
         )

@@ -1,6 +1,6 @@
 import Document, { Html, Head, Main, NextScript } from 'next/document'
 import { ServerStyleSheets as MaterialUIStyleSheets } from '@mui/styles'
-import { ServerStyleSheet as StyledComponentsStyleSheets } from "styled-components"
+import { ServerStyleSheet as StyledComponentsStyleSheets } from 'styled-components'
 
 export default class MyDocument extends Document {
     render() {
@@ -52,12 +52,13 @@ MyDocument.getInitialProps = async (ctx) => {
     try {
         ctx.renderPage = () =>
             originalRenderPage({
-                enhanceApp: (App) => (props) => styledComponentsSheets.collectStyles(
-                    materialUISheets.collect(<App {...props} />)
-                ),
+                enhanceApp: (App) => (props) =>
+                    styledComponentsSheets.collectStyles(
+                        materialUISheets.collect(<App {...props} />)
+                    ),
             })
 
-        const initialProps = await Document.getInitialProps(ctx);
+        const initialProps = await Document.getInitialProps(ctx)
 
         return {
             ...initialProps,

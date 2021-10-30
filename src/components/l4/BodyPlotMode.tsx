@@ -54,7 +54,7 @@ const App = (props: Props) => {
     })
 
     const changeMemo = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-        const payload: TextPayload = { 
+        const payload: TextPayload = {
             text: e.target.value,
         }
         dispatch(ScenarioSlice.actions.changeMemo(payload))

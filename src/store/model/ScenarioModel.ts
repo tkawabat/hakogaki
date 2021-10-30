@@ -1,9 +1,7 @@
 import * as C from '../../lib/Const'
 
 import ParagraphModel, { createParagraph } from './ParagraphModel'
-import ScenarioConfigModel, {
-    createScenarioConfigModel,
-} from './ScenarioConfigModel'
+import ScenarioConfigModel, { createScenarioConfigModel } from './ScenarioConfigModel'
 
 // Scenarioのインターフェースを変えるときは
 // ・CurrentScenarioFormatVersionを上げる

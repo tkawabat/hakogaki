@@ -48,15 +48,13 @@ const GoogleIcon = styled.img`
     position: absolute;
     top: 0;
     left: 0;
-    height:100%;
+    height: 100%;
 `
 
 const App = (props: Props) => {
     const { enqueueSnackbar } = useSnackbar()
     const dispatch = useDispatch()
-    const scenario: ScenarioModel = useSelector(
-        (state: RootState) => state.scenario
-    )
+    const scenario: ScenarioModel = useSelector((state: RootState) => state.scenario)
 
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
     const open = Boolean(anchorEl)
@@ -73,22 +71,22 @@ const App = (props: Props) => {
                 const items: DriveListItemModel = {
                     fileId: r.id!,
                     title: r.name!,
-                    updatedAt: moment(r.modifiedTime)
+                    updatedAt: moment(r.modifiedTime),
                 }
                 return items
             })
             const payload = {
-                items: items
+                items: items,
             }
             dispatch(DriveListSlice.actions.set(payload))
-            dispatch(ModalSlice.actions.setDriveList({ open: true}))
+            dispatch(ModalSlice.actions.setDriveList({ open: true }))
         })
 
         handleClose()
     }
     const saveProject = () => {
         ScenarioUtil.saveProject2Drive(scenario)
-        
+
         ScenarioUtil.getProgress(scenario).forEach((message: string) => {
             enqueueSnackbar(message, { variant: C.NotificationType.SUCCESS })
         })
@@ -102,7 +100,7 @@ const App = (props: Props) => {
         handleClose()
     }
     const logout = () => {
-        GoogleDriveApiDao.logout();
+        GoogleDriveApiDao.logout()
         handleClose()
     }
 

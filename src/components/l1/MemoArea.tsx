@@ -14,9 +14,7 @@ type Props = {
 }
 
 const App = (props: Props) => {
-    const memo = useSelector(
-        (state: RootState) => state.scenario.paragraphList[props.id].memo
-    )
+    const memo = useSelector((state: RootState) => state.scenario.paragraphList[props.id].memo)
     const dispatch = useDispatch()
 
     const onChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {

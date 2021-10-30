@@ -8,12 +8,12 @@ import GoogleLoginButton from '../l1/GoogleLoginButton'
 import GoogleUserButton from '../l1/GoogleUserButton'
 
 const App = () => {
-    const googleModel: GoogleModel = useSelector(
-        (state: RootState) => state.google
-    )
+    const googleModel: GoogleModel = useSelector((state: RootState) => state.google)
 
-    return (googleModel.email == '' ?
-        <GoogleLoginButton /> : <GoogleUserButton googleModel={googleModel} />
+    return googleModel.email == '' ? (
+        <GoogleLoginButton />
+    ) : (
+        <GoogleUserButton googleModel={googleModel} />
     )
 }
 

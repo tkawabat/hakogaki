@@ -59,9 +59,7 @@ const App = (props: Props) => {
         dispatch(ScenarioSlice.actions.addParagraphUnder(payload))
         handleClose()
     }
-    const deleteParagraph = (
-        e: React.MouseEvent<HTMLLIElement, MouseEvent>
-    ) => {
+    const deleteParagraph = (e: React.MouseEvent<HTMLLIElement, MouseEvent>) => {
         const payload: DeleteParagraphPayload = {
             paragraphId: props.paragraphId,
         }

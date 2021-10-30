@@ -2,9 +2,7 @@ import { useDispatch } from 'react-redux'
 import styled from 'styled-components'
 import { Checkbox, Tooltip } from '@mui/material/'
 
-import ScenarioSlice, {
-    ToggleParagraphCheckedPayload,
-} from '../../store/ScenarioSlice'
+import ScenarioSlice, { ToggleParagraphCheckedPayload } from '../../store/ScenarioSlice'
 import ParagraphModel from '../../store/model/ParagraphModel'
 
 import Center from '../l1/Center'
@@ -42,22 +40,13 @@ export default function App(props: Props) {
     return (
         <Main>
             <Left>
-                <Title
-                    paragraphId={props.paragraphId}
-                    subTitle={props.paragraph.subTitle}
-                />
+                <Title paragraphId={props.paragraphId} subTitle={props.paragraph.subTitle} />
             </Left>
             <Right>
                 <Tooltip title="完了" arrow>
-                    <Checkbox
-                        checked={props.paragraph.checked}
-                        onClick={toggle}
-                    />
+                    <Checkbox checked={props.paragraph.checked} onClick={toggle} />
                 </Tooltip>
-                <ParagraphToolsButton
-                    paragraphId={props.paragraphId}
-                    paragraph={props.paragraph}
-                />
+                <ParagraphToolsButton paragraphId={props.paragraphId} paragraph={props.paragraph} />
             </Right>
         </Main>
     )

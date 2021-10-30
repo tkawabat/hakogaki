@@ -43,7 +43,7 @@ const App = () => {
 
     const close = () => {
         const payload = {
-            open: false
+            open: false,
         }
         dispatch(ModalSlice.actions.setAutoSaveCation(payload))
     }
@@ -52,8 +52,7 @@ const App = () => {
         close()
     }
 
-    const isOpen = state &&
-        StorageUtil.load(C.StorageKeyAutoSaveCationModal) != '1'
+    const isOpen = state && StorageUtil.load(C.StorageKeyAutoSaveCationModal) != '1'
 
     return (
         <div>
@@ -73,11 +72,7 @@ const App = () => {
                             'ブラウザに自動保存されたデータは予期せぬタイミングで消えることがあります。'}
                     </Message>
 
-                    <StyledButton
-                        variant="text"
-                        size="small"
-                        onClick={neverOpen}
-                    >
+                    <StyledButton variant="text" size="small" onClick={neverOpen}>
                         次から表示しない
                     </StyledButton>
                 </StyledBox>

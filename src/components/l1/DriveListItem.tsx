@@ -1,13 +1,12 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
 import styled from 'styled-components'
-import { ListItem, } from '@mui/material'
+import { ListItem } from '@mui/material'
 
 import ScenarioUtil from '../../lib/ScenarioUtil'
 
 import ModalSlice from '../../store/ModalSlice'
 import DriveListItemModel from '../../store/model/DriveListItemModel'
-
 
 interface Props {
     model: DriveListItemModel
@@ -22,7 +21,7 @@ const Item = styled(ListItem)`
 `
 
 const Title = styled.div`
-    align-self: flex-start;    
+    align-self: flex-start;
     font-size: 14px;
 `
 
@@ -49,7 +48,7 @@ const App = (props: Props) => {
     const onClick = () => {
         ScenarioUtil.loadProjectFromDrive(props.model.fileId)
         const payload = {
-            open: false
+            open: false,
         }
         dispatch(ModalSlice.actions.setDriveList(payload))
     }

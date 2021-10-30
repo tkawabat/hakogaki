@@ -24,8 +24,8 @@ const Root = styled.div`
 `
 
 const ToolTitle = styled.span`
-    font-family: 'Helvetica Neue', 'Helvetica', 'Hiragino Sans',
-        'Hiragino Kaku Gothic ProN', 'Arial', 'Yu Gothic', 'Meiryo', sans-serif;
+    font-family: 'Helvetica Neue', 'Helvetica', 'Hiragino Sans', 'Hiragino Kaku Gothic ProN',
+        'Arial', 'Yu Gothic', 'Meiryo', sans-serif;
     font-size: 20px;
     font-weight: bold;
 `

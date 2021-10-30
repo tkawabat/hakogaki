@@ -17,9 +17,8 @@ const slice = createSlice({
     initialState,
     reducers: {
         set: (state, action: PayloadAction<DriveListModel>) => {
-            state.items = action.payload.items;
+            state.items = action.payload.items
         },
-        
     },
 })
 

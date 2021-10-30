@@ -10,7 +10,6 @@ import GoogleDriveApiDao from '../dao/GoogleDriveApiDao'
 import CommonUtil from './CommonUtil'
 
 class ScenarioUtil {
-
     isParagraphEmpty(paragraph: ParagraphModel): boolean {
         if (paragraph.subTitle.length > 0) return false
         if (paragraph.text.length > 0) return false
@@ -76,12 +75,8 @@ class ScenarioUtil {
 
         const previousTextLength = this.getTextLength(scenario.old)
         const nowTextLength = this.getTextLength(scenario.paragraphList)
-        const previousCheckedParagraphNum = this.getCheckedParagraphNum(
-            scenario.old
-        )
-        const nowCheckedParagraphNum = this.getCheckedParagraphNum(
-            scenario.paragraphList
-        )
+        const previousCheckedParagraphNum = this.getCheckedParagraphNum(scenario.old)
+        const nowCheckedParagraphNum = this.getCheckedParagraphNum(scenario.paragraphList)
         const previousCheckedTodoNum = this.getCheckedTodoNum(scenario.old)
         const nowCheckedTodoNum = this.getCheckedTodoNum(scenario.paragraphList)
 
@@ -111,21 +106,26 @@ class ScenarioUtil {
             }
             CommonUtil.dispatch(ScenarioSlice.actions.load(payload))
             const message = 'プロジェクトファイルを読み込みました。'
-            CommonUtil.enqueueSnackbar(message, { variant: C.NotificationType.SUCCESS })
+            CommonUtil.enqueueSnackbar(message, {
+                variant: C.NotificationType.SUCCESS,
+            })
         } catch {
-            const message =
-                'プロジェクトファイルの読み込みに失敗しました。形式が間違っています。'
-            CommonUtil.enqueueSnackbar(message, { variant: C.NotificationType.ERROR })
+            const message = 'プロジェクトファイルの読み込みに失敗しました。形式が間違っています。'
+            CommonUtil.enqueueSnackbar(message, {
+                variant: C.NotificationType.ERROR,
+            })
         }
     }
 
     async loadProjectFromDrive(fileId: string) {
         const json = await GoogleDriveApiDao.getFile(fileId)
-        if (!json) { // error
-            const message =
-                'Google Driveから読み込みに失敗しました。'
-            CommonUtil.enqueueSnackbar(message, { variant: C.NotificationType.ERROR })
-            return 
+        if (!json) {
+            // error
+            const message = 'Google Driveから読み込みに失敗しました。'
+            CommonUtil.enqueueSnackbar(message, {
+                variant: C.NotificationType.ERROR,
+            })
+            return
         }
         this.loadProject(json)
     }
@@ -138,11 +138,13 @@ class ScenarioUtil {
             const fileName = this.getTitle(scenario) + '.json'
             const fileId = await await GoogleDriveApiDao.createFile(fileName)
             if (!fileId) return // error
-            
+
             copied.config.googleDriveFileId = fileId
-            CommonUtil.dispatch(ScenarioSlice.actions.setGoogleDriveFileId({
-                fileId: fileId,
-            }))
+            CommonUtil.dispatch(
+                ScenarioSlice.actions.setGoogleDriveFileId({
+                    fileId: fileId,
+                })
+            )
         }
 
         // ファイルの中身を更新
@@ -150,9 +152,11 @@ class ScenarioUtil {
             copied.config.googleDriveFileId,
             JSON.stringify(scenario)
         )?.catch(() => {
-            CommonUtil.dispatch(ScenarioSlice.actions.setGoogleDriveFileId({
-                fileId: '',
-            }))
+            CommonUtil.dispatch(
+                ScenarioSlice.actions.setGoogleDriveFileId({
+                    fileId: '',
+                })
+            )
         })
     }
 
@@ -162,15 +166,14 @@ class ScenarioUtil {
         const fileId = await await GoogleDriveApiDao.createFile(fileName)
         if (!fileId) return // error
 
-        CommonUtil.dispatch(ScenarioSlice.actions.setGoogleDriveFileId({
-            fileId: fileId,
-        }))
+        CommonUtil.dispatch(
+            ScenarioSlice.actions.setGoogleDriveFileId({
+                fileId: fileId,
+            })
+        )
 
         // ファイルの中身を更新
-        GoogleDriveApiDao.patchFile(
-            fileId,
-            this.getScenarioText(scenario)
-        )?.catch(() => {})
+        GoogleDriveApiDao.patchFile(fileId, this.getScenarioText(scenario))?.catch(() => {})
     }
 }
 

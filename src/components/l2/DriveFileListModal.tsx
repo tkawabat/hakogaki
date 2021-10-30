@@ -22,7 +22,6 @@ const style = {
     padding: '10px',
     maxWidth: '600px',
     minWidth: '300px',
-    
 }
 
 const StyledBox = styled(Box)`
@@ -43,15 +42,13 @@ const App = () => {
 
     const close = () => {
         const payload = {
-            open: false
+            open: false,
         }
         dispatch(ModalSlice.actions.setDriveList(payload))
     }
 
     const ListItems = items.map((v, i) => {
-        return (
-            <DriveListItem model={v} key={i}/>
-        )
+        return <DriveListItem model={v} key={i} />
     })
 
     return (
@@ -66,9 +63,7 @@ const App = () => {
                     <Typography variant="h6" component="h4">
                         プロジェクトリスト
                     </Typography>
-                    <StyledList>
-                        {ListItems}
-                    </StyledList>
+                    <StyledList>{ListItems}</StyledList>
                 </StyledBox>
             </Modal>
         </div>

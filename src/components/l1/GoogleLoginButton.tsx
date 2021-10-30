@@ -6,7 +6,6 @@ import { Google } from '@mui/icons-material/'
 
 import GoogleDriveApiDao from '../../dao/GoogleDriveApiDao'
 
-
 const Root = styled.div`
     display: flex;
     align-content: center;
@@ -14,7 +13,6 @@ const Root = styled.div`
 `
 
 const App = () => {
-
     const onClick = () => {
         GoogleDriveApiDao.login()
     }
