@@ -69,6 +69,7 @@ const App = (props: Props) => {
         ) {
             dispatch(ScenarioSlice.actions.deleteParagraph(payload))
         }
+        handleClose()
     }
 
     return (
