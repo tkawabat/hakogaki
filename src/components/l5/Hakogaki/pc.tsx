@@ -1,4 +1,3 @@
-import { Fragment } from 'react'
 import styled from 'styled-components'
 
 import { pc, sp} from '../../../lib/Responsive'
@@ -24,15 +23,13 @@ const Main = styled.div`
 
 const App = () => {
     return (
-        <Fragment>
-            <Main className="App">
-                <Header />
-                <BodyScenarioMode />
-                <BodyPlotMode />
-            </Main>
+        <Main className="App">
+            <Header />
+            <BodyScenarioMode />
+            <BodyPlotMode />
             <AutoSaveCautionModal />
             <DriveListModal />
-        </Fragment>
+        </Main>
     )
 }
 

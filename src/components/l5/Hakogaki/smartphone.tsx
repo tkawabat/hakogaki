@@ -1,4 +1,3 @@
-import { Fragment } from 'react'
 import styled from 'styled-components'
 
 import { pc, sp} from '../../../lib/Responsive'
@@ -19,19 +18,20 @@ const Main = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+    height: 100%;
+    min-height: 100%;
 `
 
 const App = () => {
     return (
-        <Fragment>
-            <Main className="App">
-                <Header />
-                <BodySmartphone />
-            </Main>
+        <Main className="App">
+            <Header />
+            <BodySmartphone />
+
             <SmartphoneBottomMenu />
             <AutoSaveCautionModal />
             <DriveListModal />
-        </Fragment>
+        </Main>
     )
 }
 
