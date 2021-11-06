@@ -29,6 +29,8 @@ const App = (props: Props) => {
             <meta property="og:locale" content="ja_JP" />
             <meta name="twitter:card" content="summary_large_image" />
             <meta name="twitter:site" content="@MatchingRandom" />
+
+            <meta name="apple-mobile-web-app-capable" content="yes" />
         </Head>
     )
 }
