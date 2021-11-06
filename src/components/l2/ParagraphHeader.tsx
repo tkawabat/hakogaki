@@ -18,7 +18,7 @@ type Props = {
 const Main = styled.div`
     display: flex;
     width: 100%;
-    margin-right: 3px;
+    margin-right: 5px;
 `
 
 const Title = styled(ParagraphTitle)`
