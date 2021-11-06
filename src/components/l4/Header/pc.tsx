@@ -12,7 +12,6 @@ import Center from '../../l1/Center'
 import Left from '../../l1/Left'
 import Right from '../../l1/Right'
 import ScenarioConfigModeChip from '../../l1/ScenarioConfigModeChip'
-import DeleteScenarioButton from '../../l1/DeleteScenarioButton'
 import FileButton from '../../l1/FileButton'
 import HelpButton from '../../l1/HelpButton'
 import ScenarioTitle from '../../l1/ScenarioTitle'
@@ -57,7 +56,6 @@ const App = () => {
             </Center>
             <StyledRight>
                 <ScenarioConfigModeChip />
-                <DeleteScenarioButton />
                 <FileButton />
                 <GoogleButton />
                 <HelpButton />

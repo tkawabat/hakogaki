@@ -12,7 +12,7 @@ const Main = styled(BottomNavigation)`
     z-index: 1;
     left: 0;
     bottom: 0;
-    background-color: #d3d3d3;
+    background-color: #d7e6efca;
 
     display: flex;
     align-items: center;
@@ -21,7 +21,7 @@ const Main = styled(BottomNavigation)`
 `
 
 export default function App(props: Props) {
-    const [value, setValue] = React.useState(0);
+    const [value, setValue] = React.useState(1);
 
     const dispatch = useDispatch()
 
@@ -33,10 +33,9 @@ export default function App(props: Props) {
                 setValue(newValue);
             }}
         >
+            <BottomNavigationAction label="全体メモ" />
             <BottomNavigationAction label="本文" />
             <BottomNavigationAction label="段落メモ" />
-            <BottomNavigationAction label="全体メモ" />
-            <BottomNavigationAction label="メニュー" />
         </Main>
     )
 }

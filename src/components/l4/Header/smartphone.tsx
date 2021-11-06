@@ -8,6 +8,7 @@ import * as C from '../../../lib/Const'
 import { pc, sp} from '../../../lib/Responsive'
 
 import GoogleButton from '../../l2/GoogleButton'
+import HelpButton from '../../l1/HelpButton'
 import ScenarioTitle from 'src/components/l1/ScenarioTitle'
 
 const Root = styled.div`
@@ -36,6 +37,7 @@ const Icon = styled.img`
 `
 
 const Right = styled.div`
+    display: flex;
     margin-left: 3px;
     margin-right: 3px;
 `
@@ -48,7 +50,8 @@ const App = () => {
             <Icon src={'/logo192.png'} />
             <ScenarioTitle title={title} />
             <Right>
-            <GoogleButton />
+                <GoogleButton />
+                <HelpButton />
             </Right>
         </Root>
     )
