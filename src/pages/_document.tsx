@@ -35,7 +35,7 @@ export default class MyDocument extends Document {
         return (
             <Html lang="ja">
                 <Head>{gaId && gaScript}</Head>
-                <body>
+                <body style={{ margin: 0,  width: '100%' }}>
                     <Main />
                     <NextScript />
                 </body>
