@@ -5,7 +5,6 @@ import { Checkbox, Tooltip } from '@mui/material/'
 import ScenarioSlice, { ToggleParagraphCheckedPayload } from '../../store/ScenarioSlice'
 import ParagraphModel from '../../store/model/ParagraphModel'
 
-import Center from '../l1/Center'
 import Left from '../l1/Left'
 import Right from '../l1/Right'
 import ParagraphTitle from '../l1/ParagraphTitle'

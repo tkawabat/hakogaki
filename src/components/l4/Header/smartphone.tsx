@@ -24,16 +24,20 @@ const Root = styled.div`
     
     width: 100%;
     height: 50px;
-    padding-left: 10px;
-    padding-right: 5px;
     background-color: #d7e6ef;
 `
 
 const Icon = styled.img`
     display: flex;
-    width: 32px;
-    height: 32px;
+    width: 24px;
+    height: 24px;
+    margin-left: 5px;
     margin-right: 10px;
+`
+
+const Right = styled.div`
+    margin-left: 3px;
+    margin-right: 3px;
 `
 
 const App = () => {
@@ -43,7 +47,9 @@ const App = () => {
         <Root className="header">
             <Icon src={'/logo192.png'} />
             <ScenarioTitle title={title} />
+            <Right>
             <GoogleButton />
+            </Right>
         </Root>
     )
 }
