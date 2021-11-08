@@ -6,7 +6,6 @@ import { ExpandMore } from '@mui/icons-material'
 import ParagraphModel from '../../store/model/ParagraphModel'
 
 import ScenarioArea from '../l1/ScenarioArea'
-import ScenarioAreaCount from '../l1/ScenarioAreaCount'
 import ParagraphHeader from '../l2/ParagraphHeader'
 
 interface Props {
@@ -62,7 +61,6 @@ const App = (props: Props) => {
             </Header>
             <Detail>
                 <ScenarioArea paragraphId={props.paragraphId} text={props.paragraph.text} />
-                <ScenarioAreaCount text={props.paragraph.text} />
             </Detail>
         </Root>
     )
