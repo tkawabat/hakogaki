@@ -1,6 +1,7 @@
-import { memo } from 'react'
+import { useState, memo } from 'react'
 import styled from 'styled-components'
 import { Accordion, AccordionSummary, AccordionDetails } from '@mui/material/'
+import { ExpandMore } from '@mui/icons-material'
 
 import ParagraphModel from '../../store/model/ParagraphModel'
 
@@ -32,21 +33,13 @@ const Header = styled(AccordionSummary)`
 
 const Detail = styled(AccordionDetails)`
     display: flex;
+    flex-direction: column;
     align-self: center;
     justify-self: center;
     justify-content: space-between;
-    width: 95%;
+    width: 100% - 10px;
     margin: 0;
-`
-const Main = styled.div`
-    display: flex;
-    flex-direction: column;
-    width: 54%;
-`
-const Sub = styled.div`
-    display: flex;
-    flex-direction: column;
-    width: 44%;
+    padding: 5px;
 `
 
 const MemoParagraphHeader = memo(ParagraphHeader)
@@ -55,24 +48,21 @@ const MemoMemoArea = memo(MemoArea)
 
 const App = (props: Props) => {
     const checked = props.paragraph.checked
+    const [expanded, setExpanded] = useState<boolean>(false)
 
     return (
         <Root
-            expanded={true}
+            expanded={expanded}
             disableGutters={true}
             className="paragraph"
             sx={checked ? { background: '#dddddd' } : {}}
         >
-            <Header>
+            <Header expandIcon={<ExpandMore />} onClick={() => setExpanded(!expanded)}>
                 <MemoParagraphHeader paragraphId={props.paragraphId} paragraph={props.paragraph} />
             </Header>
             <Detail>
-                <Main>
-                    <MemoMemoArea id={props.paragraphId} />
-                </Main>
-                <Sub>
-                    <MemoTodoArea paragraphId={props.paragraphId} todoList={props.paragraph.todo} />
-                </Sub>
+                <MemoTodoArea paragraphId={props.paragraphId} todoList={props.paragraph.todo} />
+                <MemoMemoArea id={props.paragraphId} />
             </Detail>
         </Root>
     )

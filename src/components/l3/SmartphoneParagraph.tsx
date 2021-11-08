@@ -1,4 +1,4 @@
-import React from 'react'
+import { useState, memo } from 'react'
 import styled from 'styled-components'
 import { Accordion, AccordionSummary, AccordionDetails } from '@mui/material/'
 import { ExpandMore } from '@mui/icons-material'
@@ -9,7 +9,7 @@ import ScenarioArea from '../l1/ScenarioArea'
 import ScenarioAreaCount from '../l1/ScenarioAreaCount'
 import ParagraphHeader from '../l2/ParagraphHeader'
 
-type Props = {
+interface Props {
     paragraphId: number
     paragraph: ParagraphModel
 }
@@ -42,13 +42,13 @@ const Detail = styled(AccordionDetails)`
     padding: 5px;
 `
 
-const MemoParagraphHeader = React.memo(ParagraphHeader)
+const MemoParagraphHeader = memo(ParagraphHeader)
 
 const App = (props: Props) => {
     const checked = props.paragraph.checked
     // 一番上だけ開ける
     const isOpen = props.paragraphId == 0 && !checked
-    const [expanded, setExpanded] = React.useState<boolean>(isOpen)
+    const [expanded, setExpanded] = useState<boolean>(isOpen)
 
     return (
         <Root

@@ -25,7 +25,7 @@ const Root = styled.div`
     
     width: 100%;
     height: 50px;
-    background-color: #d7e6ef;
+    background-color: #d7e6efb5;
 `
 
 const Icon = styled.img`

@@ -1,12 +1,12 @@
-import React from 'react'
+import { memo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 
+import { sp } from 'src/lib/Responsive'
+import * as C from 'src/lib/Const'
+
+import { RootState } from 'src/store/rootReducer'
 import ScenarioSlice, { TextPayload } from 'src/store/ScenarioSlice'
-
-import { RootState } from '../../store/rootReducer'
-
-import * as C from '../../lib/Const'
 
 import PlotParagraph from '../l3/PlotParagraph'
 import AddParagraphButton from '../l1/AddParagraphButton'
@@ -14,6 +14,9 @@ import AddParagraphButton from '../l1/AddParagraphButton'
 interface Props {}
 
 const Body = styled.div`
+    ${sp`
+        display: none;
+    `}
     display: ${(props) => (props.hidden ? 'none' : 'flex')};
     width: 100%;
     max-width: 800px;
@@ -41,7 +44,7 @@ const ScenarioMemoArea = styled.textarea`
     height: 100%;
 `
 
-const MemoPlotParagraph = React.memo(PlotParagraph)
+const MemoPlotParagraph = memo(PlotParagraph)
 
 const App = (props: Props) => {
     const dispatch = useDispatch()

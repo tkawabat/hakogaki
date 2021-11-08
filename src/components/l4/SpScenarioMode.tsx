@@ -1,10 +1,11 @@
-import React from 'react'
+import { memo } from 'react'
 import { useSelector } from 'react-redux'
 import styled from 'styled-components'
 
-import { RootState } from '../../store/rootReducer'
+import { pc } from '../../lib/Responsive'
+import * as C from 'src/lib/Const'
 
-import * as C from '../../lib/Const'
+import { RootState } from 'src/store/rootReducer'
 
 import SmartphoneParagraph from '../l3/SmartphoneParagraph'
 import AddParagraphButton from '../l1/AddParagraphButton'
@@ -12,25 +13,32 @@ import AddParagraphButton from '../l1/AddParagraphButton'
 interface Props {}
 
 const Body = styled.div`
-    display: flex;
+    ${pc`
+        display: none;
+    `}
+    display: ${(props) => (props.hidden ? 'none' : 'flex')};
     flex-direction: column;
     align-items: center;
     width: 100%;
     height: 100%;
-
 `
 
-const MemoParagraph = React.memo(SmartphoneParagraph)
+const MemoParagraph = memo(SmartphoneParagraph)
 
 const App = (props: Props) => {
+    const mode = useSelector((state: RootState) => state.scenario.config.mode)
+
     const paragraphList = useSelector((state: RootState) => {
         return state.scenario.paragraphList.map((e, i) => {
             return <MemoParagraph paragraphId={i} paragraph={e} key={i} />
         })
     })
 
+    const hidden = mode == C.ScenarioConfigMode.SMARTPHONE_SCENARIO_MEMO
+        || mode == C.ScenarioConfigMode.SMARTPHONE_MEMO
+
     return (
-        <Body>
+        <Body hidden={hidden}>
             {paragraphList}
             <AddParagraphButton />
         </Body>
