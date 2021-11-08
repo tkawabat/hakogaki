@@ -21,7 +21,7 @@ const Body = styled.div`
 `
 
 const ScenarioMemoArea = styled.textarea`
-    width: 100%;
+    width: 95%;
     height: 100%;
 `
 

@@ -7,6 +7,7 @@ import ScenarioSlice, { ChangeParagraphMemoPayload } from '../../store/ScenarioS
 
 const Area = styled.textarea`
     height: 100%;
+    min-height: 100px;
 `
 
 type Props = {
