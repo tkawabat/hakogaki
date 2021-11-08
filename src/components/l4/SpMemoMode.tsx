@@ -21,7 +21,6 @@ const Body = styled.div`
     align-items: center;
     width: 100%;
     height: 100%;
-
 `
 
 const MemoParagraphMemo = memo(SmartphoneParagraphMemo)

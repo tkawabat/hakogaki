@@ -19,8 +19,9 @@ const Main = styled.div`
     flex-direction: column;
     align-items: center;
     ${sp`
-        height: 100%;
-        min-height: 100%;
+        height: 100% - 40px;
+        min-height: 100% - 40px;
+        margin-bottom: 40px;
     `}
     ${pc`
         margin-bottom: 150px;
