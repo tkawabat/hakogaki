@@ -9,6 +9,12 @@ import * as C from '../../lib/Const'
 import { RootState } from 'src/store/rootReducer'
 import ScenarioSlice from '../../store/ScenarioSlice'
 
+const style = {
+    backgroundColor: '#d7e6efca',
+    height: '40px',
+    opacity: '1',
+}
+
 const Main = styled(BottomNavigation)`
     ${pc`
         display: none;
@@ -18,11 +24,9 @@ const Main = styled(BottomNavigation)`
     z-index: 1;
     left: 0;
     bottom: 0;
-    background-color: #d7e6efca;
 
     align-items: center;
     width: 100%;
-    height: 50px;
 `
 
 export default function App() {
@@ -50,6 +54,7 @@ export default function App() {
             showLabels
             value={value}
             onChange={onChange}
+            sx={style}
         >
             <BottomNavigationAction label="全体メモ" />
             <BottomNavigationAction label="本文" />
