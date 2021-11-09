@@ -1,10 +1,9 @@
-import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 import { Chip, Tooltip } from '@mui/material/'
 
 import { RootState } from 'src/store/rootReducer'
-import ScenarioSlice, { ScenarioConfigModePayload } from '../../store/ScenarioSlice'
+import ScenarioSlice from '../../store/ScenarioSlice'
 
 import * as C from '../../lib/Const'
 
@@ -20,23 +19,24 @@ type Props = {}
 const App = (props: Props) => {
     const dispatch = useDispatch()
     const mode = useSelector((state: RootState) => state.scenario.config.mode)
-    const color = mode == C.ScenarioConfigMode.SCENARIO ? 'primary' : 'secondary'
+    const color = mode == C.ScenarioConfigMode.PLOT ? 'secondary' : 'primary'
 
     const onClick = () => {
-        const newMode =
-            mode == C.ScenarioConfigMode.SCENARIO
-                ? C.ScenarioConfigMode.PLOT
-                : C.ScenarioConfigMode.SCENARIO
-
-        const payload: ScenarioConfigModePayload = {
+        const newMode = mode == C.ScenarioConfigMode.PLOT
+            ? C.ScenarioConfigMode.SCENARIO
+            : C.ScenarioConfigMode.PLOT
+        dispatch(ScenarioSlice.actions.changeScenarioConfigMode({
             mode: newMode,
-        }
-        dispatch(ScenarioSlice.actions.changeScenarioConfigMode(payload))
+        }))
     }
+
+    const text = mode == C.ScenarioConfigMode.PLOT
+        ? C.ScenarioConfigMode.PLOT
+        : C.ScenarioConfigMode.SCENARIO
 
     return (
         <Tooltip title={'入力モードを切替'}>
-            <Main label={mode} onClick={onClick} color={color} {...props} />
+            <Main label={text} onClick={onClick} color={color} {...props} />
         </Tooltip>
     )
 }

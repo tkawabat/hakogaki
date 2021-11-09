@@ -18,7 +18,7 @@
       "sizes": "512x512"
     }
   ],
-  "start_url": "#/hakogaki",
+  "start_url": "https://vercel.com/tkawabat/hakogaki",
   "display": "standalone",
   "theme_color": "#000000",
   "background_color": "#ffffff"

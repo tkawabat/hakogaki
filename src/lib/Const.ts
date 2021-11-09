@@ -1,6 +1,10 @@
 export enum ScenarioConfigMode {
     SCENARIO = 'シナリオ',
     PLOT = 'プロット',
+    SMARTPHONE_SCENARIO_MEMO = 'sp全体メモ',
+    SMARTPHONE_SCENARIO = 'spシナリオ',
+    SMARTPHONE_MEMO = 'sp段落メモ',
+
 }
 
 export enum NotificationType {

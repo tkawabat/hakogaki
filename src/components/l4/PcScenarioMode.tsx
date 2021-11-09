@@ -2,9 +2,10 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 import styled from 'styled-components'
 
-import { RootState } from '../../store/rootReducer'
+import { sp } from 'src/lib/Responsive'
+import * as C from 'src/lib/Const'
 
-import * as C from '../../lib/Const'
+import { RootState } from '../../store/rootReducer'
 
 import Paragraph from '../l3/Paragraph'
 import AddParagraphButton from '../l1/AddParagraphButton'
@@ -12,6 +13,9 @@ import AddParagraphButton from '../l1/AddParagraphButton'
 interface Props {}
 
 const Body = styled.div`
+    ${sp`
+        display: none;
+    `}
     display: ${(props) => (props.hidden ? 'none' : 'flex')};
     flex-direction: column;
     width: 100%;
@@ -27,8 +31,10 @@ const App = (props: Props) => {
         })
     })
 
+    const hidden = mode == C.ScenarioConfigMode.PLOT
+
     return (
-        <Body hidden={mode != C.ScenarioConfigMode.SCENARIO}>
+        <Body hidden={hidden}>
             {paragraphList}
             <AddParagraphButton />
         </Body>

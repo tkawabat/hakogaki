@@ -1,3 +1,4 @@
+import '../style/global.css'
 import { AppProps } from 'next/app'
 import { StylesProvider } from '@mui/styles'
 

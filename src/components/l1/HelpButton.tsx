@@ -1,8 +1,10 @@
 import React from 'react'
+import { useDispatch } from 'react-redux'
 import styled from 'styled-components'
-
 import { IconButton, Tooltip, Menu, MenuItem, Link } from '@mui/material/'
 import { Help } from '@mui/icons-material/'
+
+import ScenarioSlice from '../../store/ScenarioSlice'
 
 const Root = styled.div`
     display: flex;
@@ -12,6 +14,8 @@ const Root = styled.div`
 `
 
 const App = () => {
+    const dispatch = useDispatch()
+
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
     const open = Boolean(anchorEl)
 
@@ -20,6 +24,12 @@ const App = () => {
     }
     const handleClose = () => {
         setAnchorEl(null)
+    }
+    const deleteScenario = () => {
+        if (confirm('シナリオを全削除します。よろしいですか？')) {
+            dispatch(ScenarioSlice.actions.deleteScenario())
+        }
+        handleClose()
     }
 
     return (
@@ -41,22 +51,32 @@ const App = () => {
                 onClose={handleClose}
                 MenuListProps={{ 'aria-labelledby': 'basic-button' }}
             >
-                <Link
-                    href="/privacy"
-                    color="inherit"
-                    underline="none"
-                    target="_blank"
-                >
-                    <MenuItem>プライバシーポリシー</MenuItem>
-                </Link>
-                <Link
-                    href="https://peing.net/ja/matchingrandom"
-                    color="inherit"
-                    underline="none"
-                    target="_blank"
-                >
-                    <MenuItem>お問い合わせ</MenuItem>
-                </Link>
+                <MenuItem onClick={deleteScenario}>
+                    シナリオ初期化
+                </MenuItem>
+
+                <MenuItem>
+                    <Link
+                        href="/privacy"
+                        color="inherit"
+                        underline="none"
+                        target="_blank"
+                    >
+                        プライバシーポリシー
+                    </Link>
+                </MenuItem>
+
+                <MenuItem>
+                    <Link
+                        href="https://peing.net/ja/matchingrandom"
+                        color="inherit"
+                        underline="none"
+                        target="_blank"
+                    >
+                        お問い合わせ
+                    </Link>
+                </MenuItem>
+
             </Menu>
         </Root>
     )

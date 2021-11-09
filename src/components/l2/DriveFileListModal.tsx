@@ -35,6 +35,12 @@ const StyledList = styled(List)`
     margin-left: 5px;
 `
 
+const Message = styled.div`
+    margin-top: 30px;
+    margin-bottom: 30px;
+    align-self: center;
+`
+
 const App = () => {
     const dispatch = useDispatch()
     const isOpen = useSelector((state: RootState) => state.modal.driveList)
@@ -63,7 +69,14 @@ const App = () => {
                     <Typography variant="h6" component="h4">
                         プロジェクトリスト
                     </Typography>
-                    <StyledList>{ListItems}</StyledList>
+                    {ListItems.length == 0 &&
+                        <Message>
+                            ファイルがありません。
+                        </Message>
+                    }
+                    {ListItems.length >= 0 &&
+                         <StyledList>{ListItems}</StyledList> 
+                    }
                 </StyledBox>
             </Modal>
         </div>
