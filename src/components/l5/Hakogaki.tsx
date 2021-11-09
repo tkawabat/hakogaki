@@ -19,26 +19,37 @@ const Main = styled.div`
     flex-direction: column;
     align-items: center;
     ${sp`
-        height: 100% - 40px;
-        min-height: 100% - 40px;
-        margin-bottom: 40px;
+        // height: calc(100% - 40px);
+        // min-height: calc(100% - 40px);
+        height: 100%;
     `}
     ${pc`
         margin-bottom: 150px;
     `}
 `
 
+const Body = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    overflow: scroll;
+`
+
+
+
 const App = () => {
     return (
         <Main className="App">
             <Header />
-
-            <PcScenarioMode />
-            <PcPlotMode />
-            <SpScenarioMode />
-            <SpScenarioMemoMode />
-            <SpMemoMode />
-
+            <Body>
+                <PcScenarioMode />
+                <PcPlotMode />
+                <SpScenarioMode />
+                <SpScenarioMemoMode />
+                <SpMemoMode />
+            </Body>
             <SmartphoneBottomMenu />
             <AutoSaveCautionModal />
             <DriveListModal />

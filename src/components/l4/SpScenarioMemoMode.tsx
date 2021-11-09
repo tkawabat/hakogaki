@@ -18,10 +18,11 @@ const Body = styled.div`
     align-items: center;
     width: 100%;
     height: 100%;
+    margin: 5px;
 `
 
 const ScenarioMemoArea = styled.textarea`
-    width: 95%;
+    width: 90%;
     height: 100%;
 `
 

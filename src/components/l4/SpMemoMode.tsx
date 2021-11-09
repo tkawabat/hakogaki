@@ -21,6 +21,7 @@ const Body = styled.div`
     align-items: center;
     width: 100%;
     height: 100%;
+    margin-bottom: 45px;
 `
 
 const MemoParagraphMemo = memo(SpParagraphMemo)

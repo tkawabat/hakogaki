@@ -20,10 +20,6 @@ const Main = styled(BottomNavigation)`
         display: none;
     `}
     display: flex;
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    bottom: 0;
 
     align-items: center;
     width: 100%;
