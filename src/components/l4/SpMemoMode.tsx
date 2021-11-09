@@ -7,7 +7,7 @@ import { RootState } from '../../store/rootReducer'
 import { pc } from '../../lib/Responsive'
 import * as C from '../../lib/Const'
 
-import SmartphoneParagraphMemo from '../l3/SmartphoneParagraphMemo'
+import SpParagraphMemo from '../l3/SpParagraphMemo'
 import AddParagraphButton from '../l1/AddParagraphButton'
 
 interface Props {}
@@ -23,7 +23,7 @@ const Body = styled.div`
     height: 100%;
 `
 
-const MemoParagraphMemo = memo(SmartphoneParagraphMemo)
+const MemoParagraphMemo = memo(SpParagraphMemo)
 
 const App = (props: Props) => {
     const mode = useSelector((state: RootState) => state.scenario.config.mode)
