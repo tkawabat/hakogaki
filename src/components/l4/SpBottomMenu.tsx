@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 import { BottomNavigation, BottomNavigationAction } from '@mui/material/'
 
-import { pc } from '../../lib/Responsive'
+import { pc, sp } from '../../lib/Responsive'
 import * as C from '../../lib/Const'
 
 import { RootState } from 'src/store/rootReducer'
@@ -19,7 +19,9 @@ const Main = styled(BottomNavigation)`
     ${pc`
         display: none;
     `}
-    display: flex;
+    ${sp`
+        display: flex;
+    `}
 
     align-items: center;
     width: 100%;
