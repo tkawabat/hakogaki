@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 import { BottomNavigation, BottomNavigationAction } from '@mui/material/'
 
-import { pc, sp } from '../../lib/Responsive'
+import { pc } from '../../lib/Responsive'
 import * as C from '../../lib/Const'
 
 import { RootState } from 'src/store/rootReducer'
@@ -11,20 +11,18 @@ import ScenarioSlice from '../../store/ScenarioSlice'
 
 const style = {
     backgroundColor: '#d7e6efca',
-    height: '40px',
-    opacity: '1',
+    width: '100%',
 }
 
-const Main = styled(BottomNavigation)`
+const Main = styled.div`
     ${pc`
         display: none;
     `}
-    ${sp`
-        display: flex;
-    `}
+    display: flex;
 
     align-items: center;
     width: 100%;
+    height: 40px;
 `
 
 export default function App() {
@@ -48,15 +46,17 @@ export default function App() {
         modeList.indexOf(mode) : 1
 
     return (
-        <Main
-            showLabels
-            value={value}
-            onChange={onChange}
-            sx={style}
-        >
-            <BottomNavigationAction label="全体メモ" />
-            <BottomNavigationAction label="本文" />
-            <BottomNavigationAction label="段落メモ" />
+        <Main>
+            <BottomNavigation
+                showLabels
+                value={value}
+                onChange={onChange}
+                sx={style}    
+            >
+                <BottomNavigationAction label="全体メモ" />
+                <BottomNavigationAction label="本文" />
+                <BottomNavigationAction label="段落メモ" />
+            </BottomNavigation>
         </Main>
     )
 }
