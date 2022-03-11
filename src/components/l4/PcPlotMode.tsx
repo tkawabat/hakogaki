@@ -19,11 +19,10 @@ const Body = styled.div`
     `}
     display: ${(props) => (props.hidden ? 'none' : 'flex')};
     width: 100%;
-    max-width: 800px;
+    height: 100%;
 `
 const BodyLeft = styled.div`
     display: flex;
-    flex: 2;
     width: 100%;
     height: calc(100vh - 60px);
     position: sticky;
@@ -34,9 +33,9 @@ const BodyLeft = styled.div`
 const BodyRight = styled.div`
     display: flex;
     flex-direction: column;
-    flex: 3;
     width: 100%;
     margin: 5px;
+    max-width: 550px;
 `
 
 const ScenarioMemoArea = styled.textarea`
