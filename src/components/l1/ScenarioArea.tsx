@@ -10,7 +10,7 @@ type Props = {
 }
 
 const Area = styled.textarea`
-    height: 400px;
+    height: 450px;
 `
 
 const App = (props: Props) => {

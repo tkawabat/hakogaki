@@ -18,14 +18,14 @@ const Root = styled(Accordion)`
     flex-direction: column;
     justify-content: space-between;
     width: 100%;
-    margin-top: 5px;
+    margin-top: 3px;
 `
 
 const Header = styled(AccordionSummary)`
     display: flex;
     align-self: center;
     justify-self: center;
-    height: 55px;
+    height: 50px;
     width: 100%;
     margin: 0;
 `
@@ -36,9 +36,9 @@ const Detail = styled(AccordionDetails)`
     align-self: center;
     justify-self: center;
     justify-content: space-between;
-    width: 100% - 10px;
+    width: 100% - 4px;
     margin: 0;
-    padding: 5px;
+    padding: 2px;
 `
 
 const MemoParagraphHeader = memo(ParagraphHeader)
