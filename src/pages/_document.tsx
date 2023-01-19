@@ -34,7 +34,9 @@ export default class MyDocument extends Document {
 
         return (
             <Html lang="ja">
-                <Head>{gaId && gaScript}</Head>
+                <Head>
+                    {gaId && gaScript}
+                </Head>
                 <body>
                     <Main />
                     <NextScript />

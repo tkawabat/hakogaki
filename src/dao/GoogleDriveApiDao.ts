@@ -1,46 +1,64 @@
 import * as C from '../lib/Const'
 import CommonUtil from 'src/lib/CommonUtil'
+import GoogleSlice, { GoogleModel } from 'src/store/GoogleSlice'
+import GAUtil from 'src/lib/GAUtil'
 
 class GoogleDriveApiDao {
-    expiredAt: number | null = null
-    reload!: () => Promise<gapi.auth2.AuthResponse>
-    login!: () => void
-    logout!: () => void
+    initialized: boolean = false;
+    auth2: gapi.auth2.GoogleAuth | null = null
 
-    init(signIn: () => void, signOut: () => void): void {
-        this.login = signIn
-        this.logout = signOut
+    async init(): Promise<void> {
+        if (this.initialized) return;
+        this.initialized = true;
+        
+        await gapi.load("client", async () => {
+            await gapi.client.init({
+                apiKey: process.env.API_KEY,
+                clientId: C.GoogleApiClientId,
+                scope: "https://www.googleapis.com/auth/drive",
+                discoveryDocs: ["https://www.googleapis.com/discovery/v1/apis/drive/v3/rest"]
+                });
+            this.auth2 = gapi.auth2.getAuthInstance();
+            if (this.auth2.isSignedIn.get()) {
+                this.setUser(this.auth2.currentUser.get())
+            }
+        });
     }
 
-    setToken(expiredAt: number, reload: () => Promise<gapi.auth2.AuthResponse>) {
-        this.expiredAt = expiredAt
-        this.reload = reload
+    setUser(user: gapi.auth2.GoogleUser) {
+        const profile = user.getBasicProfile();
+        const payload: GoogleModel = {
+            email: profile.getEmail(),
+            imageUrl: profile.getImageUrl()
+        }
+        CommonUtil.dispatch(GoogleSlice.actions.login(payload));
 
-        gapi.load('client', () => {
-            gapi.client.load('drive', 'v3')
-        })
+        CommonUtil.enqueueSnackbar('Googleでログインしました。', { variant: C.NotificationType.SUCCESS });
+        GAUtil.event(C.GaAction.LOGIN, C.GaCategory.NONE, 'google');
     }
 
-    deleteToken() {
-        this.expiredAt = null
-    }
-
-    reloadToken() {
-        if (!this.expiredAt || Date.now() < this.expiredAt) return
-
-        this.reload()
-            .then((res) => {
-                this.setToken(res.expires_at, this.reload)
+    async login() {
+        this.auth2?.signIn()
+            .then(this.setUser)
+            .catch(() => {
+                CommonUtil.enqueueSnackbar('Googleでのログインでエラーが発生しました。', { variant: C.NotificationType.ERROR });
             })
-            .catch((res) => {
-                console.error('google api token refresh error.')
-                console.error(res)
-            })
+        ;
     }
 
-    async createDirctoryIfNotExists() {
-        if (!this.expiredAt) return
-        this.reloadToken()
+    async logout() {
+        this.auth2?.signOut()
+            .then(() => {
+                CommonUtil.dispatch(GoogleSlice.actions.logout());
+                CommonUtil.enqueueSnackbar('Googleからログアウトしました。', { variant: C.NotificationType.SUCCESS });
+            })
+            .catch(() => {
+                CommonUtil.enqueueSnackbar('Googleからのログアウトでエラーが発生しました。', { variant: C.NotificationType.ERROR });
+            })
+        ;
+    }
+
+    async createDirectoryIfNotExists() {
 
         const query =
             'mimeType = "application/vnd.google-apps.folder"' +
@@ -48,6 +66,7 @@ class GoogleDriveApiDao {
             C.DriveFolderName +
             '"' +
             ' and trashed = false'
+            ;
 
         let id = await gapi.client.drive.files
             .list({
@@ -56,7 +75,7 @@ class GoogleDriveApiDao {
             })
             .then((res) => {
                 if (res.result.files?.length == 0) return ''
-                return res.result.files?.[0].id!
+                return res.result.files?.[0].id
             })
             .catch((err) => {
                 console.error(err)
@@ -95,8 +114,6 @@ class GoogleDriveApiDao {
     }
 
     getFile(fileId: string) {
-        if (!this.expiredAt) return
-        this.reloadToken()
 
         if (!fileId) {
             const message = 'Google Driveファイル情報がありません。'
@@ -124,10 +141,7 @@ class GoogleDriveApiDao {
     }
 
     async createFile(fileName: string) {
-        if (!this.expiredAt) return
-        this.reloadToken()
-
-        const folderId = await this.createDirctoryIfNotExists()
+        const folderId = await this.createDirectoryIfNotExists()
         if (!folderId) return // Error
 
         return gapi.client.drive.files
@@ -151,9 +165,6 @@ class GoogleDriveApiDao {
     }
 
     patchFile(fileId: string, text: string) {
-        if (!this.expiredAt) return
-        this.reloadToken()
-
         const params = {
             fileId: fileId,
             uploadType: 'multipart',
@@ -199,10 +210,7 @@ class GoogleDriveApiDao {
             })
     }
 
-    getList() {
-        if (!this.expiredAt) return
-        this.reloadToken()
-
+    async getList() {
         return gapi.client.drive.files
             .list({
                 q: 'fileExtension = "json"',
