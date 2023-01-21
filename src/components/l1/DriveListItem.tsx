@@ -59,7 +59,7 @@ const App = (props: Props) => {
         <Item onClick={onClick}>
             <Title>{props.model.title}</Title>
             <Sub>
-                <Id>{props.model.fileId.substr(0, 6)}</Id>
+                <Id>{props.model.fileId.substring(0, 6)}</Id>
                 <Time>{time}</Time>
             </Sub>
         </Item>
