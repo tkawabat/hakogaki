@@ -41,12 +41,12 @@ class ScenarioUtil {
     }
 
     getCheckedTodoNum(paragraphList: ParagraphModel[]): number {
-        const toodoReducer = (sum: number, t: TodoModel) => {
+        const todoReducer = (sum: number, t: TodoModel) => {
             return sum + (t.checked ? 1 : 0)
         }
 
         const paragraphReducer = (sum: number, p: ParagraphModel) => {
-            return sum + p.todo.reduce(toodoReducer, 0)
+            return sum + p.todo.reduce(todoReducer, 0)
         }
 
         return paragraphList.reduce(paragraphReducer, 0)
