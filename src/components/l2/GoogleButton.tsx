@@ -1,19 +1,20 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
-
-import { RootState } from '../../store/rootReducer'
-import { GoogleModel } from '../../store/GoogleSlice'
+import { useSession } from "next-auth/react"
 
 import GoogleLoginButton from '../l1/GoogleLoginButton'
 import GoogleUserButton from '../l1/GoogleUserButton'
+import GoogleDriveApiDao from 'src/dao/GoogleDriveApiDao'
 
 const App = () => {
-    const googleModel: GoogleModel = useSelector((state: RootState) => state.google)
+    const { data: session } = useSession()
 
-    return googleModel.email == '' ? (
+    const isLogin = session && session.user.accessToken
+    if (isLogin) GoogleDriveApiDao.setToken(session.user.accessToken!)
+
+    return !isLogin ? (
         <GoogleLoginButton />
     ) : (
-        <GoogleUserButton googleModel={googleModel} />
+        <GoogleUserButton session={session} />
     )
 }
 

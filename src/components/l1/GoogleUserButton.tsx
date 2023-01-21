@@ -1,17 +1,16 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
+import { Session } from 'next-auth'
 import { useSnackbar } from 'notistack'
 import moment from 'moment'
 
 import { Menu, MenuItem, Tooltip } from '@mui/material/'
 
 import { RootState } from '../../store/rootReducer'
-import ScenarioSlice, { LoadPayload } from '../../store/ScenarioSlice'
 import ModalSlice from 'src/store/ModalSlice'
 import DriveListSlice from 'src/store/DriveListSlice'
 import ScenarioModel from '../../store/model/ScenarioModel'
-import { GoogleModel } from '../../store/GoogleSlice'
 import DriveListItemModel from 'src/store/model/DriveListItemModel'
 
 import GoogleDriveApiDao from '../../dao/GoogleDriveApiDao'
@@ -21,7 +20,7 @@ import GAUtil from '../../lib/GAUtil'
 import ScenarioUtil from 'src/lib/ScenarioUtil'
 
 interface Props {
-    googleModel: GoogleModel
+    session: Session
 }
 
 const Root = styled.div`
@@ -67,13 +66,13 @@ const App = (props: Props) => {
     }
     const loadProject = () => {
         GoogleDriveApiDao.getList()?.then((res) => {
+            if (!res) return;
             const items: DriveListItemModel[] = res!.map((r) => {
-                const items: DriveListItemModel = {
+                return {
                     fileId: r.id!,
                     title: r.name!,
                     updatedAt: moment(r.modifiedTime),
-                }
-                return items
+                } as DriveListItemModel
             })
             const payload = {
                 items: items,
@@ -108,7 +107,7 @@ const App = (props: Props) => {
         <Root>
             <Tooltip title="Google Drive 保存/読込" arrow>
                 <GoogleIconButton onClick={handleClick}>
-                    <GoogleIcon src={props.googleModel.imageUrl} />
+                    <GoogleIcon src={props.session.user!.image!} />
                 </GoogleIconButton>
             </Tooltip>
             <Menu

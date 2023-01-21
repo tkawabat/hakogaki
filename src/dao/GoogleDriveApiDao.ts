@@ -1,64 +1,41 @@
 import * as C from '../lib/Const'
 import CommonUtil from 'src/lib/CommonUtil'
-import GoogleSlice, { GoogleModel } from 'src/store/GoogleSlice'
-import GAUtil from 'src/lib/GAUtil'
+import { signIn, signOut } from "next-auth/react";
 
 class GoogleDriveApiDao {
     initialized: boolean = false;
-    auth2: gapi.auth2.GoogleAuth | null = null
+    accessToken: string = '';
 
     async init(): Promise<void> {
         if (this.initialized) return;
         this.initialized = true;
         
-        await gapi.load("client", async () => {
-            await gapi.client.init({
-                apiKey: process.env.API_KEY,
+        gapi.load('client', async () => {
+            gapi.client.init({
                 clientId: C.GoogleApiClientId,
-                scope: "https://www.googleapis.com/auth/drive",
-                discoveryDocs: ["https://www.googleapis.com/discovery/v1/apis/drive/v3/rest"]
+                scope: 'https://www.googleapis.com/auth/drive',
+                discoveryDocs: ['https://www.googleapis.com/discovery/v1/apis/drive/v3/rest']
                 });
-            this.auth2 = gapi.auth2.getAuthInstance();
-            if (this.auth2.isSignedIn.get()) {
-                this.setUser(this.auth2.currentUser.get())
-            }
         });
     }
 
-    setUser(user: gapi.auth2.GoogleUser) {
-        const profile = user.getBasicProfile();
-        const payload: GoogleModel = {
-            email: profile.getEmail(),
-            imageUrl: profile.getImageUrl()
-        }
-        CommonUtil.dispatch(GoogleSlice.actions.login(payload));
-
-        CommonUtil.enqueueSnackbar('Googleでログインしました。', { variant: C.NotificationType.SUCCESS });
-        GAUtil.event(C.GaAction.LOGIN, C.GaCategory.NONE, 'google');
+    setToken(token: string) {
+        this.accessToken = token
     }
 
     async login() {
-        this.auth2?.signIn()
-            .then(this.setUser)
-            .catch(() => {
-                CommonUtil.enqueueSnackbar('Googleでのログインでエラーが発生しました。', { variant: C.NotificationType.ERROR });
-            })
-        ;
+        signIn('google')
     }
 
     async logout() {
-        this.auth2?.signOut()
-            .then(() => {
-                CommonUtil.dispatch(GoogleSlice.actions.logout());
-                CommonUtil.enqueueSnackbar('Googleからログアウトしました。', { variant: C.NotificationType.SUCCESS });
-            })
-            .catch(() => {
-                CommonUtil.enqueueSnackbar('Googleからのログアウトでエラーが発生しました。', { variant: C.NotificationType.ERROR });
-            })
-        ;
+        signOut().then(() => {
+            this.setToken('')
+            CommonUtil.enqueueSnackbar('Googleからログアウトしました。', { variant: C.NotificationType.SUCCESS });
+        });
     }
 
     async createDirectoryIfNotExists() {
+        gapi.client.setToken({access_token: this.accessToken});
 
         const query =
             'mimeType = "application/vnd.google-apps.folder"' +
@@ -114,6 +91,7 @@ class GoogleDriveApiDao {
     }
 
     getFile(fileId: string) {
+        gapi.client.setToken({access_token: this.accessToken});
 
         if (!fileId) {
             const message = 'Google Driveファイル情報がありません。'
@@ -141,6 +119,8 @@ class GoogleDriveApiDao {
     }
 
     async createFile(fileName: string) {
+        gapi.client.setToken({access_token: this.accessToken});
+
         const folderId = await this.createDirectoryIfNotExists()
         if (!folderId) return // Error
 
@@ -165,6 +145,8 @@ class GoogleDriveApiDao {
     }
 
     patchFile(fileId: string, text: string) {
+        gapi.client.setToken({access_token: this.accessToken});
+
         const params = {
             fileId: fileId,
             uploadType: 'multipart',
@@ -211,6 +193,8 @@ class GoogleDriveApiDao {
     }
 
     async getList() {
+        gapi.client.setToken({access_token: this.accessToken});
+
         return gapi.client.drive.files
             .list({
                 q: 'fileExtension = "json"',

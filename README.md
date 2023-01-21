@@ -1,3 +1,15 @@
+## 準備
+* 環境変数ファイルを作成
+
+```
+$ cp .env.sample .env
+$ cp .env.sample .env.production
+```
+
+    * google consoleのAPIの認証情報から記載
+    *  開発用（.env）ではGAの設定は削除する
+
+
 ## Preview
 1. demoブランチにPush
     * demoブランチはいつ消してもいいようにする
