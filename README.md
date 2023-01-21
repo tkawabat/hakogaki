@@ -1,13 +1,17 @@
 ## 準備
-* 環境変数ファイルを作成
+* 開発
+    * .env.sample ファイルから .envファイルを作成
+    * GOOGLE_CLIENT_SECRETを記載
 
-```
-$ cp .env.sample .env
-$ cp .env.sample .env.production
-```
-
-    * google consoleのAPIの認証情報から記載
-    *  開発用（.env）ではGAの設定は削除する
+* demo
+    * Vercel上に環境変数を設定
+        * NEXTAUTH_URL
+            * 不要っぽい？
+        * NEXT_PUBLIC_VERCEL_URL
+        * GOOGLE_CLIENT_SECRET
+* 本番
+    * Vercel上に環境変数を設定
+        * GOOGLE_CLIENT_SECRET
 
 
 ## Preview
