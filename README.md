@@ -3,15 +3,14 @@
     * .env.sample ファイルから .envファイルを作成
     * GOOGLE_CLIENT_SECRETを記載
 
-* demo
+* demo/本番
     * Vercel上に環境変数を設定
         * NEXTAUTH_URL
             * 不要っぽい？
         * NEXT_PUBLIC_VERCEL_URL
         * GOOGLE_CLIENT_SECRET
-* 本番
-    * Vercel上に環境変数を設定
-        * GOOGLE_CLIENT_SECRET
+        * NEXT_PUBLIC_SECRET
+            * "openssl rand -base64 32"コマンドで生成
 
 
 ## Preview
