@@ -1,7 +1,50 @@
 import NextAuth from 'next-auth'
+import { JWT } from 'next-auth/jwt'
 import GoogleProvider from 'next-auth/providers/google'
 
 import GoogleDriveApiDao from 'src/dao/GoogleDriveApiDao'
+
+async function refreshAccessToken(token: JWT) {
+    try {
+        if (!token.refreshToken) throw Error();
+
+        const url =
+            'https://oauth2.googleapis.com/token?' +
+            new URLSearchParams({
+                client_id: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID!,
+                client_secret: process.env.GOOGLE_CLIENT_SECRET!,
+                grant_type: 'refresh_token',
+                refresh_token: token.refreshToken,
+            })
+
+        const response = await fetch(url, {
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            method: 'POST',
+        })
+
+        const refreshedTokens = await response.json()
+
+        if (!response.ok) {
+            throw refreshedTokens
+        }
+
+        return {
+            ...token,
+            accessToken: refreshedTokens.access_token,
+            accessTokenExpires: Date.now() + refreshedTokens.expires_at * 1000,
+            refreshToken: refreshedTokens.refresh_token ?? token.refreshToken, // Fall back to old refresh token
+        }
+    } catch (error) {
+        console.log(error)
+
+        return {
+            ...token,
+            error: 'RefreshAccessTokenError',
+        }
+    }
+}
 
 export default NextAuth({
     providers: [
@@ -10,12 +53,12 @@ export default NextAuth({
             clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
             authorization: {
                 params: {
-                    scope: 'openid email profile https://www.googleapis.com/auth/drive.file'
-                }
-            }
+                    scope: 'openid email profile https://www.googleapis.com/auth/drive.file',
+                },
+            },
         }),
     ],
-    secret: process.env.NEXT_PUBLIC_SECRET,
+    secret: process.env.GOOGLE_CLIENT_SECRET,
     session: { strategy: 'jwt' },
     callbacks: {
         async session({ session, token }) {
@@ -25,11 +68,24 @@ export default NextAuth({
             }
             return session
         },
-        async jwt({ token, account }) {
-            if (account) {
-                token.accessToken = account.access_token
+        async jwt({ token, user, account }) {
+            // Initial sign in
+            if (account && user) {
+                return {
+                    accessToken: account.access_token,
+                    accessTokenExpires: Date.now() + (account.expires_at ?? 0) * 1000,
+                    refreshToken: account.refresh_token,
+                    user,
+                }
             }
-            return token
+
+            // Return previous token if the access token has not expired yet
+            if (token.accessTokenExpires && Date.now() < token.accessTokenExpires) {
+                return token
+            }
+
+            // Access token has expired, try to update it
+            return refreshAccessToken(token)
         },
     },
 })
