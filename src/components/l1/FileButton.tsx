@@ -89,7 +89,7 @@ const App = (props: Props) => {
                 MenuListProps={{ 'aria-labelledby': 'basic-button' }}
             >
                 <MenuItem>
-                    <LoadItem component="label">
+                    <LoadItem slots={{ root: 'label' }}>
                         <input type="file" hidden accept=".json" onChange={loadProject} />
                         ファイルから読込
                     </LoadItem>
