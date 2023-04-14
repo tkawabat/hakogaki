@@ -13,6 +13,13 @@
             * "openssl rand -base64 32"コマンドで生成
 
 
+## 開発
+* 起動
+
+```
+$ npm run dev
+```
+
 ## Preview
 1. demoブランチにPush
     * demoブランチはいつ消してもいいようにする

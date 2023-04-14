@@ -63,6 +63,8 @@ export default NextAuth({
     callbacks: {
         async session({ session, token }) {
             session.user.accessToken = token.accessToken
+            // @ts-ignore
+            session.user.image = token.user.image
             if (token.accessToken) {
                 GoogleDriveApiDao.setToken(token.accessToken)
             }
