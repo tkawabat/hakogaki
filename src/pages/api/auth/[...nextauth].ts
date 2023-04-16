@@ -33,7 +33,7 @@ async function refreshAccessToken(token: JWT) {
         return {
             ...token,
             accessToken: refreshedTokens.access_token,
-            accessTokenExpires: Date.now() + refreshedTokens.expires_at * 1000,
+            accessTokenExpires: Date.now() + refreshedTokens.expires_in * 1000,
             refreshToken: refreshedTokens.refresh_token ?? token.refreshToken, // Fall back to old refresh token
         }
     } catch (error) {
@@ -53,6 +53,7 @@ export default NextAuth({
             clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
             authorization: {
                 params: {
+                    access_type: "offline",
                     scope: 'openid email profile https://www.googleapis.com/auth/drive.file',
                 },
             },
@@ -62,7 +63,7 @@ export default NextAuth({
     session: { strategy: 'jwt' },
     callbacks: {
         async session({ session, token }) {
-            session.user.accessToken = token.accessToken
+            session.accessToken = token.accessToken;
             // @ts-ignore
             session.user.image = token.user.image
             if (token.accessToken) {
@@ -82,9 +83,9 @@ export default NextAuth({
             }
 
             // Return previous token if the access token has not expired yet
-            if (token.accessTokenExpires && Date.now() < token.accessTokenExpires) {
-                return token
-            }
+            // if (token.accessTokenExpires && Date.now() < token.accessTokenExpires) {
+            //     return token
+            // }
 
             // Access token has expired, try to update it
             return refreshAccessToken(token)

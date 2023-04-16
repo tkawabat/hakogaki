@@ -8,8 +8,8 @@ import GoogleDriveApiDao from 'src/dao/GoogleDriveApiDao'
 const App = () => {
     const { data: session } = useSession()
 
-    const isLogin = session && session.user.accessToken
-    if (isLogin) GoogleDriveApiDao.setToken(session.user.accessToken!)
+    const isLogin = session && session.accessToken
+    if (isLogin) GoogleDriveApiDao.setToken(session.accessToken!)
 
     return !isLogin ? (
         <GoogleLoginButton />

@@ -7,20 +7,18 @@ interface UserWithId extends DefaultSession["user"] {
 
 declare module "next-auth" {
   interface Session {
-    user: {
-      accessToken?: string;
-      user: UserWithId;
-      error?: string;
-    } & DefaultSession["user"];
+    user: DefaultSession["user"];
+    accessToken?: string;
+    error?: string;
   }
 }
 
 declare module "next-auth/jwt" {
-    interface JWT {
-      accessToken?: string;
-      accessTokenExpires?: number;
-      refreshToken?: string;
-      user: UserWithId;
-      error?: string;
-    }
+  interface JWT {
+    accessToken?: string;
+    accessTokenExpires?: number;
+    refreshToken?: string;
+    user: UserWithId;
+    error?: string;
   }
+}
