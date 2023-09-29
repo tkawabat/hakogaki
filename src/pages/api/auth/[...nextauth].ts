@@ -66,9 +66,7 @@ export default NextAuth({
             session.accessToken = token.accessToken;
             // @ts-ignore
             session.user.image = token.user.image
-            if (token.accessToken) {
-                GoogleDriveApiDao.setToken(token.accessToken)
-            }
+            
             return session
         },
         async jwt({ token, user, account }) {
