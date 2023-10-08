@@ -2,8 +2,6 @@ import NextAuth from 'next-auth'
 import { JWT } from 'next-auth/jwt'
 import GoogleProvider from 'next-auth/providers/google'
 
-import GoogleDriveApiDao from 'src/dao/GoogleDriveApiDao'
-
 async function refreshAccessToken(token: JWT) {
     try {
         if (!token.refreshToken) throw Error();

@@ -15,12 +15,15 @@ class GoogleDriveApiDao {
                 clientId: C.GoogleApiClientId,
                 scope: 'https://www.googleapis.com/auth/drive',
                 discoveryDocs: ['https://www.googleapis.com/discovery/v1/apis/drive/v3/rest']
+                }).then(() => {
+                    if (this.accessToken) gapi.client.setToken({access_token: this.accessToken});
                 });
         });
     }
 
     setToken(token: string) {
-        this.accessToken = token
+        this.accessToken = token;
+        if (gapi) gapi.client.setToken({access_token: token});
     }
 
     async login() {
