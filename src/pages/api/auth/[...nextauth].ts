@@ -12,6 +12,8 @@ async function refreshAccessToken(token: JWT) {
                 client_id: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID!,
                 client_secret: process.env.GOOGLE_CLIENT_SECRET!,
                 grant_type: 'refresh_token',
+                scope: 'https://www.googleapis.com/auth/drive',
+                discoveryDocs: 'https://www.googleapis.com/discovery/v1/apis/drive/v3/rest',
                 refresh_token: token.refreshToken,
             })
 
