@@ -23,7 +23,6 @@ class GoogleDriveApiDao {
 
     setToken(token: string) {
         this.accessToken = token;
-        if (typeof gapi !== null && gapi.client) gapi.client.setToken({access_token: token});
     }
 
     async login() {
