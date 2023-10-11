@@ -42,7 +42,7 @@ export const CurrentScenarioFormatVersion = 1
 
 export const AppNameShort = 'HAKOGAKI(β)'
 
-export const GoogleApiClientId = process.env.NEXT_PUBLIC_GOOGLE_API_CLIENT_ID || ''
+export const GoogleApiClientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || ''
 export const GoogleApiHost = 'https://www.googleapis.com'
 export const GoogleApiScope = ['https://www.googleapis.com/auth/drive.file'].join(' ')
 export const GoogleApiDiscoveryDocs = ['https://www.googleapis.com/discovery/v1/apis/drive/v3/rest']
