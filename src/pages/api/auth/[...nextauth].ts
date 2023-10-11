@@ -63,6 +63,7 @@ export default NextAuth({
             authorization: {
                 params: {
                     access_type: "offline",
+                    prompt: "consent",
                     scope: 'openid email profile https://www.googleapis.com/auth/drive.file',
                 },
             },
@@ -88,6 +89,8 @@ export default NextAuth({
                     user,
                 }
             }
+
+            console.log('token', token)
 
             // Return previous token if the access token has not expired yet
             // if (token.accessTokenExpires && Date.now() < token.accessTokenExpires) {
