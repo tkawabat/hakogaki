@@ -4,13 +4,24 @@ import GoogleProvider from 'next-auth/providers/google'
 
 async function refreshAccessToken(token: JWT) {
     try {
-        if (!token.refreshToken) throw Error();
+        if (!token.refreshToken) {
+            console.error('No refresh token found')
+            throw Error();
+        }
+        if (process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID === undefined) {
+            console.error('No client id found')
+            throw Error();
+        }
+        if (process.env.GOOGLE_CLIENT_SECRET === undefined) {
+            console.error('No client secret found')
+            throw Error();
+        }
 
         const url =
             'https://oauth2.googleapis.com/token?' +
             new URLSearchParams({
-                client_id: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID!,
-                client_secret: process.env.GOOGLE_CLIENT_SECRET!,
+                client_id: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID,
+                client_secret: process.env.GOOGLE_CLIENT_SECRET,
                 grant_type: 'refresh_token',
                 refresh_token: token.refreshToken,
             })
