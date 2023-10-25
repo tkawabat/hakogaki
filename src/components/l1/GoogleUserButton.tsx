@@ -98,6 +98,9 @@ const App = (props: Props) => {
         GAUtil.event(C.GaAction.DUMP, C.GaCategory.NONE, 'google')
         handleClose()
     }
+    const relogin = () => {
+        GoogleDriveApiDao.login()
+    }
     const logout = () => {
         GoogleDriveApiDao.logout()
         handleClose()
@@ -120,6 +123,7 @@ const App = (props: Props) => {
                 <MenuItem onClick={loadProject}>ドライブから読込</MenuItem>
                 <MenuItem onClick={saveProject}>ドライブに保存</MenuItem>
                 <MenuItem onClick={saveScenario}>ドライブに作品を出力</MenuItem>
+                <MenuItem onClick={relogin}>再ログイン</MenuItem>
                 <MenuItem onClick={logout}>ログアウト</MenuItem>
             </Menu>
         </Root>
