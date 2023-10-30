@@ -151,13 +151,7 @@ class ScenarioUtil {
         GoogleDriveApiDao.patchFile(
             copied.config.googleDriveFileId,
             JSON.stringify(scenario)
-        )?.catch(() => {
-            CommonUtil.dispatch(
-                ScenarioSlice.actions.setGoogleDriveFileId({
-                    fileId: '',
-                })
-            )
-        })
+        )
     }
 
     async dump2Drive(scenario: ScenarioModel) {
