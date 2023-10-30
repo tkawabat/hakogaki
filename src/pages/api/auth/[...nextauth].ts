@@ -65,6 +65,7 @@ export default NextAuth({
                     access_type: "offline",
                     prompt: "consent",
                     scope: 'openid email profile https://www.googleapis.com/auth/drive.file',
+                    grant_type: 'authorization_code',
                     include_granted_scopes: true,
                 },
             },
