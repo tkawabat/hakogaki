@@ -2,7 +2,8 @@ import NextAuth from 'next-auth'
 import { JWT } from 'next-auth/jwt'
 import GoogleProvider from 'next-auth/providers/google'
 
-async function refreshAccessToken(token: JWT) {
+async function refreshAccessToken(token: JWT): Promise<JWT> {
+    console.log('refreshAccessToken')
     try {
         if (!token.refreshToken) {
             console.error('No refresh token found')
@@ -81,6 +82,7 @@ export default NextAuth({
             return session
         },
         async jwt({ token, user, account }) {
+            console.log('jwt')
             // Initial sign in
             if (account && user) {
                 return {
@@ -92,9 +94,9 @@ export default NextAuth({
             }
 
             // Return previous token if the access token has not expired yet
-            if (token.accessTokenExpires && Date.now() < token.accessTokenExpires) {
-                return token
-            }
+            // if (token.accessTokenExpires && Date.now() < token.accessTokenExpires) {
+            //     return token
+            // }
 
             // Access token has expired, try to update it
             return refreshAccessToken(token)
